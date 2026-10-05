@@ -3,365 +3,646 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'PABX Telephone Billing System')</title>
-    <!-- Google Fonts -->
+    <title>@yield('title', 'ANGKASA PURA - PABX Billing')</title>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --bg-body: #0b0f19;
-            --bg-card: #111827;
-            --bg-card-hover: #172033;
-            --bg-glass: rgba(17, 24, 39, 0.85);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --primary-light: rgba(79, 70, 229, 0.15);
-            --emerald: #10b981;
-            --emerald-light: rgba(16, 185, 129, 0.15);
-            --amber: #f59e0b;
-            --amber-light: rgba(245, 158, 11, 0.15);
-            --cyan: #06b6d4;
-            --cyan-light: rgba(6, 182, 212, 0.15);
-            --rose: #f43f5e;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
-            --radius-md: 12px;
-            --radius-lg: 16px;
+            --ap-red: #d32f2f;
+            --ap-dark-red: #b71c1c;
+            --sidebar-bg: #f8fafc;
+            --sidebar-border: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #edf2f7;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --btn-blue: #0288d1;
+            --btn-blue-hover: #0277bd;
+            --btn-green: #2e7d32;
+            --btn-green-hover: #1b5e20;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
         body {
             background-color: var(--bg-body);
-            color: var(--text-main);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image: 
-                radial-gradient(at 10% 20%, rgba(79, 70, 229, 0.12) 0px, transparent 40%),
-                radial-gradient(at 90% 10%, rgba(6, 182, 212, 0.1) 0px, transparent 40%),
-                radial-gradient(at 50% 90%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
-            background-attachment: fixed;
         }
 
-        /* Navbar */
-        .navbar {
-            background: var(--bg-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-glass);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 0.85rem 2rem;
+        /* Top Red Header Bar */
+        .top-header {
+            background: linear-gradient(90deg, #d32f2f, #e53935);
+            height: 54px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 1.25rem;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .navbar-brand {
+        .header-brand {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: white;
-            font-weight: 800;
+            gap: 1.25rem;
+        }
+
+        .brand-text {
             font-size: 1.25rem;
-            letter-spacing: -0.02em;
-        }
-
-        .navbar-brand .icon-badge {
-            background: linear-gradient(135deg, #4f46e5, #06b6d4);
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
-            font-size: 1rem;
-        }
-
-        .navbar-menu {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.925rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.85rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
+            font-weight: 800;
+            letter-spacing: 0.05em;
             color: white;
-            background: rgba(255, 255, 255, 0.06);
+            text-decoration: none;
+            text-transform: uppercase;
         }
 
-        .nav-link.active {
-            color: #818cf8;
-            background: var(--primary-light);
-            border: 1px solid rgba(129, 140, 248, 0.2);
+        .menu-toggle-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 4px;
         }
 
-        .navbar-actions {
+        .header-right {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.25rem;
         }
 
-        .badge-live {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.3rem 0.75rem;
-            border-radius: 9999px;
+        .live-badge {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 3px 10px;
+            border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 600;
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .pulse-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 8px #10b981;
-            animation: pulse 2s infinite;
+            background: #69f0ae;
+            box-shadow: 0 0 6px #69f0ae;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.3); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 2rem;
-            width: 100%;
+        /* App Wrapper: Sidebar + Main Content */
+        .app-wrapper {
+            display: flex;
             flex: 1;
+            min-height: calc(100vh - 54px);
         }
 
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-md);
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        /* User Profile Box */
+        .user-panel {
+            background: linear-gradient(135deg, #e65100 0%, #d81b60 50%, #8e24aa 100%);
+            padding: 1.25rem 1rem;
+            color: white;
             position: relative;
-            overflow: hidden;
+            box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, h5 {
-            color: white;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
-        .text-muted {
-            color: var(--text-muted);
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.625rem 1.25rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #4f46e5, #6366f1);
-            color: white;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #4338ca, #4f46e5);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.5);
-        }
-
-        .btn-emerald {
-            background: linear-gradient(135deg, #059669, #10b981);
-            color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
-        }
-
-        .btn-emerald:hover {
-            background: linear-gradient(135deg, #047857, #059669);
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.07);
-            color: var(--text-main);
-            border: 1px solid var(--border-glass);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: white;
-        }
-
-        /* Alert notifications */
-        .alert {
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
+        .user-panel-info {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-size: 0.925rem;
-            animation: fadeIn 0.3s ease;
         }
 
-        .alert-success {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            flex-shrink: 0;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+        .user-details {
+            flex: 1;
+            overflow: hidden;
         }
 
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-glass);
-            padding: 1.5rem 2rem;
-            background: var(--bg-card);
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        .user-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Menu */
+        .sidebar-nav {
+            padding: 0.75rem 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.25rem 0.35rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: auto;
+            padding: 0.65rem 1.25rem;
+            color: #334155;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
         }
 
-        .footer-left {
+        .nav-link-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-link-left i {
+            width: 18px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .nav-link.active-root {
+            background: #fee2e2;
+            color: #b91c1c;
+            font-weight: 600;
+            border-left: 3px solid #d32f2f;
+        }
+
+        .nav-link.active-root i {
+            color: #d32f2f;
+        }
+
+        /* Sub-menu tree */
+        .sub-menu {
+            list-style: none;
+            background: #f1f5f9;
+            padding: 0.25rem 0;
+        }
+
+        .sub-nav-link {
+            display: block;
+            padding: 0.45rem 1.25rem 0.45rem 2.85rem;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.15s ease;
+        }
+
+        .sub-nav-link:hover {
+            color: #d32f2f;
+            background: rgba(211, 47, 47, 0.06);
+            padding-left: 3.1rem;
+        }
+
+        .sub-nav-link.active {
+            color: #b91c1c;
+            font-weight: 700;
+            background: rgba(211, 47, 47, 0.1);
+            border-left: 3px solid #d32f2f;
+        }
+
+        .sub-nav-link.active::before {
+            content: '>';
+            margin-right: 4px;
+            font-weight: bold;
+        }
+
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--sidebar-border);
+            font-size: 0.725rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        /* Content Area */
+        .main-content {
+            flex: 1;
+            padding: 1.5rem 1.75rem;
+            overflow-x: auto;
+        }
+
+        /* Classic Angkasa Pura White Report Card */
+        .report-card {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+
+        .report-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #334155;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Filters Bar */
+        .filter-section {
+            padding: 1.25rem;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            gap: 1.25rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .filter-label {
+            font-size: 0.775rem;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .input-text, .select-box {
+            height: 32px;
+            padding: 4px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: #1e293b;
+            outline: none;
+            background: white;
+            min-width: 140px;
+        }
+
+        .input-text:focus, .select-box:focus {
+            border-color: #0288d1;
+            box-shadow: 0 0 0 1px #0288d1;
+        }
+
+        /* Buttons */
+        .btn-search {
+            height: 32px;
+            padding: 0 16px;
+            background: var(--btn-blue);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s;
+        }
+
+        .btn-search:hover {
+            background: var(--btn-blue-hover);
+        }
+
+        .btn-export {
+            height: 32px;
+            padding: 0 16px;
+            background: var(--btn-green);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s;
+            text-decoration: none;
+        }
+
+        .btn-export:hover {
+            background: var(--btn-green-hover);
+        }
+
+        /* Clean Corporate Data Table */
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .ap-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.825rem;
+            text-align: left;
+        }
+
+        .ap-table th {
+            background: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .ap-table td {
+            padding: 9px 14px;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+        }
+
+        .ap-table tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .ap-table tfoot td {
+            background: #f8fafc;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            color: #0f172a;
+        }
+
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+
+        /* Alert notifications */
+        .alert-bar {
+            padding: 0.75rem 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .footer-tech {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
+        .alert-bar.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
         }
     </style>
     @yield('styles')
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="{{ route('billing.index') }}" class="navbar-brand">
-            <div class="icon-badge">
-                <i class="fa-solid fa-phone-volume"></i>
-            </div>
-            <span>PABX Billing Pro</span>
-        </a>
-
-        <ul class="navbar-menu">
-            <li>
-                <a href="{{ route('billing.index') }}" class="nav-link {{ request()->routeIs('billing.index') ? 'active' : '' }}">
-                    <i class="fa-solid fa-chart-line"></i> Dashboard & Billing
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('billing.schema') }}" class="nav-link {{ request()->routeIs('billing.schema') ? 'active' : '' }}">
-                    <i class="fa-solid fa-diagram-project"></i> Relasi Database (25 Tabel)
-                </a>
-            </li>
-            <li>
-                <a href="http://localhost/phpmyadmin/index.php?db=pabx" target="_blank" class="nav-link">
-                    <i class="fa-solid fa-database"></i> phpMyAdmin Designer <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; margin-left: 2px;"></i>
-                </a>
-            </li>
-        </ul>
-
-        <div class="navbar-actions">
-            <div class="badge-live">
+    <!-- Top Red Header Bar -->
+    <header class="top-header">
+        <div class="header-brand">
+            <button class="menu-toggle-btn" title="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="{{ route('home') }}" class="brand-text">ANGKASA PURA</a>
+        </div>
+        <div class="header-right">
+            <div class="live-badge">
                 <div class="pulse-dot"></div>
-                <span>MySQL: Connected (pabx)</span>
+                <span>Server PABX: 10.3.16.12 (Connected)</span>
             </div>
+            <a href="{{ route('billing.schema') }}" style="color: white; text-decoration: none; font-size: 0.8rem; background: rgba(0,0,0,0.18); padding: 4px 10px; border-radius: 4px;" title="Cek Relasi Database 25 Tabel">
+                <i class="fa-solid fa-diagram-project"></i> Relasi DB
+            </a>
+            <a href="http://localhost/phpmyadmin/index.php?db=pabx" target="_blank" style="color: white; text-decoration: none; font-size: 0.8rem;" title="Buka di phpMyAdmin">
+                <i class="fa-solid fa-database"></i> phpMyAdmin
+            </a>
+            <i class="fa-solid fa-ellipsis-vertical" style="cursor: pointer;"></i>
         </div>
-    </nav>
+    </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        @if(session('success'))
-            <div class="alert alert-success">
-                <i class="fa-solid fa-circle-check"></i>
-                <span>{{ session('success') }}</span>
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- User Profile Box with Abstract Pattern -->
+            <div class="user-panel">
+                <div class="user-panel-info">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-name">xsadmin</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; opacity: 0.8;"></i>
+                </div>
             </div>
-        @endif
 
-        @yield('content')
-    </main>
+            <!-- Navigation Links -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN NAVIGATION</div>
+                <ul class="nav-list">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') || request()->routeIs('billing.index') ? 'active-root' : '' }}">
+                            <div class="nav-link-left">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Home</span>
+                            </div>
+                        </a>
+                    </li>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-left">
-            <span>&copy; {{ date('Y') }} <strong>PABX Telephone Billing System</strong> — Relational Database v2.0 (InnoDB)</span>
-        </div>
-        <div class="footer-tech">
-            <span><i class="fa-solid fa-server"></i> MySQL 3306</span>
-            <span><i class="fa-brands fa-laravel"></i> Laravel 12</span>
-            <span><i class="fa-solid fa-microchip"></i> SMDR CDR Parser</span>
-        </div>
-    </footer>
+                    <!-- Setting -->
+                    <li class="nav-item">
+                        <a href="#setting-collapse" class="nav-link" onclick="event.preventDefault(); document.getElementById('sub-setting').style.display = document.getElementById('sub-setting').style.display === 'none' ? 'block' : 'none';">
+                            <div class="nav-link-left">
+                                <i class="fa-solid fa-table-cells-large"></i>
+                                <span>Setting</span>
+                            </div>
+                            <i class="fa-solid fa-plus" style="font-size: 0.7rem; color: #94a3b8;"></i>
+                        </a>
+                        <ul id="sub-setting" class="sub-menu" style="display: none;">
+                            <li><a href="{{ route('home') }}" class="sub-nav-link">PABX Machines</a></li>
+                            <li><a href="{{ route('home') }}" class="sub-nav-link">Extension Master</a></li>
+                            <li><a href="{{ route('home') }}" class="sub-nav-link">Tariff & Rate Code</a></li>
+                            <li><a href="{{ route('home') }}" class="sub-nav-link">Area & Zone Prefix</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Report (Default Expanded) -->
+                    <li class="nav-item">
+                        <a href="#report-collapse" class="nav-link active-root" onclick="event.preventDefault(); document.getElementById('sub-reports').style.display = document.getElementById('sub-reports').style.display === 'none' ? 'block' : 'none';">
+                            <div class="nav-link-left">
+                                <i class="fa-solid fa-table-cells"></i>
+                                <span>Report</span>
+                            </div>
+                            <i class="fa-solid fa-minus" style="font-size: 0.7rem; color: #d32f2f;"></i>
+                        </a>
+                        <ul id="sub-reports" class="sub-menu" style="display: block;">
+                            <li>
+                                <a href="{{ route('reports.division-summary') }}" class="sub-nav-link {{ request()->routeIs('reports.division-summary') ? 'active' : '' }}">
+                                    Division Summary
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reports.favourite-area') }}" class="sub-nav-link {{ request()->routeIs('reports.favourite-area') ? 'active' : '' }}">
+                                    Favourite Area
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reports.favourite-business') }}" class="sub-nav-link {{ request()->routeIs('reports.favourite-business') ? 'active' : '' }}">
+                                    Favourite Business
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reports.peak-time') }}" class="sub-nav-link {{ request()->routeIs('reports.peak-time') ? 'active' : '' }}">
+                                    Peak Time
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                    Personal Detail
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reports.favourite-area') }}" class="sub-nav-link">
+                                    Personal Favorite Area
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reports.personal-favorite-dialed') }}" class="sub-nav-link {{ request()->routeIs('reports.personal-favorite-dialed') ? 'active' : '' }}">
+                                    Personal Favorite Dialed Number
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                    Personal Summary
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                    Phone-ID Detail
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                    Phone-ID Summary
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reports.division-summary') }}" class="sub-nav-link">
+                                    Unit Summary
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Information -->
+                    <li class="nav-item">
+                        <a href="#info-collapse" class="nav-link" onclick="event.preventDefault(); document.getElementById('sub-info').style.display = document.getElementById('sub-info').style.display === 'none' ? 'block' : 'none';">
+                            <div class="nav-link-left">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>Information</span>
+                            </div>
+                            <i class="fa-solid fa-plus" style="font-size: 0.7rem; color: #94a3b8;"></i>
+                        </a>
+                        <ul id="sub-info" class="sub-menu" style="display: none;">
+                            <li><a href="{{ route('home') }}" class="sub-nav-link">Raw SMDR Log Buffer</a></li>
+                            <li><a href="{{ route('home') }}" class="sub-nav-link">Scheduler Job Logs</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Utility -->
+                    <li class="nav-item">
+                        <a href="#util-collapse" class="nav-link" onclick="event.preventDefault(); document.getElementById('sub-util').style.display = document.getElementById('sub-util').style.display === 'none' ? 'block' : 'none';">
+                            <div class="nav-link-left">
+                                <i class="fa-solid fa-wrench"></i>
+                                <span>Utility</span>
+                            </div>
+                            <i class="fa-solid fa-plus" style="font-size: 0.7rem; color: #94a3b8;"></i>
+                        </a>
+                        <ul id="sub-util" class="sub-menu" style="display: none;">
+                            <li><a href="{{ route('billing.schema') }}" class="sub-nav-link">Relasi Database (25 Tabel)</a></li>
+                            <li><a href="http://localhost/phpmyadmin/index.php?db=pabx" target="_blank" class="sub-nav-link">phpMyAdmin Designer</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div>&copy; 2019 - 2026 <strong>PABX Billing</strong></div>
+                <div>Angkasa Pura PABX System</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            @if(session('success'))
+                <div class="alert-bar success">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+
+            @yield('content')
+        </main>
+    </div>
 
     @yield('scripts')
 </body>

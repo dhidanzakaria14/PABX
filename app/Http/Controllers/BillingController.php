@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TbmArea;
+use App\Models\TbmBisnis;
 use App\Models\TbmDataMasuk;
 use App\Models\TbmDepartment;
 use App\Models\TbmGroupDepartment;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 
 class BillingController extends Controller
 {
+    // Home / Dashboard
     public function index(Request $request)
     {
         $profile = TbmProfil::first();
@@ -25,10 +28,8 @@ class BillingController extends Controller
         $settings = TbmSetting::all();
         $tarifs = TbmTarif::with('rates')->get();
 
-        // Query Billing Records
         $query = TbmDataMasuk::with(['department.group', 'setting', 'zonaRel', 'prefixRel', 'tarifRel']);
 
-        // Filters
         if ($request->filled('start_date')) {
             $query->where('tglmasuk', '>=', $request->start_date);
         }
@@ -54,35 +55,12 @@ class BillingController extends Controller
             });
         }
 
-        $records = (clone $query)->orderBy('id', 'desc')->paginate(15)->withQueryString();
+        $records = (clone $query)->orderBy('id', 'desc')->paginate(20)->withQueryString();
 
-        // KPI Summary
         $allMatching = (clone $query)->get();
         $totalCalls = $allMatching->count();
         $totalCost = $allMatching->sum('subtotal');
         $totalDurationSec = $allMatching->sum('durasi_detik');
-
-        // Department breakdown
-        $deptSummary = $allMatching->groupBy('iddepartment')->map(function($items, $deptId) {
-            $first = $items->first();
-            return [
-                'id' => $deptId,
-                'name' => $first->namadepartment ?? 'Unknown',
-                'ext' => $first->ext_pemanggil ?? '-',
-                'calls' => $items->count(),
-                'duration_sec' => $items->sum('durasi_detik'),
-                'total_cost' => $items->sum('subtotal'),
-            ];
-        })->sortByDesc('total_cost');
-
-        // Zone breakdown
-        $zoneSummary = $allMatching->groupBy('zona')->map(function($items, $zonaName) {
-            return [
-                'name' => $zonaName ?: 'Lain-lain',
-                'calls' => $items->count(),
-                'total_cost' => $items->sum('subtotal')
-            ];
-        });
 
         return view('billing.index', compact(
             'profile',
@@ -93,12 +71,266 @@ class BillingController extends Controller
             'records',
             'totalCalls',
             'totalCost',
-            'totalDurationSec',
-            'deptSummary',
-            'zoneSummary'
+            'totalDurationSec'
         ));
     }
 
+    // 1. Division Summary Report
+    public function divisionSummary(Request $request)
+    {
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+
+        $query = TbmDataMasuk::query();
+        if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
+        if ($toDate) $query->where('tglmasuk', '<=', $toDate);
+
+        $calls = $query->get();
+
+        // Group by division
+        $divisions = TbmGroupDepartment::with(['departments.dataMasuk'])->get();
+
+        $reportData = [];
+        $no = 1;
+        $totalAll = [
+            'call' => 0, 'idd' => 0, 'ndd' => 0, 'cell' => 0, 'ldd' => 0, 'cost' => 0, 'charge' => 0
+        ];
+
+        foreach ($divisions as $div) {
+            $deptIds = $div->departments->pluck('id')->toArray();
+            $divCalls = $calls->whereIn('iddepartment', $deptIds);
+
+            if ($divCalls->count() == 0 && $div->namagroup !== 'AP') {
+                continue;
+            }
+
+            $iddCost = $divCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Internasional') || str_contains($c->zona ?? '', 'IDD'))->sum('subtotal');
+            $nddCost = $divCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Interlokal') || str_contains($c->zona ?? '', 'SLJJ') || str_contains($c->zona ?? '', 'NDD'))->sum('subtotal');
+            $cellCost = $divCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Seluler') || str_contains($c->zona ?? '', 'CELL'))->sum('subtotal');
+            $lddCost = $divCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Lokal') || str_contains($c->zona ?? '', 'LOCAL'))->sum('subtotal');
+            $totalCost = $divCalls->sum('subtotal');
+            $totalCharge = $totalCost; // or with markup
+
+            $reportData[] = [
+                'no' => $no++,
+                'division' => $div->namagroup,
+                'call' => $divCalls->count(),
+                'idd_cost' => $iddCost,
+                'ndd_cost' => $nddCost,
+                'cell_cost' => $cellCost,
+                'ldd_cost' => $lddCost,
+                'total_cost' => $totalCost,
+                'total_charge' => $totalCharge,
+            ];
+
+            $totalAll['call'] += $divCalls->count();
+            $totalAll['idd'] += $iddCost;
+            $totalAll['ndd'] += $nddCost;
+            $totalAll['cell'] += $cellCost;
+            $totalAll['ldd'] += $lddCost;
+            $totalAll['cost'] += $totalCost;
+            $totalAll['charge'] += $totalCharge;
+        }
+
+        return view('reports.division_summary', compact('reportData', 'totalAll', 'fromDate', 'toDate'));
+    }
+
+    // 2. Favourite Area Report
+    public function favouriteArea(Request $request)
+    {
+        $areaCodeId = $request->input('area_code_id');
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+
+        $areas = TbmArea::all();
+
+        $query = TbmDataMasuk::query();
+        if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
+        if ($toDate) $query->where('tglmasuk', '<=', $toDate);
+        if ($areaCodeId && $areaCodeId !== 'Any') {
+            $query->where('kodearea', $areaCodeId);
+        }
+
+        $calls = $query->get();
+
+        $grouped = $calls->groupBy('kodearea')->map(function($items, $code) {
+            $first = $items->first();
+            $sec = $items->sum('durasi_detik');
+            $h = floor($sec / 3600);
+            $m = floor(($sec % 3600) / 60);
+            $s = $sec % 60;
+            return [
+                'area_code' => $code ?: '021',
+                'area_name' => $first->ketarea ?: ($first->zona ?: 'Lokal'),
+                'call' => $items->count(),
+                'duration_sec' => $sec,
+                'duration' => sprintf('%d:%02d:%02d', $h, $m, $s),
+                'total_charge' => $items->sum('subtotal')
+            ];
+        })->sortByDesc('call');
+
+        $totalAll = [
+            'call' => $calls->count(),
+            'duration_sec' => $calls->sum('durasi_detik'),
+            'total_charge' => $calls->sum('subtotal')
+        ];
+        $h = floor($totalAll['duration_sec'] / 3600);
+        $m = floor(($totalAll['duration_sec'] % 3600) / 60);
+        $s = $totalAll['duration_sec'] % 60;
+        $totalAll['duration'] = sprintf('%d:%02d:%02d', $h, $m, $s);
+
+        return view('reports.favourite_area', compact('areas', 'grouped', 'totalAll', 'areaCodeId', 'fromDate', 'toDate'));
+    }
+
+    // 3. Favourite Business Report
+    public function favouriteBusiness(Request $request)
+    {
+        $businessName = $request->input('business_name');
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+
+        $businesses = TbmBisnis::all();
+
+        $query = TbmDataMasuk::query();
+        if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
+        if ($toDate) $query->where('tglmasuk', '<=', $toDate);
+
+        $calls = $query->get();
+
+        $grouped = $calls->groupBy('no_tujuan')->map(function($items, $dest) {
+            $first = $items->first();
+            $sec = $items->sum('durasi_detik');
+            $h = floor($sec / 3600);
+            $m = floor(($sec % 3600) / 60);
+            $s = $sec % 60;
+            return [
+                'destination' => $dest,
+                'area_name' => $first->ketarea ?: ($first->zona ?: 'Lokal'),
+                'dist' => $first->kodearea ?: 'L1',
+                'call' => $items->count(),
+                'duration' => sprintf('%d:%02d:%02d', $h, $m, $s),
+                'total_cost' => $items->sum('subtotal')
+            ];
+        })->sortByDesc('call');
+
+        $totalAll = [
+            'call' => $calls->count(),
+            'duration_sec' => $calls->sum('durasi_detik'),
+            'total_cost' => $calls->sum('subtotal')
+        ];
+        $h = floor($totalAll['duration_sec'] / 3600);
+        $m = floor(($totalAll['duration_sec'] % 3600) / 60);
+        $s = $totalAll['duration_sec'] % 60;
+        $totalAll['duration'] = sprintf('%d:%02d:%02d', $h, $m, $s);
+
+        return view('reports.favourite_business', compact('businesses', 'grouped', 'totalAll', 'businessName', 'fromDate', 'toDate'));
+    }
+
+    // 4. Peak Time Report (24 Hours)
+    public function peakTime(Request $request)
+    {
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+
+        $query = TbmDataMasuk::query();
+        if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
+        if ($toDate) $query->where('tglmasuk', '<=', $toDate);
+
+        $calls = $query->get();
+
+        $hourlyData = [];
+        $totalAll = [
+            'idd' => 0, 'ndd' => 0, 'cell' => 0, 'ldd' => 0, 'duration_sec' => 0, 'cost' => 0
+        ];
+
+        for ($h = 0; $h < 24; $h++) {
+            $hourStr = sprintf('%02d', $h);
+            $hourLabel = "{$hourStr}:00";
+
+            $hourCalls = $calls->filter(function($c) use ($hourStr) {
+                return str_starts_with($c->jammasuk ?? '', $hourStr);
+            });
+
+            $iddCost = $hourCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Internasional') || str_contains($c->zona ?? '', 'IDD'))->sum('subtotal');
+            $nddCost = $hourCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Interlokal') || str_contains($c->zona ?? '', 'SLJJ') || str_contains($c->zona ?? '', 'NDD'))->sum('subtotal');
+            $cellCost = $hourCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Seluler') || str_contains($c->zona ?? '', 'CELL'))->sum('subtotal');
+            $lddCost = $hourCalls->filter(fn($c) => str_contains($c->zona ?? '', 'Lokal') || str_contains($c->zona ?? '', 'LOCAL'))->sum('subtotal');
+            $durationSec = $hourCalls->sum('durasi_detik');
+            $totalCost = $hourCalls->sum('subtotal');
+
+            $hourlyData[] = [
+                'hh' => $hourLabel,
+                'idd_cost' => $iddCost,
+                'ndd_cost' => $nddCost,
+                'cell_cost' => $cellCost,
+                'ldd_cost' => $lddCost,
+                'duration_sec' => $durationSec,
+                'total_cost' => $totalCost,
+            ];
+
+            $totalAll['idd'] += $iddCost;
+            $totalAll['ndd'] += $nddCost;
+            $totalAll['cell'] += $cellCost;
+            $totalAll['ldd'] += $lddCost;
+            $totalAll['duration_sec'] += $durationSec;
+            $totalAll['cost'] += $totalCost;
+        }
+
+        return view('reports.peak_time', compact('hourlyData', 'totalAll', 'fromDate', 'toDate'));
+    }
+
+    // 5. Personal Favorite Dialed Number
+    public function personalFavoriteDialed(Request $request)
+    {
+        $phoneId = $request->input('phone_id', '11'); // default to extension 569 if exists
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+
+        $departments = TbmDepartment::orderBy('extcode')->get();
+
+        $selectedDept = TbmDepartment::find($phoneId) ?? $departments->first();
+
+        $query = TbmDataMasuk::query();
+        if ($selectedDept) {
+            $query->where('iddepartment', $selectedDept->id);
+        }
+        if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
+        if ($toDate) $query->where('tglmasuk', '<=', $toDate);
+
+        $calls = $query->get();
+
+        $grouped = $calls->groupBy('no_tujuan')->map(function($items, $dialed) {
+            $first = $items->first();
+            $sec = $items->sum('durasi_detik');
+            $h = floor($sec / 3600);
+            $m = floor(($sec % 3600) / 60);
+            $s = $sec % 60;
+
+            // Map dist code matching screenshot
+            $dist = 'L1';
+            if (str_contains($first->ketarea ?? '', 'Internal')) $dist = 'X';
+            elseif (str_contains($first->zona ?? '', 'Seluler')) $dist = 'C2';
+            elseif (str_contains($first->zona ?? '', 'SLJJ')) $dist = 'C3';
+
+            return [
+                'dialed' => $dialed,
+                'area_name' => $first->ketarea ?: ($first->zona ?: 'Lokal'),
+                'dist' => $dist,
+                'call' => $items->count(),
+                'duration' => sprintf('%d:%02d:%02d', $h, $m, $s),
+                'cost' => $items->sum('subtotal')
+            ];
+        })->sortByDesc('call');
+
+        $totalAll = [
+            'call' => $calls->count(),
+            'cost' => $calls->sum('subtotal')
+        ];
+
+        return view('reports.personal_favorite_dialed', compact('departments', 'selectedDept', 'grouped', 'totalAll', 'phoneId', 'fromDate', 'toDate'));
+    }
+
+    // AJAX Billing Simulator
     public function simulate(Request $request)
     {
         $validated = $request->validate([
@@ -113,7 +345,6 @@ class BillingController extends Controller
         $durationSec = (int)$validated['duration_sec'];
         $callTime = $validated['call_time'] ?? date('H:i:s');
 
-        // Determine prefix and zone
         $prefixes = TbmPrefix::with('zona')->get();
         $matchedPrefix = null;
         $matchedLength = 0;
@@ -128,13 +359,10 @@ class BillingController extends Controller
         }
 
         if (!$matchedPrefix) {
-            // Default to local if no prefix match
             $matchedPrefix = TbmPrefix::with('zona')->first();
         }
 
         $zone = $matchedPrefix->zona;
-
-        // Find tariff and matching rate
         $tarif = null;
         if ($zone) {
             if ($zone->kelompok == 'CELL') {
@@ -151,24 +379,16 @@ class BillingController extends Controller
             $tarif = TbmTarif::first();
         }
 
-        // Calculate rate based on time of day
         $rate = TbdRate::where('idrate', $tarif->idtarif)
             ->where('mulai', '<=', $callTime)
             ->where('selesai', '>=', $callTime)
-            ->first();
-
-        if (!$rate) {
-            $rate = TbdRate::where('idrate', $tarif->idtarif)->first();
-        }
+            ->first() ?? TbdRate::where('idrate', $tarif->idtarif)->first();
 
         $unitRate = $rate ? (float)$rate->tarifnormal : 500;
         $minDurasi = $tarif->mindurasi ?: 60;
-
-        // Pulsa calculation (rounding up to nearest interval)
         $pulsa = ceil($durationSec / $minDurasi);
         $biaya = $pulsa * $unitRate;
-        $ppnRate = 0.11; // 11% PPN
-        $tambahan = round($biaya * $ppnRate, 2);
+        $tambahan = round($biaya * 0.11, 2);
         $subtotal = $biaya + $tambahan;
 
         return response()->json([
@@ -192,6 +412,7 @@ class BillingController extends Controller
         ]);
     }
 
+    // Manual CDR Call Record Store
     public function storeCall(Request $request)
     {
         $validated = $request->validate([
@@ -205,7 +426,6 @@ class BillingController extends Controller
         $durationSec = (int)$validated['duration_sec'];
         $now = Carbon::now();
 
-        // Match Prefix & Zone
         $prefixes = TbmPrefix::with('zona')->get();
         $matchedPrefix = null;
         $matchedLength = 0;
@@ -222,7 +442,6 @@ class BillingController extends Controller
         }
         $zone = $matchedPrefix->zona;
 
-        // Match Tarif
         $tarif = null;
         if ($zone) {
             if ($zone->kelompok == 'CELL') {
@@ -259,7 +478,7 @@ class BillingController extends Controller
 
         $nourut = 'CDR-' . str_pad((TbmDataMasuk::max('id') + 1), 4, '0', STR_PAD_LEFT);
 
-        $call = TbmDataMasuk::create([
+        TbmDataMasuk::create([
             'kodeclient' => 'CLI-001',
             'kodetelp' => '01',
             'nourut' => $nourut,
@@ -291,17 +510,17 @@ class BillingController extends Controller
             'st' => '1',
             'tglinsert' => $now->format('Y-m-d'),
             'idperusahaan' => 1,
-            'namaperusahaan' => 'PT Telekomunikasi Solusindo Corp',
+            'namaperusahaan' => 'ANGKASA PURA',
             'pulsa' => (string)$pulsa,
             'gabung' => $now->format('Y/m/d H:i:s') . " {$dept->extcode} 01 {$destination} {$durasiStr} {$nourut}",
         ]);
 
-        return redirect()->route('billing.index')->with('success', "Panggilan baru {$nourut} berhasil dicatat & dihitung biayanya (Total: Rp " . number_format($subtotal, 0, ',', '.') . ")!");
+        return back()->with('success', "Panggilan baru {$nourut} berhasil dicatat & dihitung biayanya (Total: Rp " . number_format($subtotal, 0, ',', '.') . ")!");
     }
 
+    // 25 Tables Schema Viewer
     public function schema()
     {
-        // Get all tables and their foreign keys directly from database
         $tables = DB::select('SHOW TABLES');
         $dbName = config('database.connections.mysql.database', 'pabx');
         $keyName = "Tables_in_{$dbName}";
