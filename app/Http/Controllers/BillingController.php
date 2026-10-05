@@ -28,6 +28,34 @@ class BillingController extends Controller
         $settings = TbmSetting::all();
         $tarifs = TbmTarif::with('rates')->get();
 
+        $isSearched = $request->has('searched') 
+            || $request->filled('start_date') 
+            || $request->filled('end_date') 
+            || $request->filled('ext') 
+            || $request->filled('department_id') 
+            || $request->filled('zone_id') 
+            || $request->filled('search');
+
+        if (!$isSearched) {
+            $records = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 20);
+            $totalCalls = 0;
+            $totalCost = 0;
+            $totalDurationSec = 0;
+
+            return view('billing.index', compact(
+                'profile',
+                'departments',
+                'zones',
+                'settings',
+                'tarifs',
+                'records',
+                'totalCalls',
+                'totalCost',
+                'totalDurationSec',
+                'isSearched'
+            ));
+        }
+
         $query = TbmDataMasuk::with(['department.group', 'setting', 'zonaRel', 'prefixRel', 'tarifRel']);
 
         if ($request->filled('start_date')) {
@@ -71,15 +99,25 @@ class BillingController extends Controller
             'records',
             'totalCalls',
             'totalCost',
-            'totalDurationSec'
+            'totalDurationSec',
+            'isSearched'
         ));
     }
 
     // 1. Division Summary Report
     public function divisionSummary(Request $request)
     {
+        $isSearched = $request->has('searched') || $request->filled('from_date') || $request->filled('to_date');
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
+
+        if (!$isSearched) {
+            $reportData = [];
+            $totalAll = [
+                'call' => 0, 'idd' => 0, 'ndd' => 0, 'cell' => 0, 'ldd' => 0, 'cost' => 0, 'charge' => 0
+            ];
+            return view('reports.division_summary', compact('reportData', 'totalAll', 'fromDate', 'toDate', 'isSearched'));
+        }
 
         $query = TbmDataMasuk::query();
         if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
@@ -132,7 +170,7 @@ class BillingController extends Controller
             $totalAll['charge'] += $totalCharge;
         }
 
-        return view('reports.division_summary', compact('reportData', 'totalAll', 'fromDate', 'toDate'));
+        return view('reports.division_summary', compact('reportData', 'totalAll', 'fromDate', 'toDate', 'isSearched'));
     }
 
     // 2. Favourite Area Report
@@ -141,8 +179,23 @@ class BillingController extends Controller
         $areaCodeId = $request->input('area_code_id');
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
+        $isSearched = $request->has('searched') 
+            || ($request->filled('area_code_id') && $request->input('area_code_id') !== 'Any') 
+            || $request->filled('from_date') 
+            || $request->filled('to_date');
 
         $areas = TbmArea::all();
+
+        if (!$isSearched) {
+            $grouped = collect();
+            $totalAll = [
+                'call' => 0,
+                'duration_sec' => 0,
+                'total_charge' => 0,
+                'duration' => '0:00:00'
+            ];
+            return view('reports.favourite_area', compact('areas', 'grouped', 'totalAll', 'areaCodeId', 'fromDate', 'toDate', 'isSearched'));
+        }
 
         $query = TbmDataMasuk::query();
         if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
@@ -188,8 +241,23 @@ class BillingController extends Controller
         $businessName = $request->input('business_name');
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
+        $isSearched = $request->has('searched') 
+            || ($request->filled('business_name') && $request->input('business_name') !== 'Any') 
+            || $request->filled('from_date') 
+            || $request->filled('to_date');
 
         $businesses = TbmBisnis::all();
+
+        if (!$isSearched) {
+            $grouped = collect();
+            $totalAll = [
+                'call' => 0,
+                'duration_sec' => 0,
+                'total_cost' => 0,
+                'duration' => '0:00:00'
+            ];
+            return view('reports.favourite_business', compact('businesses', 'grouped', 'totalAll', 'businessName', 'fromDate', 'toDate', 'isSearched'));
+        }
 
         $query = TbmDataMasuk::query();
         if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
@@ -223,7 +291,7 @@ class BillingController extends Controller
         $s = $totalAll['duration_sec'] % 60;
         $totalAll['duration'] = sprintf('%d:%02d:%02d', $h, $m, $s);
 
-        return view('reports.favourite_business', compact('businesses', 'grouped', 'totalAll', 'businessName', 'fromDate', 'toDate'));
+        return view('reports.favourite_business', compact('businesses', 'grouped', 'totalAll', 'businessName', 'fromDate', 'toDate', 'isSearched'));
     }
 
     // 4. Peak Time Report (24 Hours)
@@ -231,6 +299,15 @@ class BillingController extends Controller
     {
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
+        $isSearched = $request->has('searched') || $request->filled('from_date') || $request->filled('to_date');
+
+        if (!$isSearched) {
+            $hourlyData = [];
+            $totalAll = [
+                'idd' => 0, 'ndd' => 0, 'cell' => 0, 'ldd' => 0, 'duration_sec' => 0, 'cost' => 0
+            ];
+            return view('reports.peak_time', compact('hourlyData', 'totalAll', 'fromDate', 'toDate', 'isSearched'));
+        }
 
         $query = TbmDataMasuk::query();
         if ($fromDate) $query->where('tglmasuk', '>=', $fromDate);
@@ -276,19 +353,28 @@ class BillingController extends Controller
             $totalAll['cost'] += $totalCost;
         }
 
-        return view('reports.peak_time', compact('hourlyData', 'totalAll', 'fromDate', 'toDate'));
+        return view('reports.peak_time', compact('hourlyData', 'totalAll', 'fromDate', 'toDate', 'isSearched'));
     }
 
     // 5. Personal Favorite Dialed Number
     public function personalFavoriteDialed(Request $request)
     {
-        $phoneId = $request->input('phone_id', '11'); // default to extension 569 if exists
+        $phoneId = $request->input('phone_id');
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
+        $isSearched = $request->has('searched');
 
         $departments = TbmDepartment::orderBy('extcode')->get();
+        $selectedDept = $phoneId ? TbmDepartment::find($phoneId) : null;
 
-        $selectedDept = TbmDepartment::find($phoneId) ?? $departments->first();
+        if (!$isSearched) {
+            $grouped = collect();
+            $totalAll = [
+                'call' => 0,
+                'cost' => 0
+            ];
+            return view('reports.personal_favorite_dialed', compact('departments', 'selectedDept', 'grouped', 'totalAll', 'phoneId', 'fromDate', 'toDate', 'isSearched'));
+        }
 
         $query = TbmDataMasuk::query();
         if ($selectedDept) {

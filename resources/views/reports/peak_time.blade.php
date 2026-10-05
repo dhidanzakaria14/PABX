@@ -10,6 +10,7 @@
 
     <!-- Filter Bar -->
     <form action="{{ route('reports.peak-time') }}" method="GET" class="filter-section">
+        <input type="hidden" name="searched" value="1">
         <div class="filter-group">
             <label class="filter-label">From Date</label>
             <input type="date" name="from_date" class="input-text" value="{{ $fromDate }}">
@@ -44,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($hourlyData as $row)
+                @forelse($hourlyData as $row)
                     <tr>
                         <td><strong>{{ $row['hh'] }}</strong></td>
                         <td class="text-right">{{ number_format($row['idd_cost'], 0, ',', '.') }}</td>
@@ -64,7 +65,20 @@
                             {{ number_format($row['total_cost'], 0, ',', '.') }}
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center" style="padding: 2.5rem 1rem; color: #64748b;">
+                            @if(!($isSearched ?? false))
+                                <div style="font-size: 2rem; color: #cbd5e1; margin-bottom: 0.5rem;"><i class="fa-solid fa-magnifying-glass"></i></div>
+                                <strong style="color: #475569; font-size: 0.95rem;">Halaman Siap untuk Pencarian</strong>
+                                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">Silakan tentukan periode tanggal di atas dan klik <strong>"Search Data"</strong> untuk menampilkan data peak time.</div>
+                            @else
+                                <div style="font-size: 1.75rem; color: #e2e8f0; margin-bottom: 0.5rem;"><i class="fa-solid fa-inbox"></i></div>
+                                Tidak ada data untuk periode ini.
+                            @endif
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
             <tfoot>
                 <tr>
