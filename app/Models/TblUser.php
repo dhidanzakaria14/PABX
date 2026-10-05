@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class TblUser extends Model
+class TblUser extends Authenticatable
 {
+    use Notifiable;
+
     protected $table = 'tbl_user';
     protected $primaryKey = 'iduser';
     public $timestamps = false;
@@ -15,6 +18,11 @@ class TblUser extends Model
     protected $hidden = [
         'password',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 
     public function level()
     {

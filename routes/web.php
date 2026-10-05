@@ -1,7 +1,20 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+// Authentication (Login / Logout)
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/action_log.php', [AuthController::class, 'logout']); // Legacy logout URL compatibility
+
+// Profile (Account Profile matching Angkasa Pura system)
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/account/profile', [ProfileController::class, 'edit'])->name('profile.account');
 
 // Home / Dashboard
 Route::get('/', [BillingController::class, 'index'])->name('home');

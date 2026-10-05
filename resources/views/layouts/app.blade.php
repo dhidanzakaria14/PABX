@@ -128,7 +128,7 @@
         /* User Profile Box */
         .user-panel {
             background: linear-gradient(135deg, #e65100 0%, #d81b60 50%, #8e24aa 100%);
-            padding: 1.25rem 1rem;
+            padding: 1rem 1rem;
             color: white;
             position: relative;
             box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1);
@@ -138,6 +138,14 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .user-panel-info:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .user-avatar {
@@ -152,6 +160,13 @@
             font-size: 1.25rem;
             color: white;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .user-details {
@@ -170,6 +185,80 @@
         .user-role {
             font-size: 0.75rem;
             opacity: 0.9;
+        }
+
+        /* User Dropdown Menu (matching screenshot) */
+        .user-dropdown-menu {
+            position: absolute;
+            top: calc(100% - 10px);
+            left: 20px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
+            min-width: 155px;
+            z-index: 1100;
+            display: none;
+            overflow: hidden;
+            animation: fadeInDropdown 0.15s ease-out;
+        }
+
+        .user-dropdown-menu.show {
+            display: block;
+        }
+
+        @keyframes fadeInDropdown {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            font-size: 0.85rem;
+            color: #334155;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            background: none;
+            text-align: left;
+        }
+
+        .user-dropdown-item i {
+            width: 16px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .user-dropdown-item:hover i {
+            color: #d32f2f;
+        }
+
+        .user-dropdown-item.sign-out:hover {
+            color: #d32f2f;
+        }
+
+        .user-dropdown-divider {
+            height: 1px;
+            background-color: #f1f5f9;
+            margin: 2px 0;
         }
 
         /* Navigation Menu */
@@ -481,16 +570,36 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <!-- User Profile Box with Abstract Pattern -->
-            <div class="user-panel">
-                <div class="user-panel-info">
+            <div class="user-panel" id="userPanelContainer">
+                <div class="user-panel-info" id="userPanelToggle" title="Klik untuk menu profil dan sign out">
                     <div class="user-avatar">
-                        <i class="fa-solid fa-user"></i>
+                        @if(isset($currentUser) && $currentUser && $currentUser->photo && file_exists(public_path('uploads/profile/' . $currentUser->photo)))
+                            <img src="{{ asset('uploads/profile/' . $currentUser->photo) }}" alt="Avatar">
+                        @else
+                            <i class="fa-solid fa-user"></i>
+                        @endif
                     </div>
                     <div class="user-details">
-                        <div class="user-name">xsadmin</div>
-                        <div class="user-role">Administrator</div>
+                        <div class="user-name">{{ $currentUser->nama ?? $currentUser->username ?? 'xadmin' }}</div>
+                        <div class="user-role">{{ $currentUser->leveluser ?? ($currentUser->level->level ?? 'Administrator') }}</div>
                     </div>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; opacity: 0.8;"></i>
+                    <i class="fa-solid fa-chevron-down" id="userChevron" style="font-size: 0.75rem; opacity: 0.8; transition: transform 0.2s;"></i>
+                </div>
+
+                <!-- Floating Dropdown Menu (matching screenshot) -->
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <a href="{{ route('profile.edit') }}" class="user-dropdown-item">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <div class="user-dropdown-divider"></div>
+                    <a href="{{ route('logout') }}" class="user-dropdown-item sign-out" onclick="event.preventDefault(); document.getElementById('sidebar-logout-form').submit();">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </a>
+                    <form id="sidebar-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
 
@@ -644,6 +753,32 @@
         </main>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userPanelToggle = document.getElementById('userPanelToggle');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            const userChevron = document.getElementById('userChevron');
+
+            if (userPanelToggle && userDropdownMenu) {
+                userPanelToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isOpen = userDropdownMenu.classList.toggle('show');
+                    if (userChevron) {
+                        userChevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!userDropdownMenu.contains(e.target) && !userPanelToggle.contains(e.target)) {
+                        userDropdownMenu.classList.remove('show');
+                        if (userChevron) {
+                            userChevron.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>
