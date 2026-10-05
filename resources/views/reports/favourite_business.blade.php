@@ -10,6 +10,7 @@
 
     <!-- Filter Bar -->
     <form action="{{ route('reports.favourite-business') }}" method="GET" class="filter-section">
+        <input type="hidden" name="searched" value="1">
         <div class="filter-group">
             <label class="filter-label">Business Name</label>
             <select name="business_name" class="select-box">
@@ -71,8 +72,15 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center" style="padding: 2rem; color: #94a3b8;">
-                            Tidak ada data untuk filter yang dipilih.
+                        <td colspan="7" class="text-center" style="padding: 2.5rem 1rem; color: #64748b;">
+                            @if(!($isSearched ?? false))
+                                <div style="font-size: 2rem; color: #cbd5e1; margin-bottom: 0.5rem;"><i class="fa-solid fa-magnifying-glass"></i></div>
+                                <strong style="color: #475569; font-size: 0.95rem;">Halaman Siap untuk Pencarian</strong>
+                                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">Silakan tentukan kriteria di atas dan klik <strong>"Search Data"</strong> untuk menampilkan data bisnis favorit.</div>
+                            @else
+                                <div style="font-size: 1.75rem; color: #e2e8f0; margin-bottom: 0.5rem;"><i class="fa-solid fa-inbox"></i></div>
+                                Tidak ada data untuk kriteria pencarian ini.
+                            @endif
                         </td>
                     </tr>
                 @endforelse
