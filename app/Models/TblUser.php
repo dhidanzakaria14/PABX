@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class TblUser extends Model
+{
+    protected $table = 'tbl_user';
+    protected $primaryKey = 'iduser';
+    public $timestamps = false;
+
+    protected $guarded = [];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    public function level()
+    {
+        return $this->belongsTo(TbmLevel::class, 'idlevel', 'id');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(UserLog::class, 'iduser', 'iduser');
+    }
+
+    public function loginLogs()
+    {
+        return $this->hasMany(LogLogin::class, 'iduser', 'iduser');
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(TblUser::class, 'idmanajemen', 'iduser');
+    }
+}
