@@ -573,7 +573,8 @@ INSERT INTO `tbm_group_department` (`idgroup`, `groupcode`, `namagroup`, `namadi
 (3, 'IT', 'Information Technology', 'Teknologi Informasi & Jaringan', '1'),
 (4, 'HRD', 'Human Resources & General Affairs', 'SDM & Umum', '1'),
 (5, 'MKT', 'Marketing & Sales', 'Pemasaran & Penjualan', '1'),
-(6, 'OPS', 'Operations & Logistics', 'Operasional & Logistik', '1');
+(6, 'OPS', 'Operations & Logistics', 'Operasional & Logistik', '1'),
+(7, 'AP', 'AP', 'Angkasa Pura Division', '1');
 
 -- 8. Department / Extensions
 INSERT INTO `tbm_department` (`id`, `idgroup`, `extcode`, `extname`, `phonepassword`, `divisi`, `jabatan`, `nik`, `additional`, `budget`, `st`) VALUES
@@ -586,7 +587,8 @@ INSERT INTO `tbm_department` (`id`, `idgroup`, `extcode`, `extname`, `phonepassw
 (7, 4, 401, 'HRD Recruitment', '4011', 'Human Resources', 'HR Specialist', 'HR-001', 0, 1200000, '1'),
 (8, 5, 501, 'Sales Executive 1', '5011', 'Marketing & Sales', 'Account Executive', 'MKT-001', 0, 3500000, '1'),
 (9, 5, 502, 'Sales Executive 2', '5022', 'Marketing & Sales', 'Account Executive', 'MKT-002', 0, 3500000, '1'),
-(10, 6, 601, 'Warehouse / Logistik', '6011', 'Operations', 'Staf Gudang', 'OPS-001', 0, 750000, '1');
+(10, 6, 601, 'Warehouse / Logistik', '6011', 'Operations', 'Staf Gudang', 'OPS-001', 0, 750000, '1'),
+(11, 7, 569, 'ACCOUNT RECEIVABLE', '5699', 'AP', 'Finance AR Specialist', 'AP-569', 0, 5000000, '1');
 
 -- 9. Zones
 INSERT INTO `tbm_zona` (`idzone`, `namazone`, `kelompok`, `st`) VALUES
@@ -693,5 +695,12 @@ INSERT INTO `tbm_data_masuk` (
 (4, 'CLI-001', '01', 'CDR-0004', '301', 5, 'IT Support & Network', 'CO-03', '2026-10-05', '09:18:02', '00:02:10', 130, '9', '03188997766', 'TRK-03', 1, 'Panasonic KX-TDE600 Server Utama', 2, 'Interlokal (SLJJ Zona 1: Jawa)', 4, '031', 'Surabaya Raya', 2, 'Tarif SLJJ Jawa Timur', '3 x 750', 2250, 247.5, 2497.5, '1', '1', '2026-10-05', 1, 'PT Telekomunikasi Solusindo Corp', '3'),
 (5, 'CLI-001', '01', 'CDR-0005', '201', 3, 'Finance Manager', 'CO-02', '2026-10-05', '09:30:15', '00:04:45', 285, '9', '0224201122', 'TRK-02', 1, 'Panasonic KX-TDE600 Server Utama', 2, 'Interlokal (SLJJ Zona 1: Jawa)', 2, '022', 'Bandung Kota & Kab', 2, 'Tarif SLJJ Jawa Barat', '5 x 750', 3750, 412.5, 4162.5, '1', '1', '2026-10-05', 1, 'PT Telekomunikasi Solusindo Corp', '5'),
 (6, 'CLI-001', '01', 'CDR-0006', '102', 2, 'Sekretaris Direksi', 'CO-01', '2026-10-05', '09:45:00', '00:01:20', 80, '9', '081399887766', 'TRK-01', 1, 'Panasonic KX-TDE600 Server Utama', 4, 'Seluler GSM Nasional', 9, '0813', 'Telkomsel Simpati', 4, 'Tarif Seluler Operator GSM', '2 x 900', 1800, 198, 1998, '1', '1', '2026-10-05', 1, 'PT Telekomunikasi Solusindo Corp', '2'),
-(7, 'CLI-001', '01', 'CDR-0007', '401', 7, 'HRD Recruitment', 'CO-04', '2026-10-05', '10:02:18', '00:05:40', 340, '9', '08176543210', 'TRK-04', 1, 'Panasonic KX-TDE600 Server Utama', 4, 'Seluler GSM Nasional', 11, '0817', 'XL Axiata', 4, 'Tarif Seluler Operator GSM', '6 x 900', 5400, 594, 5994, '1', '1', '2026-10-05', 1, 'PT Telekomunikasi Solusindo Corp', '6'),
-(8, 'CLI-001', '01', 'CDR-0008', '501', 8, 'Sales Executive 1', 'CO-02', '2026-10-05', '10:15:33', '00:12:00', 720, '9', '0614567890', 'TRK-02', 1, 'Panasonic KX-TDE600 Server Utama', 3, 'Interlokal (SLJJ Zona 2: Luar Jawa)', 5, '061', 'Medan & Deli', 3, 'Tarif SLJJ Sumatera', '12 x 1250', 15000, 1650, 16650, '1', '1', '2026-10-05', 1, 'PT Telekomunikasi Solusindo Corp', '12');
+(7, 'CLI-001', '01', 'CDR-0007', '401', 7, 'HRD Recruitment', 'CO-04', '2026-10-05', '10:02:18', '00:05:40', 340, '9', '08176543210', 'TRK-04', 1, 'Panasonic KX-TDE600 Server Utama', 4, 'Seluler GSM Nasional', 11, '0817', 'XL Axiata', 4, 'Tarif Seluler Operator GSM', '6 x 900', 5400, 594, 5994, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '6'),
+(8, 'CLI-001', '01', 'CDR-0008', '501', 8, 'Sales Executive 1', 'CO-02', '2026-10-05', '10:15:33', '00:12:00', 720, '9', '0614567890', 'TRK-02', 1, 'Panasonic KX-TDE600 Server Utama', 3, 'Interlokal (SLJJ Zona 2: Luar Jawa)', 5, '061', 'Medan & Deli', 3, 'Tarif SLJJ Sumatera', '12 x 1250', 15000, 1650, 16650, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '12'),
+(9, 'CLI-001', '01', 'CDR-0009', '569', 11, 'ACCOUNT RECEIVABLE', 'CO-01', '2026-10-05', '08:14:00', '00:03:00', 180, '9', '1500805', 'TRK-01', 1, 'Panasonic KX-TDE600 Server Utama', 1, 'Lokal (Jabodetabek)', 1, '021', 'Customer Service Line', 1, 'Tarif Panggilan Telepon Lokal', '3 x 500', 1500, 165, 1665, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '3'),
+(10, 'CLI-001', '01', 'CDR-0010', '569', 11, 'ACCOUNT RECEIVABLE', 'CO-02', '2026-10-05', '09:22:15', '00:04:00', 240, '9', '08113866479', 'TRK-02', 1, 'Panasonic KX-TDE600 Server Utama', 4, 'Seluler GSM Nasional', 7, '0811', 'Denpasar, (TEL)', 4, 'Tarif Seluler Operator GSM', '8 x 900', 7200, 792, 7992, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '8'),
+(11, 'CLI-001', '01', 'CDR-0011', '569', 11, 'ACCOUNT RECEIVABLE', 'CO-01', '2026-10-05', '10:05:00', '00:01:00', 60, '0', '7722', 'TRK-01', 1, 'Panasonic KX-TDE600 Server Utama', 1, 'Internal Extension', 1, 'INT', 'Internal Call', 1, 'TARIF-INTERNAL', '1 x 0', 0, 0, 0, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '1'),
+(12, 'CLI-001', '01', 'CDR-0012', '569', 11, 'ACCOUNT RECEIVABLE', 'CO-03', '2026-10-05', '11:30:10', '00:05:20', 320, '9', '8050895', 'TRK-03', 1, 'Panasonic KX-TDE600 Server Utama', 1, 'Lokal (Jabodetabek)', 1, '021', 'Jakarta, (TEL)', 1, 'Tarif Panggilan Telepon Lokal', '6 x 250', 1500, 165, 1665, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '6'),
+(13, 'CLI-001', '01', 'CDR-0013', '569', 11, 'ACCOUNT RECEIVABLE', 'CO-02', '2026-10-05', '14:15:45', '00:07:00', 420, '9', '087762957298', 'TRK-02', 1, 'Panasonic KX-TDE600 Server Utama', 4, 'Seluler GSM Nasional', 11, '0817', 'Jakarta, (XL)', 4, 'Tarif Seluler Operator GSM', '14 x 900', 12600, 1386, 13986, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '14'),
+(14, 'CLI-001', '01', 'CDR-0014', '569', 11, 'ACCOUNT RECEIVABLE', 'CO-04', '2026-10-05', '15:40:20', '00:03:10', 190, '9', '081330559406', 'TRK-04', 1, 'Panasonic KX-TDE600 Server Utama', 4, 'Seluler GSM Nasional', 9, '0813', 'Surabaya, (SAT)', 4, 'Tarif Seluler Operator GSM', '7 x 900', 6300, 693, 6993, '1', '1', '2026-10-05', 1, 'ANGKASA PURA', '7');
+
