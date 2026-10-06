@@ -694,7 +694,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                <a href="{{ route('reports.personal-summary') }}" class="sub-nav-link {{ request()->routeIs('reports.personal-summary') ? 'active' : '' }}">
                                     Personal Summary
                                 </a>
                             </li>

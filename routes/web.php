@@ -28,6 +28,7 @@ Route::prefix('reports')->name('reports.')->group(function () {
     Route::get('/favourite-business', [BillingController::class, 'favouriteBusiness'])->name('favourite-business');
     Route::get('/peak-time', [BillingController::class, 'peakTime'])->name('peak-time');
     Route::get('/personal-favorite-dialed', [BillingController::class, 'personalFavoriteDialed'])->name('personal-favorite-dialed');
+    Route::get('/personal-summary', [BillingController::class, 'personalSummary'])->name('personal-summary');
 });
 
 // Database Relations & Utilities

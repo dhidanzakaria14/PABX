@@ -403,6 +403,102 @@ class BillingController extends Controller
         return view('reports.personal_favorite_dialed', compact('departments', 'selectedDept', 'grouped', 'totalAll', 'phoneId', 'fromDate', 'toDate'));
     }
 
+    // 6. Personal Summary Report
+    public function personalSummary(Request $request)
+    {
+        $phoneId = $request->input('phone_id');
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $search = $request->input('search');
+
+        $departments = TbmDepartment::orderBy('extcode')->get();
+        $selectedDept = $phoneId ? TbmDepartment::find($phoneId) : null;
+
+        $dateMin = TbmDataMasuk::min('tglmasuk');
+        $dateMax = TbmDataMasuk::max('tglmasuk');
+
+        // Base query grouped per extension
+        $query = DB::table('tbm_data_masuk as dm')
+            ->leftJoin('tbm_department as d', 'd.extcode', '=', 'dm.ext_pemanggil')
+            ->select(
+                'dm.ext_pemanggil',
+                DB::raw('COALESCE(MAX(d.extname), MAX(dm.namadepartment), "-") as user_name'),
+                DB::raw('COALESCE(MAX(d.divisi), "-") as division'),
+                DB::raw('COUNT(*) as total_call'),
+                DB::raw('SUM(dm.durasi_detik) as total_sec'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%IDD%" OR dm.zona LIKE "%Internasional%" THEN dm.subtotal ELSE 0 END) as idd_cost'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%NDD%" OR dm.zona LIKE "%Interlokal%" OR dm.zona LIKE "%SLJJ%" THEN dm.subtotal ELSE 0 END) as ndd_cost'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%CELL%" OR dm.zona LIKE "%Seluler%" THEN dm.subtotal ELSE 0 END) as cell_cost'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%LOCAL%" OR dm.zona LIKE "%Lokal%" THEN dm.subtotal ELSE 0 END) as ldd_cost'),
+                DB::raw('SUM(dm.biaya) as total_cost'),
+                DB::raw('SUM(dm.subtotal) as total_charge')
+            )
+            ->groupBy('dm.ext_pemanggil');
+
+        if ($selectedDept) {
+            $query->where(function($q) use ($selectedDept) {
+                $q->where('dm.iddepartment', $selectedDept->id)
+                  ->orWhere('dm.ext_pemanggil', $selectedDept->extcode);
+            });
+        }
+        if ($fromDate) {
+            $query->where('dm.tglmasuk', '>=', $fromDate);
+        }
+        if ($toDate) {
+            $query->where('dm.tglmasuk', '<=', $toDate);
+        }
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('dm.ext_pemanggil', 'like', "%{$search}%")
+                  ->orWhere('dm.namadepartment', 'like', "%{$search}%");
+            });
+        }
+
+        // Summary KPI / Totals for the entire filtered dataset
+        $totalStats = DB::table('tbm_data_masuk as dm')
+            ->when($selectedDept, function($q) use ($selectedDept) {
+                $q->where(function($sub) use ($selectedDept) {
+                    $sub->where('dm.iddepartment', $selectedDept->id)
+                        ->orWhere('dm.ext_pemanggil', $selectedDept->extcode);
+                });
+            })
+            ->when($fromDate, fn($q) => $q->where('dm.tglmasuk', '>=', $fromDate))
+            ->when($toDate, fn($q) => $q->where('dm.tglmasuk', '<=', $toDate))
+            ->when($search, function($q) use ($search) {
+                $q->where(function($sub) use ($search) {
+                    $sub->where('dm.ext_pemanggil', 'like', "%{$search}%")
+                        ->orWhere('dm.namadepartment', 'like', "%{$search}%");
+                });
+            })
+            ->select(
+                DB::raw('COUNT(DISTINCT dm.ext_pemanggil) as active_ext_count'),
+                DB::raw('COUNT(*) as total_call'),
+                DB::raw('SUM(dm.durasi_detik) as total_sec'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%IDD%" OR dm.zona LIKE "%Internasional%" THEN dm.subtotal ELSE 0 END) as idd_cost'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%NDD%" OR dm.zona LIKE "%Interlokal%" OR dm.zona LIKE "%SLJJ%" THEN dm.subtotal ELSE 0 END) as ndd_cost'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%CELL%" OR dm.zona LIKE "%Seluler%" THEN dm.subtotal ELSE 0 END) as cell_cost'),
+                DB::raw('SUM(CASE WHEN dm.zona LIKE "%LOCAL%" OR dm.zona LIKE "%Lokal%" THEN dm.subtotal ELSE 0 END) as ldd_cost'),
+                DB::raw('SUM(dm.biaya) as total_cost'),
+                DB::raw('SUM(dm.subtotal) as total_charge')
+            )
+            ->first();
+
+        $reportData = $query->orderByDesc('total_charge')->paginate(20)->withQueryString();
+
+        return view('reports.personal_summary', compact(
+            'departments',
+            'selectedDept',
+            'reportData',
+            'totalStats',
+            'phoneId',
+            'fromDate',
+            'toDate',
+            'search',
+            'dateMin',
+            'dateMax'
+        ));
+    }
+
     // AJAX Billing Simulator
     public function simulate(Request $request)
     {
