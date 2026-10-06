@@ -455,12 +455,17 @@
 @section('content')
 <!-- Page Header -->
 <div class="profile-page-header">
+    <div style="margin-bottom: 6px;">
+        <a href="{{ route('profile.show') }}" style="color: #0288d1; text-decoration: none; font-size: 0.825rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Detail Profil
+        </a>
+    </div>
     <div class="profile-page-title">
-        <i class="fa-solid fa-id-card-clip" style="color: #d32f2f;"></i>
-        <span>Pengaturan Akun & Profil Pengguna</span>
+        <i class="fa-solid fa-user-pen" style="color: #0288d1;"></i>
+        <span>Formulir Edit Profil Pengguna</span>
     </div>
     <div class="profile-page-subtitle">
-        Kelola kredensial login, informasi kontak person, dan foto profil akun administrator PABX Angkasa Pura.
+        Perbarui informasi nama lengkap, nomor telepon, username, password, atau foto profil akun Anda.
     </div>
 </div>
 
@@ -692,7 +697,7 @@
 
             <!-- Card Action Footer -->
             <div class="form-card-footer">
-                <a href="{{ route('home') }}" class="btn-action-cancel">
+                <a href="{{ route('profile.show') }}" class="btn-action-cancel">
                     <i class="fa-solid fa-arrow-left"></i> Batal / Kembali
                 </a>
                 <button type="submit" class="btn-action-save">

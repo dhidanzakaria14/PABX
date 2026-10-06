@@ -11,10 +11,11 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/action_log.php', [AuthController::class, 'logout']); // Legacy logout URL compatibility
 
-// Profile (Account Profile matching Angkasa Pura system)
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+// Profile (Account Profile - View & Edit)
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::get('/account/profile', [ProfileController::class, 'edit'])->name('profile.account');
+Route::get('/account/profile', [ProfileController::class, 'show'])->name('profile.account');
 
 // Home / Dashboard
 Route::get('/', [BillingController::class, 'index'])->name('home');

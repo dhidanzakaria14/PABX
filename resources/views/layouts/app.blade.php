@@ -608,9 +608,9 @@
                     <i class="fa-solid fa-chevron-down" id="userChevron" style="font-size: 0.75rem; opacity: 0.8; transition: transform 0.2s;"></i>
                 </div>
 
-                <!-- Floating Dropdown Menu (matching screenshot) -->
+                <!-- Floating Dropdown Menu -->
                 <div class="user-dropdown-menu" id="userDropdownMenu">
-                    <a href="{{ route('profile.edit') }}" class="user-dropdown-item">
+                    <a href="{{ route('profile.show') }}" class="user-dropdown-item">
                         <i class="fa-solid fa-user"></i>
                         <span>Profile</span>
                     </a>

@@ -11,7 +11,33 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     /**
-     * Show Account Profile edit form (matching screenshot).
+     * Show Account Profile details (Read-only view with Edit button).
+     */
+    public function show(Request $request)
+    {
+        $userId = session('user_id') ?? (Auth::check() ? Auth::id() : null);
+        $user = null;
+        if ($userId) {
+            $user = TblUser::find($userId);
+        }
+        if (!$user) {
+            $user = TblUser::first();
+        }
+
+        if (!$user) {
+            return redirect()->route('home')->with('error', 'User profile tidak ditemukan.');
+        }
+
+        $recentLogins = \App\Models\LogLogin::where('iduser', $user->iduser)
+            ->orderBy('idlog', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('profile.show', compact('user', 'recentLogins'));
+    }
+
+    /**
+     * Show Account Profile edit form.
      */
     public function edit(Request $request)
     {
@@ -100,6 +126,6 @@ class ProfileController extends Controller
         // Update session display name if applicable
         session(['user_name' => $user->nama, 'username' => $user->username]);
 
-        return redirect()->route('profile.edit')->with('success', 'Data akun profil berhasil diperbarui!');
+        return redirect()->route('profile.show')->with('success', 'Data akun profil berhasil diperbarui!');
     }
 }
