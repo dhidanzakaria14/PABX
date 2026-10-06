@@ -36,24 +36,39 @@ class AuthController extends Controller
 
         $passwordValid = false;
         if ($user) {
-            // Check bcrypt
-            if (Hash::check($credentials['password'], $user->password)) {
+            $hashed = $user->password;
+
+            // 1. Check legacy MD5(SHA1()) hash first
+            if (md5(sha1($credentials['password'])) === $hashed) {
                 $passwordValid = true;
-            } elseif (md5(sha1($credentials['password'])) === $user->password) {
-                // Upgrade legacy MD5(SHA1()) to modern bcrypt automatically
                 $user->password = Hash::make($credentials['password']);
                 $user->save();
+            }
+            // 2. Check legacy standard MD5 hash
+            elseif (md5($credentials['password']) === $hashed) {
                 $passwordValid = true;
-            } elseif (md5($credentials['password']) === $user->password) {
-                // Upgrade standard MD5 to bcrypt automatically
                 $user->password = Hash::make($credentials['password']);
                 $user->save();
+            }
+            // 3. Check plaintext
+            elseif ($credentials['password'] === $hashed) {
                 $passwordValid = true;
-            } elseif ($credentials['password'] === $user->password) {
-                // Plaintext upgrade to bcrypt
                 $user->password = Hash::make($credentials['password']);
                 $user->save();
-                $passwordValid = true;
+            }
+            // 4. Check modern Bcrypt hash
+            elseif (str_starts_with($hashed, '$2y$') || str_starts_with($hashed, '$2a$') || str_starts_with($hashed, '$2b$')) {
+                if (Hash::check($credentials['password'], $hashed)) {
+                    $passwordValid = true;
+                }
+            } else {
+                try {
+                    if (Hash::check($credentials['password'], $hashed)) {
+                        $passwordValid = true;
+                    }
+                } catch (\Throwable $e) {
+                    $passwordValid = false;
+                }
             }
         }
 
