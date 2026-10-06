@@ -32,8 +32,8 @@
         width: 48px;
         height: 48px;
         border-radius: 10px;
-        background: #e0f2fe;
-        color: #0288d1;
+        background: #fee2e2;
+        color: #d32f2f;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -142,11 +142,12 @@
         opacity: 1;
     }
 
+    /* Tombol Pilih Foto (Angkasa Pura Red) */
     .btn-pick-photo {
         margin-top: 1.25rem;
         width: 100%;
         height: 40px;
-        background: #0288d1;
+        background: #d32f2f;
         color: white;
         border: none;
         border-radius: 8px;
@@ -158,11 +159,11 @@
         gap: 8px;
         cursor: pointer;
         transition: background 0.15s ease;
-        box-shadow: 0 2px 6px rgba(2, 136, 209, 0.25);
+        box-shadow: 0 2px 6px rgba(211, 47, 47, 0.25);
     }
 
     .btn-pick-photo:hover {
-        background: #0277bd;
+        background: #b71c1c;
     }
 
     .btn-remove-photo {
@@ -205,11 +206,11 @@
         gap: 8px;
         font-size: 0.8rem;
         font-weight: 800;
-        background: #eff6ff;
-        color: #1d4ed8;
+        background: #fee2e2;
+        color: #b91c1c;
         padding: 6px 16px;
         border-radius: 20px;
-        border: 1px solid #bfdbfe;
+        border: 1px solid #fca5a5;
         text-transform: uppercase;
         letter-spacing: 0.04em;
     }
@@ -289,13 +290,13 @@
 
     .form-control-modern:focus {
         background: #ffffff;
-        border-color: #0288d1;
-        box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.15);
+        border-color: #d32f2f;
+        box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
     }
 
     .form-control-modern:focus + .input-icon-lead,
     .input-with-icon:focus-within .input-icon-lead {
-        color: #0288d1;
+        color: #d32f2f;
     }
 
     .form-control-modern:disabled,
@@ -321,7 +322,7 @@
     }
 
     .btn-toggle-eye:hover {
-        color: #0288d1;
+        color: #d32f2f;
     }
 
     .field-hint {
@@ -364,9 +365,10 @@
         color: #1e293b;
     }
 
+    /* Tombol Simpan Perubahan (Angkasa Pura Red) */
     .btn-action-save {
         padding: 10px 30px;
-        background: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
+        background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
         border: none;
         border-radius: 8px;
         font-size: 0.875rem;
@@ -376,13 +378,13 @@
         align-items: center;
         gap: 10px;
         cursor: pointer;
-        box-shadow: 0 3px 10px rgba(2, 136, 209, 0.35);
+        box-shadow: 0 3px 10px rgba(211, 47, 47, 0.35);
         transition: all 0.15s ease;
     }
 
     .btn-action-save:hover {
-        background: linear-gradient(135deg, #0277bd 0%, #01579b 100%);
-        box-shadow: 0 6px 16px rgba(2, 136, 209, 0.45);
+        background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+        box-shadow: 0 6px 16px rgba(211, 47, 47, 0.45);
         transform: translateY(-1px);
     }
 
@@ -478,7 +480,7 @@
                 <div>
                     <!-- Section 1: Informasi Pengguna -->
                     <div class="form-section-title">
-                        <i class="fa-solid fa-id-card-clip" style="color: #0288d1;"></i>
+                        <i class="fa-solid fa-id-card-clip" style="color: #d32f2f;"></i>
                         <span>Informasi Identitas & Kontak</span>
                     </div>
 
@@ -535,7 +537,7 @@
 
                     <!-- Section 2: Keamanan Akun -->
                     <div class="form-section-title">
-                        <i class="fa-solid fa-key" style="color: #0288d1;"></i>
+                        <i class="fa-solid fa-key" style="color: #d32f2f;"></i>
                         <span>Keamanan Akun (Ganti Password)</span>
                     </div>
 
@@ -552,7 +554,7 @@
                                 </button>
                             </div>
                             <div class="field-hint" style="margin-top: 6px;">
-                                <i class="fa-solid fa-circle-info" style="color: #0288d1; font-size: 0.85rem;"></i>
+                                <i class="fa-solid fa-circle-info" style="color: #d32f2f; font-size: 0.85rem;"></i>
                                 <span>Kosongkan bidang ini jika Anda <strong>tidak ingin</strong> mengubah kata sandi saat ini.</span>
                             </div>
                         </div>

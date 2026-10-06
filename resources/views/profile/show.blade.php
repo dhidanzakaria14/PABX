@@ -32,8 +32,8 @@
         width: 48px;
         height: 48px;
         border-radius: 10px;
-        background: #e0f2fe;
-        color: #0288d1;
+        background: #fee2e2;
+        color: #d32f2f;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -53,11 +53,11 @@
         margin-top: 2px;
     }
 
-    /* Single primary Edit Profile action button */
+    /* Single primary Edit Profile action button (Angkasa Pura Red) */
     .btn-edit-action {
         text-decoration: none;
         padding: 10px 24px;
-        background: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
+        background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
         border: none;
         border-radius: 8px;
         font-size: 0.9rem;
@@ -66,13 +66,13 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        box-shadow: 0 3px 10px rgba(2, 136, 209, 0.35);
+        box-shadow: 0 3px 10px rgba(211, 47, 47, 0.35);
         transition: all 0.2s ease;
     }
 
     .btn-edit-action:hover {
-        background: linear-gradient(135deg, #0277bd 0%, #01579b 100%);
-        box-shadow: 0 6px 16px rgba(2, 136, 209, 0.45);
+        background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+        box-shadow: 0 6px 16px rgba(211, 47, 47, 0.45);
         transform: translateY(-1px);
         color: #ffffff;
     }
@@ -88,7 +88,7 @@
         align-items: start;
     }
 
-    /* Avatar Side Box (Lebih Besar & Representatif) */
+    /* Avatar Side Box */
     .avatar-studio {
         display: flex;
         flex-direction: column;
@@ -152,11 +152,11 @@
         gap: 8px;
         font-size: 0.8rem;
         font-weight: 800;
-        background: #eff6ff;
-        color: #1d4ed8;
+        background: #fee2e2;
+        color: #b91c1c;
         padding: 6px 16px;
         border-radius: 20px;
-        border: 1px solid #bfdbfe;
+        border: 1px solid #fca5a5;
         text-transform: uppercase;
         letter-spacing: 0.04em;
     }
@@ -199,9 +199,9 @@
     }
 
     .detail-item:hover {
-        border-color: #cbd5e1;
+        border-color: #fca5a5;
         background: #ffffff;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+        box-shadow: 0 4px 12px rgba(211, 47, 47, 0.08);
         transform: translateY(-1px);
     }
 
@@ -209,8 +209,8 @@
         width: 44px;
         height: 44px;
         border-radius: 10px;
-        background: #e0f2fe;
-        color: #0288d1;
+        background: #fee2e2;
+        color: #d32f2f;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -313,7 +313,7 @@
                     <div class="header-subtitle">Informasi identitas akun dan hak akses sistem PABX Angkasa Pura</div>
                 </div>
             </div>
-            <!-- Satu-satunya tombol Edit Profile -->
+            <!-- Satu-satunya tombol Edit Profile (Angkasa Pura Red) -->
             <a href="{{ route('profile.edit') }}" class="btn-edit-action" title="Ubah informasi profil atau ganti password">
                 <i class="fa-solid fa-pen-to-square"></i> Edit Profile
             </a>
@@ -354,7 +354,7 @@
                 <!-- Right Column: Details Grid -->
                 <div>
                     <div class="form-section-title">
-                        <i class="fa-solid fa-circle-info" style="color: #0288d1;"></i>
+                        <i class="fa-solid fa-circle-info" style="color: #d32f2f;"></i>
                         <span>Rincian Informasi Akun</span>
                     </div>
 

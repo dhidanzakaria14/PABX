@@ -15,12 +15,10 @@
         :root {
             --ap-red: #d32f2f;
             --ap-red-dark: #b71c1c;
-            --navy-dark: #0a1128;
-            --navy-card: #101f42;
-            --navy-light: #1c2e59;
-            --primary-blue: #0288d1;
-            --primary-hover: #0277bd;
-            --text-main: #0f172a;
+            --ap-red-deep: #881337;
+            --ap-red-hover: #c62828;
+            --bg-body: #edf2f7;
+            --text-dark: #0f172a;
             --text-muted: #64748b;
         }
 
@@ -33,56 +31,98 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #091223 0%, #102a45 45%, #0f1e36 100%);
+            background-color: var(--bg-body);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Top Red Header Bar (Identik dengan halaman internal aplikasi) */
+        .top-header {
+            background: linear-gradient(90deg, #d32f2f, #e53935);
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .live-badge {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #69f0ae;
+            box-shadow: 0 0 6px #69f0ae;
+        }
+
+        /* Login Main Area */
+        .login-main-wrapper {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 2.5rem 1.5rem;
             position: relative;
-            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 20%, rgba(211, 47, 47, 0.06) 0%, transparent 70%);
         }
 
-        /* Ambient Glowing Background Elements */
-        .ambient-glow-1 {
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(2, 136, 209, 0.25) 0%, rgba(2, 136, 209, 0) 70%);
-            pointer-events: none;
-        }
-
-        .ambient-glow-2 {
-            position: absolute;
-            bottom: -120px;
-            right: -120px;
-            width: 550px;
-            height: 550px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(211, 47, 47, 0.22) 0%, rgba(211, 47, 47, 0) 70%);
-            pointer-events: none;
-        }
-
-        /* Main Container: Split-Screen Hero */
+        /* Split-Screen Hero Card */
         .auth-container {
             width: 100%;
-            max-width: 1080px;
+            max-width: 1060px;
             background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 12px 35px -8px rgba(183, 28, 28, 0.15), 0 4px 14px rgba(0, 0, 0, 0.06);
             overflow: hidden;
             display: grid;
             grid-template-columns: 1.15fr 1fr;
-            min-height: 600px;
+            min-height: 560px;
             position: relative;
             z-index: 10;
         }
 
-        /* Left Side: Brand & Aerospace Telephony Showcase */
+        /* Sisi Kiri: Angkasa Pura Red Hero Showcase */
         .auth-hero-side {
-            background: linear-gradient(145deg, #0f1c3f 0%, #172c5b 50%, #0d1938 100%);
+            background: linear-gradient(145deg, #991b1b 0%, #b71c1c 45%, #7f1d1d 100%);
             padding: 3.5rem 3rem;
             color: #ffffff;
             display: flex;
@@ -94,12 +134,12 @@
 
         .hero-decor-circle {
             position: absolute;
-            width: 380px;
-            height: 380px;
-            border: 1px dashed rgba(255, 255, 255, 0.12);
+            width: 420px;
+            height: 420px;
+            border: 1.5px dashed rgba(255, 255, 255, 0.18);
             border-radius: 50%;
-            right: -140px;
-            top: -100px;
+            right: -150px;
+            top: -110px;
             pointer-events: none;
         }
 
@@ -113,13 +153,13 @@
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #d32f2f, #b71c1c);
-            color: #ffffff;
+            background: #ffffff;
+            color: #d32f2f;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            box-shadow: 0 8px 18px rgba(211, 47, 47, 0.4);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
         .brand-text-title {
@@ -133,14 +173,14 @@
 
         .brand-text-sub {
             font-size: 0.75rem;
-            color: #93c5fd;
+            color: #fecdd3;
             font-weight: 600;
             letter-spacing: 0.04em;
             text-transform: uppercase;
         }
 
         .hero-middle-content {
-            margin: 2.5rem 0;
+            margin: 2.25rem 0;
         }
 
         .hero-headline {
@@ -152,24 +192,24 @@
         }
 
         .hero-headline span {
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fecdd3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .hero-desc {
             font-size: 0.925rem;
-            color: #cbd5e1;
+            color: #ffe4e6;
             margin-top: 0.75rem;
             line-height: 1.6;
             max-width: 460px;
+            opacity: 0.95;
         }
 
         .hero-feature-list {
             margin-top: 1.75rem;
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
+            gap: 0.85rem;
         }
 
         .hero-feature-item {
@@ -177,19 +217,19 @@
             align-items: center;
             gap: 12px;
             font-size: 0.85rem;
-            color: #e2e8f0;
+            color: #ffffff;
         }
 
         .feature-icon-pill {
             width: 32px;
             height: 32px;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #38bdf8;
+            color: #ffffff;
             font-size: 0.85rem;
             flex-shrink: 0;
         }
@@ -199,18 +239,18 @@
             align-items: center;
             justify-content: space-between;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
             font-size: 0.75rem;
-            color: #94a3b8;
+            color: #fecdd3;
         }
 
         .server-status-pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #4ade80;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #ffffff;
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
@@ -220,11 +260,11 @@
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: #22c55e;
-            box-shadow: 0 0 8px #22c55e;
+            background: #4ade80;
+            box-shadow: 0 0 6px #4ade80;
         }
 
-        /* Right Side: Form Card */
+        /* Sisi Kanan: Form Login */
         .auth-form-side {
             background: #ffffff;
             padding: 3.5rem 3rem;
@@ -250,7 +290,7 @@
             margin-top: 6px;
         }
 
-        /* Alerts */
+        /* Alert Notifikasi */
         .alert-box {
             padding: 0.85rem 1rem;
             border-radius: 8px;
@@ -259,7 +299,6 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 1.5rem;
-            animation: fadeIn 0.2s ease-out;
         }
 
         .alert-box.success {
@@ -309,7 +348,7 @@
             height: 46px;
             padding: 8px 14px 8px 44px;
             background: #f8fafc;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #cbd5e1;
             border-radius: 8px;
             font-size: 0.925rem;
             font-weight: 500;
@@ -320,12 +359,12 @@
 
         .custom-input:focus {
             background: #ffffff;
-            border-color: #0288d1;
-            box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.15);
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
         }
 
         .input-wrapper:focus-within .input-icon-lead {
-            color: #0288d1;
+            color: #d32f2f;
         }
 
         .btn-toggle-eye {
@@ -344,7 +383,7 @@
         }
 
         .btn-toggle-eye:hover {
-            color: #0288d1;
+            color: #d32f2f;
         }
 
         .form-actions-row {
@@ -366,7 +405,7 @@
         }
 
         .remember-checkbox input {
-            accent-color: #0288d1;
+            accent-color: #d32f2f;
             width: 15px;
             height: 15px;
             cursor: pointer;
@@ -376,10 +415,10 @@
             color: #d32f2f;
             text-decoration: none;
             font-weight: 700;
-            transition: color 0.15s, text-decoration 0.15s;
+            transition: color 0.15s;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
         }
 
         .link-forgot-pwd:hover {
@@ -387,6 +426,7 @@
             text-decoration: underline;
         }
 
+        /* Tombol Masuk ke Sistem (Angkasa Pura Red) */
         .btn-submit-login {
             width: 100%;
             height: 48px;
@@ -421,11 +461,6 @@
             color: #94a3b8;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         /* Responsive Breakpoint */
         @media (max-width: 860px) {
             .auth-container {
@@ -441,148 +476,160 @@
     </style>
 </head>
 <body>
-    <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
-
-    <div class="auth-container">
-        <!-- Left Side: Brand Showcase & Stats -->
-        <div class="auth-hero-side">
-            <div class="hero-decor-circle"></div>
-
-            <div class="hero-brand-top">
-                <div class="brand-badge-icon">
-                    <i class="fa-solid fa-plane-departure"></i>
-                </div>
-                <div>
-                    <div class="brand-text-title">ANGKASA PURA</div>
-                    <div class="brand-text-sub">Telecommunication Systems</div>
-                </div>
-            </div>
-
-            <div class="hero-middle-content">
-                <h1 class="hero-headline">
-                    PABX Billing &<br><span>Monitoring Platform</span>
-                </h1>
-                <p class="hero-desc">
-                    Sistem pemantauan telekomunikasi cerdas dan pelaporan tagihan telepon internal terintegrasi untuk seluruh unit operasional bandara.
-                </p>
-
-                <div class="hero-feature-list">
-                    <div class="hero-feature-item">
-                        <div class="feature-icon-pill">
-                            <i class="fa-solid fa-phone-volume"></i>
-                        </div>
-                        <span>Pencatatan 50.000+ Call Detail Records (CDR) otomatis</span>
-                    </div>
-
-                    <div class="hero-feature-item">
-                        <div class="feature-icon-pill">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <span>Analisis tarif multi-zona & laporan telekomunikasi real-time</span>
-                    </div>
-
-                    <div class="hero-feature-item">
-                        <div class="feature-icon-pill">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <span>Akses terlindungi dengan autentikasi berjenjang</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-footer-status">
-                <div class="server-status-pill">
-                    <span class="dot-pulse"></span>
-                    <span>Server PABX 10.3.16.12 : Online</span>
-                </div>
-                <div>Versi 3.4.2 Enterprise</div>
+    <!-- Top Header Merah Khas Angkasa Pura -->
+    <header class="top-header">
+        <div class="header-brand">
+            <a href="{{ route('home') }}" class="brand-text">ANGKASA PURA</a>
+        </div>
+        <div class="header-right">
+            <div class="live-badge">
+                <div class="pulse-dot"></div>
+                <span>Server PABX: 10.3.16.12 (Connected)</span>
             </div>
         </div>
+    </header>
 
-        <!-- Right Side: Login Form -->
-        <div class="auth-form-side">
-            <div class="form-header">
-                <h2 class="form-title">Selamat Datang</h2>
-                <p class="form-subtitle">Silakan masukkan username dan password Anda untuk masuk.</p>
+    <div class="login-main-wrapper">
+        <div class="auth-container">
+            <!-- Sisi Kiri: Angkasa Pura Red Hero Showcase -->
+            <div class="auth-hero-side">
+                <div class="hero-decor-circle"></div>
+
+                <div class="hero-brand-top">
+                    <div class="brand-badge-icon">
+                        <i class="fa-solid fa-plane-departure"></i>
+                    </div>
+                    <div>
+                        <div class="brand-text-title">ANGKASA PURA</div>
+                        <div class="brand-text-sub">Telecommunication Systems</div>
+                    </div>
+                </div>
+
+                <div class="hero-middle-content">
+                    <h1 class="hero-headline">
+                        PABX Billing &<br><span>Monitoring Platform</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Sistem pemantauan telekomunikasi cerdas dan pelaporan tagihan telepon internal terintegrasi untuk seluruh unit operasional bandara.
+                    </p>
+
+                    <div class="hero-feature-list">
+                        <div class="hero-feature-item">
+                            <div class="feature-icon-pill">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </div>
+                            <span>Pencatatan 50.000+ Call Detail Records (CDR) otomatis</span>
+                        </div>
+
+                        <div class="hero-feature-item">
+                            <div class="feature-icon-pill">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <span>Analisis tarif multi-zona & laporan telekomunikasi real-time</span>
+                        </div>
+
+                        <div class="hero-feature-item">
+                            <div class="feature-icon-pill">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <span>Akses terlindungi dengan autentikasi berjenjang</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-footer-status">
+                    <div class="server-status-pill">
+                        <span class="dot-pulse"></span>
+                        <span>Server PABX 10.3.16.12 : Online</span>
+                    </div>
+                    <div>Versi 3.4.2 Enterprise</div>
+                </div>
             </div>
 
-            @if (session('success'))
-                <div class="alert-box success">
-                    <i class="fa-solid fa-circle-check" style="font-size: 1rem;"></i>
-                    <span>{{ session('success') }}</span>
+            <!-- Sisi Kanan: Form Login -->
+            <div class="auth-form-side">
+                <div class="form-header">
+                    <h2 class="form-title">Selamat Datang</h2>
+                    <p class="form-subtitle">Silakan masukkan username dan password Anda untuk masuk.</p>
                 </div>
-            @endif
 
-            @if ($errors->any())
-                <div class="alert-box error">
-                    <i class="fa-solid fa-circle-exclamation" style="font-size: 1rem;"></i>
-                    <span>{{ $errors->first() }}</span>
-                </div>
-            @endif
-
-            <form action="{{ route('login.post') }}" method="POST">
-                @csrf
-                <!-- Username Field -->
-                <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-user input-icon-lead"></i>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            class="custom-input" 
-                            value="{{ old('username') }}" 
-                            placeholder="Masukkan username akun Anda" 
-                            required 
-                            autofocus
-                        >
+                @if (session('success'))
+                    <div class="alert-box success">
+                        <i class="fa-solid fa-circle-check" style="font-size: 1rem;"></i>
+                        <span>{{ session('success') }}</span>
                     </div>
-                </div>
+                @endif
 
-                <!-- Password Field -->
-                <div class="form-group">
-                    <label class="form-label" for="passwordInput">Password</label>
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-lock input-icon-lead"></i>
-                        <input 
-                            type="password" 
-                            id="passwordInput" 
-                            name="password" 
-                            class="custom-input" 
-                            placeholder="Masukkan kata sandi Anda" 
-                            required
-                            style="padding-right: 44px;"
-                        >
-                        <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility()" title="Lihat / Sembunyikan Password">
-                            <i class="fa-solid fa-eye" id="pwdToggleIcon"></i>
-                        </button>
+                @if ($errors->any())
+                    <div class="alert-box error">
+                        <i class="fa-solid fa-circle-exclamation" style="font-size: 1rem;"></i>
+                        <span>{{ $errors->first() }}</span>
                     </div>
+                @endif
+
+                <form action="{{ route('login.post') }}" method="POST">
+                    @csrf
+                    <!-- Username Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="username">Username</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user input-icon-lead"></i>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                class="custom-input" 
+                                value="{{ old('username') }}" 
+                                placeholder="Masukkan username akun Anda" 
+                                required 
+                                autofocus
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="passwordInput">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock input-icon-lead"></i>
+                            <input 
+                                type="password" 
+                                id="passwordInput" 
+                                name="password" 
+                                class="custom-input" 
+                                placeholder="Masukkan kata sandi Anda" 
+                                required
+                                style="padding-right: 44px;"
+                            >
+                            <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility()" title="Lihat / Sembunyikan Password">
+                                <i class="fa-solid fa-eye" id="pwdToggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Actions Row: Remember Me & Forgot Password Link -->
+                    <div class="form-actions-row">
+                        <label class="remember-checkbox">
+                            <input type="checkbox" name="remember" value="1">
+                            <span>Ingat saya di perangkat ini</span>
+                        </label>
+
+                        <a href="{{ route('password.request') }}" class="link-forgot-pwd" title="Klik untuk mengatur ulang kata sandi jika lupa">
+                            <i class="fa-solid fa-key" style="font-size: 0.75rem;"></i>
+                            <span>Lupa Password?</span>
+                        </a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit-login">
+                        <span>Masuk ke Sistem</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+
+                <div class="auth-footer-help">
+                    &copy; 2019 - 2026 PT Angkasa Pura Indonesia &bull; PABX System
                 </div>
-
-                <!-- Actions Row: Remember Me & Forgot Password Link -->
-                <div class="form-actions-row">
-                    <label class="remember-checkbox">
-                        <input type="checkbox" name="remember" value="1">
-                        <span>Ingat saya di perangkat ini</span>
-                    </label>
-
-                    <a href="{{ route('password.request') }}" class="link-forgot-pwd" title="Klik untuk mengatur ulang kata sandi jika lupa">
-                        <i class="fa-solid fa-key" style="font-size: 0.75rem;"></i>
-                        <span>Lupa Password?</span>
-                    </a>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-submit-login">
-                    <span>Masuk ke Sistem</span>
-                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                </button>
-            </form>
-
-            <div class="auth-footer-help">
-                &copy; 2019 - 2026 PT Angkasa Pura Indonesia &bull; PABX System
             </div>
         </div>
     </div>
