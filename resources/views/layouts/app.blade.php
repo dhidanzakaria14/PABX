@@ -201,20 +201,21 @@
             opacity: 0.9;
         }
 
-        /* User Dropdown Menu (matching screenshot) */
+        /* User Dropdown Menu */
         .user-dropdown-menu {
             position: absolute;
-            top: calc(100% - 10px);
-            left: 20px;
+            top: calc(100% - 6px);
+            left: 12px;
+            right: 12px;
             background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
-            min-width: 155px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
             z-index: 1100;
             display: none;
             overflow: hidden;
             animation: fadeInDropdown 0.15s ease-out;
+            padding: 4px;
         }
 
         .user-dropdown-menu.show {
@@ -236,43 +237,50 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 9px 14px;
-            font-size: 0.85rem;
+            padding: 8px 12px;
+            font-size: 0.825rem;
             color: #334155;
             text-decoration: none;
-            font-weight: 500;
-            transition: background 0.15s, color 0.15s;
+            font-weight: 600;
+            transition: all 0.15s;
             cursor: pointer;
             border: none;
             width: 100%;
             background: none;
             text-align: left;
+            border-radius: 5px;
         }
 
         .user-dropdown-item i {
-            width: 16px;
+            width: 18px;
             text-align: center;
             color: #64748b;
             font-size: 0.875rem;
+            transition: color 0.15s;
         }
 
         .user-dropdown-item:hover {
             background-color: #f1f5f9;
-            color: #0f172a;
+            color: #0288d1;
         }
 
         .user-dropdown-item:hover i {
-            color: #d32f2f;
+            color: #0288d1;
         }
 
         .user-dropdown-item.sign-out:hover {
-            color: #d32f2f;
+            background-color: #fff1f2;
+            color: #e11d48;
+        }
+
+        .user-dropdown-item.sign-out:hover i {
+            color: #e11d48;
         }
 
         .user-dropdown-divider {
             height: 1px;
             background-color: #f1f5f9;
-            margin: 2px 0;
+            margin: 4px 6px;
         }
 
         /* Navigation Menu */
