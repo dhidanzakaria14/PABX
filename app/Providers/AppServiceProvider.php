@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\TblUser;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::defaultView('vendor.pagination.custom');
+        Paginator::defaultSimpleView('vendor.pagination.custom');
+
         if (!View::shared('errors')) {
             View::share('errors', new \Illuminate\Support\ViewErrorBag);
         }

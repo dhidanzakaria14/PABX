@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 class BillingController extends Controller
 {
     // Home / Dashboard
+    // Home / Dashboard
     public function index(Request $request)
     {
         $profile = TbmProfil::first();
@@ -28,33 +29,15 @@ class BillingController extends Controller
         $settings = TbmSetting::all();
         $tarifs = TbmTarif::with('rates')->get();
 
-        $isSearched = $request->has('searched') 
-            || $request->filled('start_date') 
+        $dateMin = TbmDataMasuk::min('tglmasuk');
+        $dateMax = TbmDataMasuk::max('tglmasuk');
+
+        $isFiltered = $request->filled('start_date') 
             || $request->filled('end_date') 
             || $request->filled('ext') 
             || $request->filled('department_id') 
             || $request->filled('zone_id') 
             || $request->filled('search');
-
-        if (!$isSearched) {
-            $records = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 20);
-            $totalCalls = 0;
-            $totalCost = 0;
-            $totalDurationSec = 0;
-
-            return view('billing.index', compact(
-                'profile',
-                'departments',
-                'zones',
-                'settings',
-                'tarifs',
-                'records',
-                'totalCalls',
-                'totalCost',
-                'totalDurationSec',
-                'isSearched'
-            ));
-        }
 
         $query = TbmDataMasuk::with(['department.group', 'setting', 'zonaRel', 'prefixRel', 'tarifRel']);
 
@@ -83,12 +66,13 @@ class BillingController extends Controller
             });
         }
 
-        $records = (clone $query)->orderBy('id', 'desc')->paginate(20)->withQueryString();
+        // Fast SQL aggregates without loading 50,000 Eloquent objects into memory
+        $totalCalls = (clone $query)->count();
+        $totalCost = (clone $query)->sum('subtotal') ?: 0;
+        $totalDurationSec = (clone $query)->sum('durasi_detik') ?: 0;
 
-        $allMatching = (clone $query)->get();
-        $totalCalls = $allMatching->count();
-        $totalCost = $allMatching->sum('subtotal');
-        $totalDurationSec = $allMatching->sum('durasi_detik');
+        $records = (clone $query)->orderBy('id', 'desc')->paginate(20)->withQueryString();
+        $isSearched = true;
 
         return view('billing.index', compact(
             'profile',
@@ -100,7 +84,10 @@ class BillingController extends Controller
             'totalCalls',
             'totalCost',
             'totalDurationSec',
-            'isSearched'
+            'isSearched',
+            'isFiltered',
+            'dateMin',
+            'dateMax'
         ));
     }
 

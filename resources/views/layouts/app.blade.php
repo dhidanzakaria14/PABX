@@ -41,6 +41,20 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Prevent giant SVGs from breaking layout */
+        svg {
+            max-width: 100%;
+        }
+        svg.w-5, .w-5, svg.h-5, .h-5, nav[role="navigation"] svg {
+            width: 18px !important;
+            height: 18px !important;
+            max-width: 18px !important;
+            max-height: 18px !important;
+            display: inline-block !important;
+            vertical-align: middle;
         }
 
         /* Top Red Header Bar */
