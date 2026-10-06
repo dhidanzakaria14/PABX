@@ -39,8 +39,13 @@ class AuthController extends Controller
             // Check bcrypt
             if (Hash::check($credentials['password'], $user->password)) {
                 $passwordValid = true;
+            } elseif (md5(sha1($credentials['password'])) === $user->password) {
+                // Upgrade legacy MD5(SHA1()) to modern bcrypt automatically
+                $user->password = Hash::make($credentials['password']);
+                $user->save();
+                $passwordValid = true;
             } elseif (md5($credentials['password']) === $user->password) {
-                // Upgrade MD5 to bcrypt automatically
+                // Upgrade standard MD5 to bcrypt automatically
                 $user->password = Hash::make($credentials['password']);
                 $user->save();
                 $passwordValid = true;
