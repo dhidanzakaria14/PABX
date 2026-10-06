@@ -666,32 +666,38 @@
                     </li>
 
                     <!-- Setting -->
+                    @php $isSettingActive = request()->is('settings*'); @endphp
                     <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link" onclick="toggleNavCollapse(this, 'sub-setting')">
+                        <a href="javascript:void(0);" class="nav-link {{ $isSettingActive ? 'active-root' : '' }}" onclick="toggleNavCollapse(this, 'sub-setting')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-table-cells-large"></i>
                                 <span>Setting</span>
                             </div>
-                            <i class="fa-solid fa-plus nav-toggle-icon" style="font-size: 0.75rem; color: #94a3b8; transition: all 0.2s;"></i>
+                            <i class="fa-solid {{ $isSettingActive ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isSettingActive ? '#d32f2f' : '#94a3b8' }}; transition: all 0.2s;"></i>
                         </a>
-                        <ul id="sub-setting" class="sub-menu" style="display: none;">
-                            <li><a href="{{ route('home') }}" class="sub-nav-link">PABX Machines</a></li>
-                            <li><a href="{{ route('home') }}" class="sub-nav-link">Extension Master</a></li>
-                            <li><a href="{{ route('home') }}" class="sub-nav-link">Tariff & Rate Code</a></li>
-                            <li><a href="{{ route('home') }}" class="sub-nav-link">Area & Zone Prefix</a></li>
+                        <ul id="sub-setting" class="sub-menu" style="display: {{ $isSettingActive ? 'block' : 'none' }};">
+                            <li><a href="{{ route('settings.admin') }}" class="sub-nav-link {{ request()->routeIs('settings.admin') ? 'active' : '' }}">Admin Setting</a></li>
+                            <li><a href="{{ route('settings.business-phone') }}" class="sub-nav-link {{ request()->routeIs('settings.business-phone') ? 'active' : '' }}">Business Phone</a></li>
+                            <li><a href="{{ route('settings.department-group') }}" class="sub-nav-link {{ request()->routeIs('settings.department-group') ? 'active' : '' }}">Department Group</a></li>
+                            <li><a href="{{ route('settings.phone-code') }}" class="sub-nav-link {{ request()->routeIs('settings.phone-code') ? 'active' : '' }}">Master Phone Code</a></li>
+                            <li><a href="{{ route('settings.rate') }}" class="sub-nav-link {{ request()->routeIs('settings.rate') ? 'active' : '' }}">Master Rate</a></li>
+                            <li><a href="{{ route('settings.special-rate') }}" class="sub-nav-link {{ request()->routeIs('settings.special-rate') ? 'active' : '' }}">Master Special Rate</a></li>
+                            <li><a href="{{ route('settings.user') }}" class="sub-nav-link {{ request()->routeIs('settings.user') ? 'active' : '' }}">Master User</a></li>
+                            <li><a href="{{ route('settings.prefix') }}" class="sub-nav-link {{ request()->routeIs('settings.prefix') ? 'active' : '' }}">Prefix Code</a></li>
                         </ul>
                     </li>
 
-                    <!-- Report (Default Expanded) -->
+                    <!-- Report -->
+                    @php $isReportOpen = request()->is('reports*') || (!request()->is('settings*') && !request()->is('profile*')); @endphp
                     <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link {{ request()->is('reports*') ? 'active-root' : '' }}" onclick="toggleNavCollapse(this, 'sub-reports')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-table-cells"></i>
                                 <span>Report</span>
                             </div>
-                            <i class="fa-solid fa-minus nav-toggle-icon" style="font-size: 0.75rem; color: #d32f2f; transition: all 0.2s;"></i>
+                            <i class="fa-solid {{ $isReportOpen ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isReportOpen ? '#d32f2f' : '#94a3b8' }}; transition: all 0.2s;"></i>
                         </a>
-                        <ul id="sub-reports" class="sub-menu" style="display: block;">
+                        <ul id="sub-reports" class="sub-menu" style="display: {{ $isReportOpen ? 'block' : 'none' }};">
                             <li>
                                 <a href="{{ route('reports.division-summary') }}" class="sub-nav-link {{ request()->routeIs('reports.division-summary') ? 'active' : '' }}">
                                     Division Summary
@@ -783,8 +789,8 @@
             </nav>
 
             <div class="sidebar-footer">
-                <div>&copy; 2019 - 2026 <strong>PABX Billing</strong></div>
-                <div>Angkasa Pura PABX System</div>
+                <div>&copy; 2019 - 2026 <strong style="color: #d32f2f;">PABX Billing</strong></div>
+                <div>Develop By: SSW</div>
             </div>
         </aside>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication (Login / Logout / Forgot Password)
@@ -38,3 +39,28 @@ Route::prefix('reports')->name('reports.')->group(function () {
 Route::get('/schema', [BillingController::class, 'schema'])->name('billing.schema');
 Route::post('/billing/simulate', [BillingController::class, 'simulate'])->name('billing.simulate');
 Route::post('/billing/store', [BillingController::class, 'storeCall'])->name('billing.store');
+
+// Settings (Matching Angkasa Pura PABX System)
+Route::prefix('settings')->name('settings.')->group(function () {
+    Route::get('/admin', [SettingController::class, 'admin'])->name('admin');
+    Route::post('/admin', [SettingController::class, 'storeAdmin'])->name('admin.store');
+    Route::put('/admin/{id}', [SettingController::class, 'updateAdmin'])->name('admin.update');
+    Route::delete('/admin/{id}', [SettingController::class, 'destroyAdmin'])->name('admin.destroy');
+
+    Route::get('/business-phone', [SettingController::class, 'businessPhone'])->name('business-phone');
+    Route::post('/business-phone', [SettingController::class, 'storeBusinessPhone'])->name('business-phone.store');
+    Route::put('/business-phone/{id}', [SettingController::class, 'updateBusinessPhone'])->name('business-phone.update');
+    Route::delete('/business-phone/{id}', [SettingController::class, 'destroyBusinessPhone'])->name('business-phone.destroy');
+
+    Route::get('/department-group', [SettingController::class, 'departmentGroup'])->name('department-group');
+    Route::post('/department-group', [SettingController::class, 'storeDepartmentGroup'])->name('department-group.store');
+    Route::put('/department-group/{id}', [SettingController::class, 'updateDepartmentGroup'])->name('department-group.update');
+    Route::delete('/department-group/{id}', [SettingController::class, 'destroyDepartmentGroup'])->name('department-group.destroy');
+
+    Route::get('/phone-code', [SettingController::class, 'phoneCode'])->name('phone-code');
+    Route::get('/rate', [SettingController::class, 'masterRate'])->name('rate');
+    Route::get('/special-rate', [SettingController::class, 'masterSpecialRate'])->name('special-rate');
+    Route::get('/user', [SettingController::class, 'masterUser'])->name('user');
+    Route::get('/prefix', [SettingController::class, 'prefixCode'])->name('prefix');
+});
+
