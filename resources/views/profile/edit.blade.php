@@ -4,21 +4,23 @@
 
 @section('styles')
 <style>
+    /* Full expansive modern layout (Lebar & Gagah untuk monitor Widescreen) */
     .profile-container {
-        max-width: 920px;
+        width: 100%;
+        max-width: 1280px;
         margin: 0 auto;
     }
 
     .profile-card {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
         overflow: hidden;
     }
 
     .profile-card-header {
-        padding: 1.15rem 1.75rem;
+        padding: 1.35rem 2.25rem;
         background: #ffffff;
         border-bottom: 1px solid #e2e8f0;
         display: flex;
@@ -27,42 +29,42 @@
     }
 
     .header-icon-box {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
         background: #e0f2fe;
         color: #0288d1;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.15rem;
+        font-size: 1.35rem;
     }
 
     .header-title {
-        font-size: 1.05rem;
-        font-weight: 700;
+        font-size: 1.25rem;
+        font-weight: 800;
         color: #0f172a;
         letter-spacing: -0.01em;
     }
 
     .header-subtitle {
-        font-size: 0.775rem;
+        font-size: 0.85rem;
         color: #64748b;
-        margin-top: 1px;
+        margin-top: 2px;
     }
 
     .btn-outline-back {
         text-decoration: none;
-        padding: 7px 14px;
+        padding: 9px 18px;
         background: #f8fafc;
         border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
         color: #475569;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         transition: all 0.15s ease;
     }
 
@@ -72,13 +74,13 @@
     }
 
     .profile-card-body {
-        padding: 2rem 2.25rem;
+        padding: 2.5rem 2.75rem;
     }
 
     .profile-layout-grid {
         display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 2.75rem;
+        grid-template-columns: 280px 1fr;
+        gap: 3.25rem;
         align-items: start;
     }
 
@@ -90,17 +92,17 @@
         text-align: center;
         background: #f8fafc;
         border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 1.5rem 1rem;
+        border-radius: 12px;
+        padding: 2.25rem 1.5rem;
     }
 
     .avatar-circle-wrapper {
         position: relative;
-        width: 130px;
-        height: 130px;
+        width: 160px;
+        height: 160px;
         border-radius: 50%;
-        border: 4px solid #ffffff;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+        border: 5px solid #ffffff;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
         overflow: hidden;
         background: #ffffff;
         display: flex;
@@ -116,24 +118,24 @@
     }
 
     .avatar-circle-wrapper .placeholder-icon {
-        font-size: 3.5rem;
+        font-size: 4.5rem;
         color: #94a3b8;
     }
 
     .avatar-hover-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(15, 23, 42, 0.6);
+        background: rgba(15, 23, 42, 0.65);
         color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 4px;
+        gap: 6px;
         opacity: 0;
         transition: opacity 0.2s ease;
-        font-size: 0.75rem;
-        font-weight: 600;
+        font-size: 0.825rem;
+        font-weight: 700;
     }
 
     .avatar-circle-wrapper:hover .avatar-hover-overlay {
@@ -141,21 +143,22 @@
     }
 
     .btn-pick-photo {
-        margin-top: 1rem;
+        margin-top: 1.25rem;
         width: 100%;
-        padding: 8px 12px;
+        height: 40px;
         background: #0288d1;
         color: white;
         border: none;
-        border-radius: 6px;
-        font-size: 0.775rem;
-        font-weight: 600;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 8px;
         cursor: pointer;
         transition: background 0.15s ease;
+        box-shadow: 0 2px 6px rgba(2, 136, 209, 0.25);
     }
 
     .btn-pick-photo:hover {
@@ -163,16 +166,16 @@
     }
 
     .btn-remove-photo {
-        margin-top: 6px;
+        margin-top: 8px;
         background: none;
         border: none;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         color: #ef4444;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
         padding: 4px;
         transition: color 0.15s;
     }
@@ -183,15 +186,15 @@
     }
 
     .avatar-guidelines {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         color: #94a3b8;
-        margin-top: 6px;
-        line-height: 1.3;
+        margin-top: 8px;
+        line-height: 1.4;
     }
 
     .role-badge-box {
-        margin-top: 1rem;
-        padding-top: 0.75rem;
+        margin-top: 1.25rem;
+        padding-top: 1rem;
         border-top: 1px dashed #cbd5e1;
         width: 100%;
     }
@@ -199,29 +202,29 @@
     .badge-role {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.7rem;
-        font-weight: 700;
+        gap: 8px;
+        font-size: 0.8rem;
+        font-weight: 800;
         background: #eff6ff;
         color: #1d4ed8;
-        padding: 4px 10px;
+        padding: 6px 16px;
         border-radius: 20px;
         border: 1px solid #bfdbfe;
         text-transform: uppercase;
-        letter-spacing: 0.03em;
+        letter-spacing: 0.04em;
     }
 
     /* Form Fields Section */
     .form-section-title {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #475569;
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #334155;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 0.85rem;
+        margin-bottom: 1.25rem;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
 
     .form-section-title::after {
@@ -234,23 +237,25 @@
     .fields-grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1.25rem 1.5rem;
-        margin-bottom: 1.75rem;
+        gap: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
     }
 
     .field-group {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 6px;
     }
 
     .field-label {
-        font-size: 0.775rem;
+        font-size: 0.8rem;
         font-weight: 700;
         color: #334155;
         display: flex;
         align-items: center;
         gap: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
     }
 
     .input-with-icon {
@@ -261,21 +266,21 @@
 
     .input-icon-lead {
         position: absolute;
-        left: 12px;
+        left: 14px;
         color: #94a3b8;
-        font-size: 0.9rem;
+        font-size: 1rem;
         pointer-events: none;
         transition: color 0.15s ease;
     }
 
     .form-control-modern {
         width: 100%;
-        height: 40px;
-        padding: 8px 12px 8px 38px;
+        height: 46px;
+        padding: 8px 14px 8px 44px;
         background: #f8fafc;
-        border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        font-size: 0.875rem;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 0.925rem;
         font-weight: 500;
         color: #0f172a;
         outline: none;
@@ -302,11 +307,11 @@
 
     .btn-toggle-eye {
         position: absolute;
-        right: 10px;
+        right: 12px;
         background: transparent;
         border: none;
         color: #94a3b8;
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         cursor: pointer;
         padding: 4px;
         display: flex;
@@ -320,37 +325,37 @@
     }
 
     .field-hint {
-        font-size: 0.725rem;
+        font-size: 0.775rem;
         color: #64748b;
         display: flex;
         align-items: center;
-        gap: 4px;
-        margin-top: 3px;
+        gap: 6px;
+        margin-top: 4px;
     }
 
     /* Form Footer Actions */
     .form-footer-actions {
-        margin-top: 2rem;
-        padding-top: 1.25rem;
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
         border-top: 1px solid #e2e8f0;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        gap: 0.85rem;
+        gap: 1rem;
     }
 
     .btn-action-cancel {
         text-decoration: none;
-        padding: 8px 20px;
+        padding: 10px 24px;
         background: #f1f5f9;
         border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        font-size: 0.825rem;
-        font-weight: 600;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 700;
         color: #475569;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         transition: all 0.15s ease;
     }
 
@@ -360,25 +365,36 @@
     }
 
     .btn-action-save {
-        padding: 8px 24px;
+        padding: 10px 30px;
         background: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
         border: none;
-        border-radius: 6px;
-        font-size: 0.825rem;
-        font-weight: 600;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 700;
         color: #ffffff;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         cursor: pointer;
-        box-shadow: 0 2px 6px rgba(2, 136, 209, 0.35);
+        box-shadow: 0 3px 10px rgba(2, 136, 209, 0.35);
         transition: all 0.15s ease;
     }
 
     .btn-action-save:hover {
         background: linear-gradient(135deg, #0277bd 0%, #01579b 100%);
-        box-shadow: 0 4px 10px rgba(2, 136, 209, 0.45);
+        box-shadow: 0 6px 16px rgba(2, 136, 209, 0.45);
         transform: translateY(-1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .profile-layout-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .fields-grid-2 {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 @endsection
@@ -388,7 +404,7 @@
     <div class="profile-card">
         <!-- Card Header -->
         <div class="profile-card-header">
-            <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
                 <div class="header-icon-box">
                     <i class="fa-solid fa-user-pen"></i>
                 </div>
@@ -403,12 +419,12 @@
         </div>
 
         @if (isset($errors) && $errors->any())
-            <div style="margin: 1.25rem 2.25rem 0; padding: 0.85rem 1.25rem; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; border-radius: 6px; font-size: 0.825rem;">
-                <div style="font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <span>Terdapat kesalahan saat validasi form:</span>
+            <div style="margin: 1.5rem 2.75rem 0; padding: 1rem 1.5rem; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; border-radius: 8px; font-size: 0.85rem;">
+                <div style="font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                    <i class="fa-solid fa-circle-exclamation" style="font-size: 1.1rem;"></i>
+                    <span>Terdapat kesalahan saat validasi formulir:</span>
                 </div>
-                <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.5;">
+                <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.6;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -433,7 +449,7 @@
                             <i class="fa-solid fa-user placeholder-icon" id="avatarPlaceholder"></i>
                         @endif
                         <div class="avatar-hover-overlay">
-                            <i class="fa-solid fa-camera" style="font-size: 1.25rem;"></i>
+                            <i class="fa-solid fa-camera" style="font-size: 1.5rem;"></i>
                             <span>Ganti Foto</span>
                         </div>
                     </div>
@@ -447,7 +463,7 @@
                     </button>
 
                     <div class="avatar-guidelines">
-                        Format JPG atau PNG<br>Ukuran maksimal 2 MB
+                        Format JPG atau PNG<br>Ukuran berkas maksimal 2 MB
                     </div>
 
                     <div class="role-badge-box">
@@ -512,7 +528,7 @@
                                 <i class="fa-solid fa-lock input-icon-lead"></i>
                             </div>
                             <div class="field-hint">
-                                <i class="fa-solid fa-shield" style="font-size: 0.7rem;"></i> Role diatur melalui menu Pengaturan Pengguna
+                                <i class="fa-solid fa-shield" style="font-size: 0.75rem;"></i> Role akun diatur melalui Master Pengguna
                             </div>
                         </div>
                     </div>
@@ -523,20 +539,20 @@
                         <span>Keamanan Akun (Ganti Password)</span>
                     </div>
 
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 1.15rem 1.25rem;">
+                    <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 1.35rem 1.5rem;">
                         <div class="field-group">
                             <label class="field-label" for="passwordInput">
                                 <span>KATA SANDI BARU</span>
                             </label>
                             <div class="input-with-icon">
-                                <input type="password" id="passwordInput" name="password" class="form-control-modern" placeholder="Ketik kata sandi baru untuk mengganti..." style="background: #ffffff; padding-right: 40px;">
+                                <input type="password" id="passwordInput" name="password" class="form-control-modern" placeholder="Ketik kata sandi baru untuk mengganti..." style="background: #ffffff; padding-right: 44px;">
                                 <i class="fa-solid fa-lock input-icon-lead"></i>
                                 <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility()" title="Lihat / Sembunyikan Password">
                                     <i class="fa-solid fa-eye" id="pwdToggleIcon"></i>
                                 </button>
                             </div>
-                            <div class="field-hint">
-                                <i class="fa-solid fa-circle-info" style="color: #0288d1;"></i>
+                            <div class="field-hint" style="margin-top: 6px;">
+                                <i class="fa-solid fa-circle-info" style="color: #0288d1; font-size: 0.85rem;"></i>
                                 <span>Kosongkan bidang ini jika Anda <strong>tidak ingin</strong> mengubah kata sandi saat ini.</span>
                             </div>
                         </div>

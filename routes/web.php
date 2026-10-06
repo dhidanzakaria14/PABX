@@ -5,9 +5,11 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Authentication (Login / Logout)
+// Authentication (Login / Logout / Forgot Password)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'resetPassword'])->name('password.update');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/action_log.php', [AuthController::class, 'logout']); // Legacy logout URL compatibility
 

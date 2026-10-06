@@ -98,4 +98,60 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with('success', 'Anda telah berhasil keluar (Sign Out).');
     }
+
+    /**
+     * Show Forgot Password view.
+     */
+    public function showForgotPassword()
+    {
+        if (Auth::check() || session('user_id')) {
+            return redirect()->route('home');
+        }
+
+        return view('auth.forgot_password');
+    }
+
+    /**
+     * Handle Forgot Password / Reset Password request.
+     */
+    public function resetPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'username' => 'required|string',
+            'telp' => 'nullable|string',
+            'password' => 'required|string|min:4|confirmed',
+        ], [
+            'username.required' => 'Username wajib diisi.',
+            'password.required' => 'Kata sandi baru wajib diisi.',
+            'password.min' => 'Kata sandi baru minimal 4 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+        ]);
+
+        $user = TblUser::where('username', $request->username)->first();
+
+        if (!$user) {
+            return back()->withErrors([
+                'username' => 'Akun dengan username tersebut tidak ditemukan dalam sistem.',
+            ])->withInput($request->only('username', 'telp'));
+        }
+
+        // If user has a registered phone number, verify it
+        if (!empty(trim($user->telp))) {
+            $cleanedInputPhone = preg_replace('/[^0-9]/', '', (string)$request->telp);
+            $cleanedUserPhone = preg_replace('/[^0-9]/', '', (string)$user->telp);
+
+            if (empty($cleanedInputPhone) || (!str_contains($cleanedUserPhone, $cleanedInputPhone) && !str_contains($cleanedInputPhone, $cleanedUserPhone))) {
+                return back()->withErrors([
+                    'telp' => 'Nomor telepon/ext tidak sesuai dengan data terdaftar untuk akun ini.',
+                ])->withInput($request->only('username', 'telp'));
+            }
+        }
+
+        // Update password with secure bcrypt
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Kata sandi akun ' . $user->username . ' berhasil diperbarui! Silakan masuk dengan kata sandi baru Anda.');
+    }
 }
+

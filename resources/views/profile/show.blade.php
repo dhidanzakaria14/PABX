@@ -4,21 +4,23 @@
 
 @section('styles')
 <style>
+    /* Full expansive modern layout (Lebar & Gagah untuk monitor Widescreen) */
     .profile-container {
-        max-width: 920px;
+        width: 100%;
+        max-width: 1280px;
         margin: 0 auto;
     }
 
     .profile-card {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
         overflow: hidden;
     }
 
     .profile-card-header {
-        padding: 1.15rem 1.75rem;
+        padding: 1.35rem 2.25rem;
         background: #ffffff;
         border-bottom: 1px solid #e2e8f0;
         display: flex;
@@ -27,66 +29,66 @@
     }
 
     .header-icon-box {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
         background: #e0f2fe;
         color: #0288d1;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.15rem;
+        font-size: 1.35rem;
     }
 
     .header-title {
-        font-size: 1.05rem;
-        font-weight: 700;
+        font-size: 1.25rem;
+        font-weight: 800;
         color: #0f172a;
         letter-spacing: -0.01em;
     }
 
     .header-subtitle {
-        font-size: 0.775rem;
+        font-size: 0.85rem;
         color: #64748b;
-        margin-top: 1px;
+        margin-top: 2px;
     }
 
     /* Single primary Edit Profile action button */
     .btn-edit-action {
         text-decoration: none;
-        padding: 8px 18px;
+        padding: 10px 24px;
         background: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
         border: none;
-        border-radius: 6px;
-        font-size: 0.825rem;
-        font-weight: 600;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 700;
         color: #ffffff;
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        box-shadow: 0 2px 6px rgba(2, 136, 209, 0.35);
-        transition: all 0.15s ease;
+        box-shadow: 0 3px 10px rgba(2, 136, 209, 0.35);
+        transition: all 0.2s ease;
     }
 
     .btn-edit-action:hover {
         background: linear-gradient(135deg, #0277bd 0%, #01579b 100%);
-        box-shadow: 0 4px 10px rgba(2, 136, 209, 0.45);
+        box-shadow: 0 6px 16px rgba(2, 136, 209, 0.45);
         transform: translateY(-1px);
         color: #ffffff;
     }
 
     .profile-card-body {
-        padding: 2rem 2.25rem;
+        padding: 2.5rem 2.75rem;
     }
 
     .profile-layout-grid {
         display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 2.75rem;
+        grid-template-columns: 280px 1fr;
+        gap: 3.25rem;
         align-items: start;
     }
 
-    /* Avatar Side Box */
+    /* Avatar Side Box (Lebih Besar & Representatif) */
     .avatar-studio {
         display: flex;
         flex-direction: column;
@@ -94,16 +96,16 @@
         text-align: center;
         background: #f8fafc;
         border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 1.75rem 1rem;
+        border-radius: 12px;
+        padding: 2.25rem 1.5rem;
     }
 
     .avatar-circle-wrapper {
-        width: 130px;
-        height: 130px;
+        width: 160px;
+        height: 160px;
         border-radius: 50%;
-        border: 4px solid #ffffff;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+        border: 5px solid #ffffff;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
         overflow: hidden;
         background: #ffffff;
         display: flex;
@@ -118,27 +120,28 @@
     }
 
     .avatar-circle-wrapper .placeholder-icon {
-        font-size: 3.5rem;
+        font-size: 4.5rem;
         color: #94a3b8;
     }
 
     .user-fullname {
-        margin-top: 1rem;
-        font-weight: 700;
-        font-size: 1rem;
+        margin-top: 1.25rem;
+        font-weight: 800;
+        font-size: 1.25rem;
         color: #0f172a;
     }
 
     .user-tag {
-        font-size: 0.8rem;
+        font-size: 0.875rem;
         color: #64748b;
-        margin-top: 2px;
+        margin-top: 3px;
         font-family: monospace;
+        font-weight: 600;
     }
 
     .role-badge-box {
-        margin-top: 1rem;
-        padding-top: 0.75rem;
+        margin-top: 1.25rem;
+        padding-top: 1rem;
         border-top: 1px dashed #cbd5e1;
         width: 100%;
     }
@@ -146,29 +149,29 @@
     .badge-role {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.725rem;
-        font-weight: 700;
+        gap: 8px;
+        font-size: 0.8rem;
+        font-weight: 800;
         background: #eff6ff;
         color: #1d4ed8;
-        padding: 4px 12px;
+        padding: 6px 16px;
         border-radius: 20px;
         border: 1px solid #bfdbfe;
         text-transform: uppercase;
-        letter-spacing: 0.03em;
+        letter-spacing: 0.04em;
     }
 
-    /* Details Grid */
+    /* Details Section */
     .form-section-title {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #475569;
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #334155;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
 
     .form-section-title::after {
@@ -187,30 +190,51 @@
     .detail-item {
         background: #f8fafc;
         border: 1px solid #e2e8f0;
-        border-radius: 6px;
-        padding: 0.85rem 1rem;
-        transition: border-color 0.15s ease;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.15rem;
+        transition: all 0.2s ease;
     }
 
     .detail-item:hover {
         border-color: #cbd5e1;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+        transform: translateY(-1px);
+    }
+
+    .detail-icon-circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: #e0f2fe;
+        color: #0288d1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .detail-info {
+        flex: 1;
+        overflow: hidden;
     }
 
     .detail-label {
-        font-size: 0.725rem;
+        font-size: 0.775rem;
         font-weight: 700;
         color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.03em;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-bottom: 4px;
+        letter-spacing: 0.04em;
+        margin-bottom: 3px;
     }
 
     .detail-value {
-        font-size: 0.95rem;
-        font-weight: 600;
+        font-size: 1.1rem;
+        font-weight: 700;
         color: #0f172a;
         word-break: break-all;
     }
@@ -218,24 +242,24 @@
     .status-badge {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.85rem;
+        gap: 8px;
+        font-size: 0.95rem;
         font-weight: 700;
         color: #166534;
     }
 
     .status-dot {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         background: #22c55e;
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
     }
 
     /* Footer Navigation */
     .profile-footer {
-        margin-top: 2rem;
-        padding-top: 1.25rem;
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
         border-top: 1px solid #e2e8f0;
         display: flex;
         align-items: center;
@@ -244,22 +268,33 @@
 
     .btn-dashboard {
         text-decoration: none;
-        padding: 8px 18px;
+        padding: 10px 22px;
         background: #f1f5f9;
         border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        font-size: 0.825rem;
-        font-weight: 600;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 700;
         color: #475569;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         transition: all 0.15s ease;
     }
 
     .btn-dashboard:hover {
         background: #e2e8f0;
         color: #0f172a;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .profile-layout-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 @endsection
@@ -269,13 +304,13 @@
     <div class="profile-card">
         <!-- Card Header with Single Primary Edit Profile Button -->
         <div class="profile-card-header">
-            <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
                 <div class="header-icon-box">
                     <i class="fa-solid fa-id-card"></i>
                 </div>
                 <div>
                     <div class="header-title">Profil Akun Pengguna</div>
-                    <div class="header-subtitle">Informasi identitas akun dan status hak akses sistem PABX</div>
+                    <div class="header-subtitle">Informasi identitas akun dan hak akses sistem PABX Angkasa Pura</div>
                 </div>
             </div>
             <!-- Satu-satunya tombol Edit Profile -->
@@ -285,9 +320,9 @@
         </div>
 
         @if(session('success'))
-            <div style="margin: 1.25rem 2.25rem 0; padding: 0.85rem 1.25rem; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; border-radius: 6px; font-size: 0.825rem; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-circle-check" style="color: #22c55e;"></i>
-                <span>{{ session('success') }}</span>
+            <div style="margin: 1.5rem 2.75rem 0; padding: 1rem 1.5rem; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; border-radius: 8px; font-size: 0.875rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-circle-check" style="color: #22c55e; font-size: 1.15rem;"></i>
+                <span style="font-weight: 600;">{{ session('success') }}</span>
             </div>
         @endif
 
@@ -324,76 +359,86 @@
                     </div>
 
                     <div class="details-grid">
+                        <!-- Complete Name -->
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fa-solid fa-user" style="color: #0288d1;"></i>
-                                <span>Complete Name</span>
+                            <div class="detail-icon-circle">
+                                <i class="fa-solid fa-user"></i>
                             </div>
-                            <div class="detail-value">
-                                {{ $user->nama ?: '-' }}
+                            <div class="detail-info">
+                                <div class="detail-label">Complete Name</div>
+                                <div class="detail-value">{{ $user->nama ?: '-' }}</div>
                             </div>
                         </div>
 
+                        <!-- Phone / Ext -->
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fa-solid fa-phone" style="color: #0288d1;"></i>
-                                <span>Phone No / Ext</span>
+                            <div class="detail-icon-circle">
+                                <i class="fa-solid fa-phone"></i>
                             </div>
-                            <div class="detail-value">
-                                {{ $user->telp ?: '-' }}
+                            <div class="detail-info">
+                                <div class="detail-label">Phone No / Extension</div>
+                                <div class="detail-value">{{ $user->telp ?: '-' }}</div>
                             </div>
                         </div>
 
+                        <!-- Username -->
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fa-solid fa-at" style="color: #0288d1;"></i>
-                                <span>Username</span>
+                            <div class="detail-icon-circle">
+                                <i class="fa-solid fa-at"></i>
                             </div>
-                            <div class="detail-value">
-                                {{ $user->username }}
+                            <div class="detail-info">
+                                <div class="detail-label">Username Akun</div>
+                                <div class="detail-value">{{ $user->username }}</div>
                             </div>
                         </div>
 
+                        <!-- Password -->
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fa-solid fa-lock" style="color: #0288d1;"></i>
-                                <span>Password</span>
+                            <div class="detail-icon-circle">
+                                <i class="fa-solid fa-lock"></i>
                             </div>
-                            <div class="detail-value" style="font-family: monospace; letter-spacing: 2px; color: #64748b;">
-                                &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;
+                            <div class="detail-info">
+                                <div class="detail-label">Kata Sandi</div>
+                                <div class="detail-value" style="font-family: monospace; letter-spacing: 3px; color: #64748b; font-size: 1.25rem;">
+                                    &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;
+                                </div>
                             </div>
                         </div>
 
+                        <!-- User Level / Role -->
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fa-solid fa-user-shield" style="color: #0288d1;"></i>
-                                <span>User Level / Role</span>
+                            <div class="detail-icon-circle">
+                                <i class="fa-solid fa-user-shield"></i>
                             </div>
-                            <div class="detail-value">
-                                {{ $user->leveluser ?: 'Administrator' }}
+                            <div class="detail-info">
+                                <div class="detail-label">User Level / Role</div>
+                                <div class="detail-value">{{ $user->leveluser ?: 'Administrator' }}</div>
                             </div>
                         </div>
 
+                        <!-- Account Status -->
                         <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="fa-solid fa-circle-check" style="color: #0288d1;"></i>
-                                <span>Account Status</span>
+                            <div class="detail-icon-circle" style="background: #f0fdf4; color: #166534;">
+                                <i class="fa-solid fa-circle-check"></i>
                             </div>
-                            <div class="detail-value">
-                                <div class="status-badge">
-                                    <span class="status-dot"></span>
-                                    <span>Aktif & Terdaftar</span>
+                            <div class="detail-info">
+                                <div class="detail-label">Status Akun</div>
+                                <div class="detail-value">
+                                    <div class="status-badge">
+                                        <span class="status-dot"></span>
+                                        <span>Aktif & Terdaftar</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Footer Action: Only 1 navigation link to Dashboard, NO duplicate edit button -->
+                    <!-- Footer Action: Back to Dashboard without duplicate edit button -->
                     <div class="profile-footer">
                         <a href="{{ route('home') }}" class="btn-dashboard">
                             <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
                         </a>
-                        <div style="font-size: 0.75rem; color: #94a3b8;">
+                        <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 500;">
                             Terdaftar di Database PABX Billing System
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ANGKASA PURA PABX BILLING</title>
+    <title>Lupa Password - ANGKASA PURA PABX BILLING</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,9 +15,6 @@
         :root {
             --ap-red: #d32f2f;
             --ap-red-dark: #b71c1c;
-            --navy-dark: #0a1128;
-            --navy-card: #101f42;
-            --navy-light: #1c2e59;
             --primary-blue: #0288d1;
             --primary-hover: #0277bd;
             --text-main: #0f172a;
@@ -113,13 +110,13 @@
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            background: linear-gradient(135deg, #0288d1, #0277bd);
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            box-shadow: 0 8px 18px rgba(211, 47, 47, 0.4);
+            box-shadow: 0 8px 18px rgba(2, 136, 209, 0.4);
         }
 
         .brand-text-title {
@@ -140,11 +137,11 @@
         }
 
         .hero-middle-content {
-            margin: 2.5rem 0;
+            margin: 2rem 0;
         }
 
         .hero-headline {
-            font-size: 1.85rem;
+            font-size: 1.75rem;
             font-weight: 800;
             line-height: 1.3;
             color: #ffffff;
@@ -158,39 +155,44 @@
         }
 
         .hero-desc {
-            font-size: 0.925rem;
+            font-size: 0.9rem;
             color: #cbd5e1;
             margin-top: 0.75rem;
             line-height: 1.6;
             max-width: 460px;
         }
 
-        .hero-feature-list {
+        .security-badge-box {
             margin-top: 1.75rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 1.25rem;
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
+            gap: 10px;
         }
 
-        .hero-feature-item {
+        .security-step-item {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.85rem;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.825rem;
             color: #e2e8f0;
+            line-height: 1.4;
         }
 
-        .feature-icon-pill {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #0288d1;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #38bdf8;
-            font-size: 0.85rem;
             flex-shrink: 0;
         }
 
@@ -227,27 +229,28 @@
         /* Right Side: Form Card */
         .auth-form-side {
             background: #ffffff;
-            padding: 3.5rem 3rem;
+            padding: 2.75rem 2.75rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            overflow-y: auto;
         }
 
         .form-header {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #0f172a;
             letter-spacing: -0.02em;
         }
 
         .form-subtitle {
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             color: #64748b;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         /* Alerts */
@@ -256,16 +259,9 @@
             border-radius: 8px;
             font-size: 0.825rem;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
-            margin-bottom: 1.5rem;
-            animation: fadeIn 0.2s ease-out;
-        }
-
-        .alert-box.success {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #166534;
+            margin-bottom: 1.25rem;
         }
 
         .alert-box.error {
@@ -276,17 +272,17 @@
 
         /* Inputs */
         .form-group {
-            margin-bottom: 1.35rem;
+            margin-bottom: 1.15rem;
         }
 
         .form-label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.775rem;
             font-weight: 700;
             color: #334155;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .input-wrapper {
@@ -299,19 +295,19 @@
             position: absolute;
             left: 14px;
             color: #94a3b8;
-            font-size: 1rem;
+            font-size: 0.95rem;
             pointer-events: none;
             transition: color 0.15s ease;
         }
 
         .custom-input {
             width: 100%;
-            height: 46px;
-            padding: 8px 14px 8px 44px;
+            height: 44px;
+            padding: 8px 14px 8px 42px;
             background: #f8fafc;
             border: 1.5px solid #e2e8f0;
             border-radius: 8px;
-            font-size: 0.925rem;
+            font-size: 0.875rem;
             font-weight: 500;
             color: #0f172a;
             outline: none;
@@ -334,7 +330,7 @@
             background: none;
             border: none;
             color: #94a3b8;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             padding: 4px;
             display: flex;
@@ -347,54 +343,14 @@
             color: #0288d1;
         }
 
-        .form-actions-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 0.25rem;
-            margin-bottom: 1.75rem;
-            font-size: 0.825rem;
-        }
-
-        .remember-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: #475569;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .remember-checkbox input {
-            accent-color: #0288d1;
-            width: 15px;
-            height: 15px;
-            cursor: pointer;
-        }
-
-        .link-forgot-pwd {
-            color: #d32f2f;
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.15s, text-decoration 0.15s;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .link-forgot-pwd:hover {
-            color: #b71c1c;
-            text-decoration: underline;
-        }
-
-        .btn-submit-login {
+        .btn-submit-reset {
             width: 100%;
-            height: 48px;
-            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            height: 46px;
+            background: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
             color: #ffffff;
             border: none;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.925rem;
             font-weight: 700;
             letter-spacing: 0.02em;
             cursor: pointer;
@@ -402,28 +358,45 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 14px rgba(211, 47, 47, 0.35);
+            box-shadow: 0 4px 14px rgba(2, 136, 209, 0.35);
             transition: all 0.2s ease;
+            margin-top: 1.25rem;
         }
 
-        .btn-submit-login:hover {
-            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
-            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.45);
+        .btn-submit-reset:hover {
+            background: linear-gradient(135deg, #0277bd 0%, #01579b 100%);
+            box-shadow: 0 6px 20px rgba(2, 136, 209, 0.45);
             transform: translateY(-1px);
         }
 
-        .auth-footer-help {
-            margin-top: 2rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid #f1f5f9;
-            text-align: center;
-            font-size: 0.775rem;
-            color: #94a3b8;
+        .btn-back-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 10px;
+            margin-top: 0.75rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            border-radius: 8px;
+            transition: all 0.15s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-4px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-back-login:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .auth-footer-help {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94a3b8;
         }
 
         /* Responsive Breakpoint */
@@ -435,7 +408,7 @@
                 display: none;
             }
             .auth-form-side {
-                padding: 2.5rem 1.75rem;
+                padding: 2.25rem 1.5rem;
             }
         }
     </style>
@@ -445,48 +418,40 @@
     <div class="ambient-glow-2"></div>
 
     <div class="auth-container">
-        <!-- Left Side: Brand Showcase & Stats -->
+        <!-- Left Side: Brand Showcase & Instructions -->
         <div class="auth-hero-side">
             <div class="hero-decor-circle"></div>
 
             <div class="hero-brand-top">
                 <div class="brand-badge-icon">
-                    <i class="fa-solid fa-plane-departure"></i>
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div>
                     <div class="brand-text-title">ANGKASA PURA</div>
-                    <div class="brand-text-sub">Telecommunication Systems</div>
+                    <div class="brand-text-sub">Security & Account Recovery</div>
                 </div>
             </div>
 
             <div class="hero-middle-content">
                 <h1 class="hero-headline">
-                    PABX Billing &<br><span>Monitoring Platform</span>
+                    Pemulihan Kata Sandi<br><span>Akun Pengguna</span>
                 </h1>
                 <p class="hero-desc">
-                    Sistem pemantauan telekomunikasi cerdas dan pelaporan tagihan telepon internal terintegrasi untuk seluruh unit operasional bandara.
+                    Layanan mandiri pengaturan ulang kata sandi akun PABX Billing System secara terenkripsi dan aman.
                 </p>
 
-                <div class="hero-feature-list">
-                    <div class="hero-feature-item">
-                        <div class="feature-icon-pill">
-                            <i class="fa-solid fa-phone-volume"></i>
-                        </div>
-                        <span>Pencatatan 50.000+ Call Detail Records (CDR) otomatis</span>
+                <div class="security-badge-box">
+                    <div class="security-step-item">
+                        <div class="step-num">1</div>
+                        <div>Masukkan <strong>Username</strong> dan <strong>Nomor Telepon/Ext</strong> yang terdaftar di akun Anda.</div>
                     </div>
-
-                    <div class="hero-feature-item">
-                        <div class="feature-icon-pill">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <span>Analisis tarif multi-zona & laporan telekomunikasi real-time</span>
+                    <div class="security-step-item">
+                        <div class="step-num">2</div>
+                        <div>Tuliskan <strong>Kata Sandi Baru</strong> dengan minimal 4 karakter kombinasi.</div>
                     </div>
-
-                    <div class="hero-feature-item">
-                        <div class="feature-icon-pill">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <span>Akses terlindungi dengan autentikasi berjenjang</span>
+                    <div class="security-step-item">
+                        <div class="step-num">3</div>
+                        <div>Klik <strong>Atur Ulang Kata Sandi</strong> untuk langsung mengaktifkan kata sandi baru.</div>
                     </div>
                 </div>
             </div>
@@ -494,38 +459,34 @@
             <div class="hero-footer-status">
                 <div class="server-status-pill">
                     <span class="dot-pulse"></span>
-                    <span>Server PABX 10.3.16.12 : Online</span>
+                    <span>Server PABX: Gateway Aman</span>
                 </div>
-                <div>Versi 3.4.2 Enterprise</div>
+                <div>Bantuan: Ext 101</div>
             </div>
         </div>
 
-        <!-- Right Side: Login Form -->
+        <!-- Right Side: Reset Password Form -->
         <div class="auth-form-side">
             <div class="form-header">
-                <h2 class="form-title">Selamat Datang</h2>
-                <p class="form-subtitle">Silakan masukkan username dan password Anda untuk masuk.</p>
+                <h2 class="form-title">Lupa Password?</h2>
+                <p class="form-subtitle">Verifikasi identitas akun Anda untuk membuat kata sandi baru.</p>
             </div>
-
-            @if (session('success'))
-                <div class="alert-box success">
-                    <i class="fa-solid fa-circle-check" style="font-size: 1rem;"></i>
-                    <span>{{ session('success') }}</span>
-                </div>
-            @endif
 
             @if ($errors->any())
                 <div class="alert-box error">
-                    <i class="fa-solid fa-circle-exclamation" style="font-size: 1rem;"></i>
-                    <span>{{ $errors->first() }}</span>
+                    <i class="fa-solid fa-circle-exclamation" style="font-size: 1.1rem; margin-top: 1px;"></i>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">Terjadi Kesalahan:</div>
+                        <div>{{ $errors->first() }}</div>
+                    </div>
                 </div>
             @endif
 
-            <form action="{{ route('login.post') }}" method="POST">
+            <form action="{{ route('password.update') }}" method="POST">
                 @csrf
                 <!-- Username Field -->
                 <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
+                    <label class="form-label" for="username">Username Akun</label>
                     <div class="input-wrapper">
                         <i class="fa-solid fa-user input-icon-lead"></i>
                         <input 
@@ -534,16 +495,35 @@
                             name="username" 
                             class="custom-input" 
                             value="{{ old('username') }}" 
-                            placeholder="Masukkan username akun Anda" 
+                            placeholder="Contoh: xxadmin atau admin" 
                             required 
                             autofocus
                         >
                     </div>
                 </div>
 
-                <!-- Password Field -->
+                <!-- Phone / Ext Number Field -->
                 <div class="form-group">
-                    <label class="form-label" for="passwordInput">Password</label>
+                    <label class="form-label" for="telp">Nomor Telepon / Ext Terdaftar</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-phone input-icon-lead"></i>
+                        <input 
+                            type="text" 
+                            id="telp" 
+                            name="telp" 
+                            class="custom-input" 
+                            value="{{ old('telp') }}" 
+                            placeholder="Contoh: 0811200 / ext telepon"
+                        >
+                    </div>
+                    <div style="font-size: 0.725rem; color: #94a3b8; margin-top: 3px;">
+                        *Masukkan nomor kontak sesuai data profil akun Anda.
+                    </div>
+                </div>
+
+                <!-- New Password Field -->
+                <div class="form-group">
+                    <label class="form-label" for="passwordInput">Kata Sandi Baru</label>
                     <div class="input-wrapper">
                         <i class="fa-solid fa-lock input-icon-lead"></i>
                         <input 
@@ -551,34 +531,47 @@
                             id="passwordInput" 
                             name="password" 
                             class="custom-input" 
-                            placeholder="Masukkan kata sandi Anda" 
+                            placeholder="Minimal 4 karakter" 
                             required
                             style="padding-right: 44px;"
                         >
-                        <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility()" title="Lihat / Sembunyikan Password">
-                            <i class="fa-solid fa-eye" id="pwdToggleIcon"></i>
+                        <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility('passwordInput', 'pwdToggleIcon1')" title="Lihat / Sembunyikan Password">
+                            <i class="fa-solid fa-eye" id="pwdToggleIcon1"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Actions Row: Remember Me & Forgot Password Link -->
-                <div class="form-actions-row">
-                    <label class="remember-checkbox">
-                        <input type="checkbox" name="remember" value="1">
-                        <span>Ingat saya di perangkat ini</span>
-                    </label>
-
-                    <a href="{{ route('password.request') }}" class="link-forgot-pwd" title="Klik untuk mengatur ulang kata sandi jika lupa">
-                        <i class="fa-solid fa-key" style="font-size: 0.75rem;"></i>
-                        <span>Lupa Password?</span>
-                    </a>
+                <!-- Confirm New Password Field -->
+                <div class="form-group">
+                    <label class="form-label" for="passwordConfirmInput">Konfirmasi Kata Sandi Baru</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-shield-halved input-icon-lead"></i>
+                        <input 
+                            type="password" 
+                            id="passwordConfirmInput" 
+                            name="password_confirmation" 
+                            class="custom-input" 
+                            placeholder="Ulangi kata sandi baru" 
+                            required
+                            style="padding-right: 44px;"
+                        >
+                        <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility('passwordConfirmInput', 'pwdToggleIcon2')" title="Lihat / Sembunyikan Password">
+                            <i class="fa-solid fa-eye" id="pwdToggleIcon2"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn-submit-login">
-                    <span>Masuk ke Sistem</span>
-                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                <button type="submit" class="btn-submit-reset">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>Atur Ulang & Simpan Kata Sandi</span>
                 </button>
+
+                <!-- Back to Login Button -->
+                <a href="{{ route('login') }}" class="btn-back-login">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Halaman Login</span>
+                </a>
             </form>
 
             <div class="auth-footer-help">
@@ -588,9 +581,9 @@
     </div>
 
     <script>
-        function togglePasswordVisibility() {
-            const input = document.getElementById('passwordInput');
-            const icon = document.getElementById('pwdToggleIcon');
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.classList.remove('fa-eye');
