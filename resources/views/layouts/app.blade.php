@@ -317,6 +317,23 @@
             font-size: 0.875rem;
             font-weight: 500;
             transition: all 0.15s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-toggle-icon {
+            font-size: 0.75rem;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-link:hover .nav-toggle-icon {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .nav-link-left {
@@ -346,6 +363,15 @@
 
         .nav-link.active-root i {
             color: #d32f2f;
+        }
+
+        .nav-link.menu-open {
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .nav-link.menu-open .nav-toggle-icon {
+            color: #d32f2f !important;
         }
 
         /* Sub-menu tree */
@@ -641,12 +667,12 @@
 
                     <!-- Setting -->
                     <li class="nav-item">
-                        <a href="#setting-collapse" class="nav-link" onclick="event.preventDefault(); document.getElementById('sub-setting').style.display = document.getElementById('sub-setting').style.display === 'none' ? 'block' : 'none';">
+                        <a href="javascript:void(0);" class="nav-link" onclick="toggleNavCollapse(this, 'sub-setting')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-table-cells-large"></i>
                                 <span>Setting</span>
                             </div>
-                            <i class="fa-solid fa-plus" style="font-size: 0.7rem; color: #94a3b8;"></i>
+                            <i class="fa-solid fa-plus nav-toggle-icon" style="font-size: 0.75rem; color: #94a3b8; transition: all 0.2s;"></i>
                         </a>
                         <ul id="sub-setting" class="sub-menu" style="display: none;">
                             <li><a href="{{ route('home') }}" class="sub-nav-link">PABX Machines</a></li>
@@ -658,12 +684,12 @@
 
                     <!-- Report (Default Expanded) -->
                     <li class="nav-item">
-                        <a href="#report-collapse" class="nav-link active-root" onclick="event.preventDefault(); document.getElementById('sub-reports').style.display = document.getElementById('sub-reports').style.display === 'none' ? 'block' : 'none';">
+                        <a href="javascript:void(0);" class="nav-link {{ request()->is('reports*') ? 'active-root' : '' }}" onclick="toggleNavCollapse(this, 'sub-reports')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-table-cells"></i>
                                 <span>Report</span>
                             </div>
-                            <i class="fa-solid fa-minus" style="font-size: 0.7rem; color: #d32f2f;"></i>
+                            <i class="fa-solid fa-minus nav-toggle-icon" style="font-size: 0.75rem; color: #d32f2f; transition: all 0.2s;"></i>
                         </a>
                         <ul id="sub-reports" class="sub-menu" style="display: block;">
                             <li>
@@ -726,12 +752,12 @@
 
                     <!-- Information -->
                     <li class="nav-item">
-                        <a href="#info-collapse" class="nav-link" onclick="event.preventDefault(); document.getElementById('sub-info').style.display = document.getElementById('sub-info').style.display === 'none' ? 'block' : 'none';">
+                        <a href="javascript:void(0);" class="nav-link" onclick="toggleNavCollapse(this, 'sub-info')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-circle-info"></i>
                                 <span>Information</span>
                             </div>
-                            <i class="fa-solid fa-plus" style="font-size: 0.7rem; color: #94a3b8;"></i>
+                            <i class="fa-solid fa-plus nav-toggle-icon" style="font-size: 0.75rem; color: #94a3b8; transition: all 0.2s;"></i>
                         </a>
                         <ul id="sub-info" class="sub-menu" style="display: none;">
                             <li><a href="{{ route('home') }}" class="sub-nav-link">Raw SMDR Log Buffer</a></li>
@@ -741,12 +767,12 @@
 
                     <!-- Utility -->
                     <li class="nav-item">
-                        <a href="#util-collapse" class="nav-link" onclick="event.preventDefault(); document.getElementById('sub-util').style.display = document.getElementById('sub-util').style.display === 'none' ? 'block' : 'none';">
+                        <a href="javascript:void(0);" class="nav-link" onclick="toggleNavCollapse(this, 'sub-util')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-wrench"></i>
                                 <span>Utility</span>
                             </div>
-                            <i class="fa-solid fa-plus" style="font-size: 0.7rem; color: #94a3b8;"></i>
+                            <i class="fa-solid fa-plus nav-toggle-icon" style="font-size: 0.75rem; color: #94a3b8; transition: all 0.2s;"></i>
                         </a>
                         <ul id="sub-util" class="sub-menu" style="display: none;">
                             <li><a href="{{ route('billing.schema') }}" class="sub-nav-link">Relasi Database (25 Tabel)</a></li>
@@ -776,7 +802,35 @@
     </div>
 
     <script>
+        // Toggle Sidebar Accordion Sub-Menu with dynamic +/- indicator
+        function toggleNavCollapse(navLink, subMenuId) {
+            const subMenu = document.getElementById(subMenuId);
+            if (!subMenu) return;
+
+            const icon = navLink.querySelector('.nav-toggle-icon');
+            const isClosed = subMenu.style.display === 'none' || window.getComputedStyle(subMenu).display === 'none';
+
+            if (isClosed) {
+                subMenu.style.display = 'block';
+                navLink.classList.add('menu-open');
+                if (icon) {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                    icon.style.color = '#d32f2f';
+                }
+            } else {
+                subMenu.style.display = 'none';
+                navLink.classList.remove('menu-open');
+                if (icon) {
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                    icon.style.color = '#94a3b8';
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // User Panel Dropdown
             const userPanelToggle = document.getElementById('userPanelToggle');
             const userDropdownMenu = document.getElementById('userDropdownMenu');
             const userChevron = document.getElementById('userChevron');
@@ -796,6 +850,19 @@
                         if (userChevron) {
                             userChevron.style.transform = 'rotate(0deg)';
                         }
+                    }
+                });
+            }
+
+            // Mobile / Desktop Hamburger Menu Toggle
+            const menuToggleBtn = document.querySelector('.menu-toggle-btn');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuToggleBtn && sidebar) {
+                menuToggleBtn.addEventListener('click', function() {
+                    if (sidebar.style.display === 'none') {
+                        sidebar.style.display = 'flex';
+                    } else {
+                        sidebar.style.display = 'none';
                     }
                 });
             }

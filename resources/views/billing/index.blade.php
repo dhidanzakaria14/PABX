@@ -311,10 +311,12 @@
     <!-- Quick Presets -->
     <div style="padding: 0.5rem 1.25rem; background: #f8fafc; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; font-size: 0.775rem;">
         <span style="color: #64748b; font-weight: 600;">Filter Cepat:</span>
-        <a href="{{ route('home') }}" style="text-decoration: none; padding: 2px 8px; border-radius: 3px; background: {{ !request()->has('start_date') && !request()->has('search') ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Semua Data</a>
-        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2026-08-01', 'end_date' => '2026-08-31']) }}" style="text-decoration: none; padding: 2px 8px; border-radius: 3px; background: {{ request('start_date') == '2026-08-01' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Bulan Terakhir (Agu 2026)</a>
-        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2026-01-01', 'end_date' => '2026-12-31']) }}" style="text-decoration: none; padding: 2px 8px; border-radius: 3px; background: {{ request('start_date') == '2026-01-01' && request('end_date') == '2026-12-31' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Tahun 2026</a>
-        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2025-01-01', 'end_date' => '2025-12-31']) }}" style="text-decoration: none; padding: 2px 8px; border-radius: 3px; background: {{ request('start_date') == '2025-01-01' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Tahun 2025</a>
+        <a href="{{ route('home') }}" style="text-decoration: none; padding: 3px 10px; border-radius: 4px; font-weight: 600; background: {{ !request()->has('start_date') && !request()->has('search') && !request()->has('department_id') ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Semua Data (51.008 CDR)</a>
+        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2026-10-06', 'end_date' => '2026-10-06']) }}" style="text-decoration: none; padding: 3px 10px; border-radius: 4px; font-weight: 600; background: {{ request('start_date') == '2026-10-06' && request('end_date') == '2026-10-06' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Hari Ini (06 Okt 2026)</a>
+        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2026-10-01', 'end_date' => '2026-10-31']) }}" style="text-decoration: none; padding: 3px 10px; border-radius: 4px; font-weight: 600; background: {{ request('start_date') == '2026-10-01' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Bulan Ini (Okt 2026)</a>
+        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2026-08-01', 'end_date' => '2026-08-31']) }}" style="text-decoration: none; padding: 3px 10px; border-radius: 4px; font-weight: 600; background: {{ request('start_date') == '2026-08-01' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Agu 2026</a>
+        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2026-01-01', 'end_date' => '2026-12-31']) }}" style="text-decoration: none; padding: 3px 10px; border-radius: 4px; font-weight: 600; background: {{ request('start_date') == '2026-01-01' && request('end_date') == '2026-12-31' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Tahun 2026</a>
+        <a href="{{ route('home', ['searched' => 1, 'start_date' => '2025-01-01', 'end_date' => '2025-12-31']) }}" style="text-decoration: none; padding: 3px 10px; border-radius: 4px; font-weight: 600; background: {{ request('start_date') == '2025-01-01' ? '#d32f2f; color: white;' : '#e2e8f0; color: #334155;' }}">Tahun 2025</a>
     </div>
 
     <!-- Table: Menyesuaikan Kolom Sistem Asli (No, Date, Time, No Trunk, Extentions, Duration, Destionation, Access, Pulsa, Total Bill, Detail) -->
@@ -394,12 +396,15 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="11" class="text-center" style="padding: 2.5rem 1rem; color: #64748b;">
-                            <div style="font-size: 2rem; color: #cbd5e1; margin-bottom: 0.5rem;"><i class="fa-solid fa-inbox"></i></div>
-                            <strong style="color: #334155; font-size: 0.95rem;">Tidak ada rekaman panggilan yang cocok dengan kriteria pencarian.</strong>
-                            <div style="margin-top: 1rem;">
-                                <a href="{{ route('home') }}" class="btn-search" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; padding: 6px 14px; background: #d32f2f;">
-                                    <i class="fa-solid fa-rotate-left"></i> Tampilkan Semua Data
+                        <td colspan="11" class="text-center" style="padding: 2.75rem 1rem; color: #64748b;">
+                            <div style="font-size: 2.25rem; color: #cbd5e1; margin-bottom: 0.75rem;"><i class="fa-solid fa-folder-open"></i></div>
+                            <strong style="color: #334155; font-size: 1rem;">Tidak ada rekaman panggilan yang cocok dengan kriteria pencarian.</strong>
+                            <div style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">
+                                Total data di sistem: <strong>{{ number_format(\App\Models\TbmDataMasuk::count()) }}</strong> CDR (Rentang data: {{ isset($dateMin) ? \Carbon\Carbon::parse($dateMin)->format('d/m/Y') : '01/01/2024' }} s/d {{ isset($dateMax) ? \Carbon\Carbon::parse($dateMax)->format('d/m/Y') : '06/10/2026' }}).
+                            </div>
+                            <div style="margin-top: 1.25rem; display: flex; justify-content: center; gap: 8px;">
+                                <a href="{{ route('home') }}" class="btn-search" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; padding: 7px 16px; background: #d32f2f;">
+                                    <i class="fa-solid fa-rotate-left"></i> Reset & Tampilkan Semua Data
                                 </a>
                             </div>
                         </td>

@@ -41,12 +41,16 @@ class BillingController extends Controller
 
         $query = TbmDataMasuk::with(['department.group', 'setting', 'zonaRel', 'prefixRel', 'tarifRel']);
 
-        if ($request->filled('start_date')) {
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $startDate = min($request->start_date, $request->end_date);
+            $endDate = max($request->start_date, $request->end_date);
+            $query->whereBetween('tglmasuk', [$startDate, $endDate]);
+        } elseif ($request->filled('start_date')) {
             $query->where('tglmasuk', '>=', $request->start_date);
-        }
-        if ($request->filled('end_date')) {
+        } elseif ($request->filled('end_date')) {
             $query->where('tglmasuk', '<=', $request->end_date);
         }
+
         if ($request->filled('ext')) {
             $query->where('ext_pemanggil', $request->ext);
         }
@@ -57,12 +61,16 @@ class BillingController extends Controller
             $query->where('idzone', $request->zone_id);
         }
         if ($request->filled('search')) {
-            $search = $request->search;
+            $search = trim($request->search);
             $query->where(function($q) use ($search) {
                 $q->where('no_tujuan', 'like', "%{$search}%")
                   ->orWhere('ext_pemanggil', 'like', "%{$search}%")
                   ->orWhere('namadepartment', 'like', "%{$search}%")
-                  ->orWhere('nourut', 'like', "%{$search}%");
+                  ->orWhere('nourut', 'like', "%{$search}%")
+                  ->orWhere('noline', 'like', "%{$search}%")
+                  ->orWhere('no_trunk', 'like', "%{$search}%")
+                  ->orWhere('ketarea', 'like', "%{$search}%")
+                  ->orWhere('zona', 'like', "%{$search}%");
             });
         }
 
