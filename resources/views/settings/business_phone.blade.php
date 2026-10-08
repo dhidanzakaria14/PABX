@@ -7,7 +7,10 @@
     <!-- Header Card -->
     <div class="card-setting">
         <div class="card-setting-header">
-            <div class="card-setting-title">BUSINESS PHONE NO</div>
+            <div class="card-setting-title">
+                <i class="fa-solid fa-phone" style="color: #d32f2f;"></i>
+                BUSINESS PHONE NO
+            </div>
             <div class="card-setting-actions">
                 <button type="button" class="btn-import-blue" onclick="openModal('importModal')">
                     <i class="fa-solid fa-file-import"></i> Import Data
@@ -50,7 +53,7 @@
                             <tr>
                                 <td>{{ $idx + 1 }}</td>
                                 <td style="font-weight: 600;">{{ $b->nama }}</td>
-                                <td style="font-family: 'JetBrains Mono', monospace;">{{ $b->notelp }}</td>
+                                <td style="font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #0288d1;">{{ $b->notelp }}</td>
                                 <td>{{ $b->alamat ?: '-' }}</td>
                                 <td class="text-center">
                                     <div class="action-btn-group">
@@ -67,7 +70,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center" style="padding: 2rem; color: #94a3b8;">
+                                <td colspan="5" class="text-center" style="padding: 2.5rem; color: #94a3b8;">
+                                    <i class="fa-solid fa-inbox" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; opacity: 0.5;"></i>
                                     Belum ada data Business Phone terdaftar.
                                 </td>
                             </tr>
@@ -95,28 +99,37 @@
 <div id="createModal" class="modal-backdrop" style="display: none;">
     <div class="modal-card">
         <div class="modal-card-header">
-            <div>Tambah Business Phone Baru</div>
-            <button type="button" onclick="closeModal('createModal')" class="modal-close">&times;</button>
+            <div class="modal-card-title-wrap">
+                <div class="modal-header-icon-badge create-badge">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div>Tambah Business Phone Baru</div>
+            </div>
+            <button type="button" onclick="closeModal('createModal')" class="modal-close" aria-label="Close">&times;</button>
         </div>
         <form action="{{ route('settings.business-phone.store') }}" method="POST">
             @csrf
             <div class="modal-card-body">
                 <div class="form-group-modal">
-                    <label>Company Name (Nama Perusahaan / Kontak) *</label>
+                    <label><i class="fa-solid fa-building"></i> Company Name (Nama Perusahaan / Kontak) <span class="required-star">*</span></label>
                     <input type="text" name="nama" class="form-control-modal" placeholder="Contoh: Billing Engineer" required>
                 </div>
                 <div class="form-group-modal">
-                    <label>Phone No (Nomor Telepon) *</label>
-                    <input type="text" name="notelp" class="form-control-modal" placeholder="Contoh: 081298683751" required>
+                    <label><i class="fa-solid fa-phone"></i> Phone No (Nomor Telepon) <span class="required-star">*</span></label>
+                    <input type="text" name="notelp" class="form-control-modal font-mono" placeholder="Contoh: 081298683751" required>
                 </div>
                 <div class="form-group-modal">
-                    <label>Address (Alamat / Lokasi)</label>
+                    <label><i class="fa-solid fa-location-dot"></i> Address (Alamat / Lokasi)</label>
                     <input type="text" name="alamat" class="form-control-modal" placeholder="Contoh: Jakarta">
                 </div>
             </div>
             <div class="modal-card-footer">
-                <button type="button" onclick="closeModal('createModal')" class="btn-modal-cancel">Batal</button>
-                <button type="submit" class="btn-modal-save">Simpan Data</button>
+                <button type="button" onclick="closeModal('createModal')" class="btn-modal-cancel">
+                    <i class="fa-solid fa-xmark"></i> Batal
+                </button>
+                <button type="submit" class="btn-modal-save">
+                    <i class="fa-solid fa-check"></i> Simpan Data
+                </button>
             </div>
         </form>
     </div>
@@ -126,29 +139,38 @@
 <div id="editModal" class="modal-backdrop" style="display: none;">
     <div class="modal-card">
         <div class="modal-card-header">
-            <div>Edit Business Phone</div>
-            <button type="button" onclick="closeModal('editModal')" class="modal-close">&times;</button>
+            <div class="modal-card-title-wrap">
+                <div class="modal-header-icon-badge edit-badge">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <div>Edit Business Phone</div>
+            </div>
+            <button type="button" onclick="closeModal('editModal')" class="modal-close" aria-label="Close">&times;</button>
         </div>
         <form id="editForm" method="POST">
             @csrf
             @method('PUT')
             <div class="modal-card-body">
                 <div class="form-group-modal">
-                    <label>Company Name (Nama Perusahaan / Kontak) *</label>
+                    <label><i class="fa-solid fa-building"></i> Company Name (Nama Perusahaan / Kontak) <span class="required-star">*</span></label>
                     <input type="text" name="nama" id="editNama" class="form-control-modal" required>
                 </div>
                 <div class="form-group-modal">
-                    <label>Phone No (Nomor Telepon) *</label>
-                    <input type="text" name="notelp" id="editNotelp" class="form-control-modal" required>
+                    <label><i class="fa-solid fa-phone"></i> Phone No (Nomor Telepon) <span class="required-star">*</span></label>
+                    <input type="text" name="notelp" id="editNotelp" class="form-control-modal font-mono" required>
                 </div>
                 <div class="form-group-modal">
-                    <label>Address (Alamat / Lokasi)</label>
+                    <label><i class="fa-solid fa-location-dot"></i> Address (Alamat / Lokasi)</label>
                     <input type="text" name="alamat" id="editAlamat" class="form-control-modal">
                 </div>
             </div>
             <div class="modal-card-footer">
-                <button type="button" onclick="closeModal('editModal')" class="btn-modal-cancel">Batal</button>
-                <button type="submit" class="btn-modal-save">Update Data</button>
+                <button type="button" onclick="closeModal('editModal')" class="btn-modal-cancel">
+                    <i class="fa-solid fa-xmark"></i> Batal
+                </button>
+                <button type="submit" class="btn-modal-save">
+                    <i class="fa-solid fa-check"></i> Update Data
+                </button>
             </div>
         </form>
     </div>
@@ -158,23 +180,34 @@
 <div id="importModal" class="modal-backdrop" style="display: none;">
     <div class="modal-card">
         <div class="modal-card-header">
-            <div>Import Data Business Phone</div>
-            <button type="button" onclick="closeModal('importModal')" class="modal-close">&times;</button>
+            <div class="modal-card-title-wrap">
+                <div class="modal-header-icon-badge import-badge">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div>Import Data Business Phone</div>
+            </div>
+            <button type="button" onclick="closeModal('importModal')" class="modal-close" aria-label="Close">&times;</button>
         </div>
         <div class="modal-card-body">
-            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">
                 Unggah file data Business Phone (.csv atau .xlsx).
             </p>
-            <div style="border: 2px dashed #cbd5e1; border-radius: 6px; padding: 2rem; text-align: center; background: #f8fafc;">
-                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.5rem; color: #0288d1; margin-bottom: 0.5rem;"></i>
-                <div style="font-size: 0.85rem; font-weight: 600; color: #334155;">Pilih file atau drag & drop file ke sini</div>
-                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Format didukung: CSV, XLS, XLSX</div>
-                <input type="file" style="margin-top: 1rem; font-size: 0.8rem;">
+            <div class="upload-dropzone">
+                <div class="upload-dropzone-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div class="upload-dropzone-title">Pilih file atau drag & drop file ke sini</div>
+                <div class="upload-dropzone-subtitle">Format didukung: CSV, XLS, XLSX (Maks 10MB)</div>
+                <input type="file" class="upload-file-input">
             </div>
         </div>
         <div class="modal-card-footer">
-            <button type="button" onclick="closeModal('importModal')" class="btn-modal-cancel">Tutup</button>
-            <button type="button" onclick="alert('File berhasil dipilih untuk diproses.'); closeModal('importModal');" class="btn-modal-save">Upload & Import</button>
+            <button type="button" onclick="closeModal('importModal')" class="btn-modal-cancel">
+                <i class="fa-solid fa-xmark"></i> Tutup
+            </button>
+            <button type="button" onclick="alert('File berhasil dipilih untuk diproses.'); closeModal('importModal');" class="btn-modal-save">
+                <i class="fa-solid fa-upload"></i> Upload & Import
+            </button>
         </div>
     </div>
 </div>
@@ -184,54 +217,6 @@
     @csrf
     @method('DELETE')
 </form>
-
-<style>
-    .setting-container { max-width: 1400px; margin: 0 auto; }
-    .card-setting { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
-    .card-setting-header { padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 0.75rem; }
-    .card-setting-title { font-size: 1rem; font-weight: 800; color: #1e293b; letter-spacing: 0.03em; text-transform: uppercase; }
-    .card-setting-actions { display: flex; gap: 8px; }
-    .btn-import-blue { background: #0288d1; color: white; border: none; padding: 6px 14px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-import-blue:hover { background: #0277bd; }
-    .btn-new-green { background: #2e7d32; color: white; border: none; padding: 6px 14px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-new-green:hover { background: #1b5e20; }
-    .card-setting-body { padding: 1.25rem; }
-    .table-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
-    .dt-buttons { display: flex; gap: 4px; }
-    .btn-dt { background: #475569; color: white; border: none; padding: 5px 12px; border-radius: 3px; font-size: 0.775rem; font-weight: 600; cursor: pointer; }
-    .btn-dt:hover { background: #334155; }
-    .dt-search { font-size: 0.8rem; color: #475569; }
-    .dt-search-box { border: 1px solid #cbd5e1; border-radius: 3px; padding: 4px 8px; font-size: 0.8rem; outline: none; margin-left: 6px; height: 28px; }
-    .dt-search-box:focus { border-color: #0288d1; }
-    .setting-table { width: 100%; border-collapse: collapse; font-size: 0.825rem; text-align: left; }
-    .setting-table th { background: #ffffff; color: #475569; font-weight: 700; padding: 10px 12px; border-bottom: 2px solid #cbd5e1; border-top: 1px solid #e2e8f0; cursor: pointer; user-select: none; }
-    .setting-table th .sort-icon { color: #94a3b8; font-size: 0.75rem; margin-left: 4px; }
-    .setting-table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; color: #334155; }
-    .setting-table tbody tr:hover { background: #f8fafc; }
-    .action-btn-group { display: inline-flex; align-items: center; gap: 12px; }
-    .btn-action-wrench { background: none; border: none; color: #0288d1; font-size: 0.95rem; cursor: pointer; padding: 4px; transition: transform 0.15s; }
-    .btn-action-wrench:hover { color: #01579b; transform: scale(1.15); }
-    .btn-action-trash { background: none; border: none; color: #0288d1; font-size: 0.95rem; cursor: pointer; padding: 4px; transition: transform 0.15s; }
-    .btn-action-trash:hover { color: #d32f2f; transform: scale(1.15); }
-    .table-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.5rem; font-size: 0.8rem; color: #64748b; flex-wrap: wrap; gap: 0.75rem; }
-    .table-pagination { display: flex; gap: 2px; }
-    .page-btn { border: 1px solid #cbd5e1; background: white; padding: 4px 10px; font-size: 0.8rem; cursor: pointer; color: #334155; }
-    .page-btn.active { background: #0288d1; color: white; border-color: #0288d1; font-weight: 700; }
-    .page-btn.disabled { color: #94a3b8; cursor: not-allowed; }
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 1rem; }
-    .modal-card { background: white; border-radius: 6px; width: 100%; max-width: 500px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; }
-    .modal-card-header { padding: 1rem 1.25rem; background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-weight: 700; font-size: 0.95rem; color: #1e293b; display: flex; justify-content: space-between; align-items: center; }
-    .modal-close { background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; }
-    .modal-close:hover { color: #0f172a; }
-    .modal-card-body { padding: 1.25rem; }
-    .form-group-modal { margin-bottom: 1rem; }
-    .form-group-modal label { display: block; font-size: 0.775rem; font-weight: 700; color: #475569; margin-bottom: 4px; }
-    .form-control-modal { width: 100%; height: 36px; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.85rem; outline: none; }
-    .form-control-modal:focus { border-color: #0288d1; box-shadow: 0 0 0 1px #0288d1; }
-    .modal-card-footer { padding: 0.85rem 1.25rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 8px; }
-    .btn-modal-cancel { background: #e2e8f0; color: #475569; border: none; padding: 6px 14px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
-    .btn-modal-save { background: #2e7d32; color: white; border: none; padding: 6px 14px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
-</style>
 
 <script>
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }

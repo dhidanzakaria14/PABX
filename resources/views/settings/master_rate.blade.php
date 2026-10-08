@@ -6,7 +6,10 @@
 <div class="setting-container">
     <div class="card-setting">
         <div class="card-setting-header">
-            <div class="card-setting-title">MASTER RATE</div>
+            <div class="card-setting-title">
+                <i class="fa-solid fa-calculator" style="color: #d32f2f;"></i>
+                MASTER RATE
+            </div>
             <div class="card-setting-actions">
                 <button type="button" class="btn-import-blue"><i class="fa-solid fa-file-import"></i> Import Data</button>
                 <button type="button" class="btn-new-green"><i class="fa-solid fa-plus"></i> New Data</button>
@@ -69,34 +72,7 @@
     </div>
 </div>
 
-<style>
-    .setting-container { max-width: 1400px; margin: 0 auto; }
-    .card-setting { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
-    .card-setting-header { padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 0.75rem; }
-    .card-setting-title { font-size: 1rem; font-weight: 800; color: #1e293b; letter-spacing: 0.03em; text-transform: uppercase; }
-    .card-setting-actions { display: flex; gap: 8px; }
-    .btn-import-blue { background: #0288d1; color: white; border: none; padding: 6px 14px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-new-green { background: #2e7d32; color: white; border: none; padding: 6px 14px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-    .card-setting-body { padding: 1.25rem; }
-    .table-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
-    .dt-buttons { display: flex; gap: 4px; }
-    .btn-dt { background: #475569; color: white; border: none; padding: 5px 12px; border-radius: 3px; font-size: 0.775rem; font-weight: 600; cursor: pointer; }
-    .btn-dt:hover { background: #334155; }
-    .dt-search { font-size: 0.8rem; color: #475569; }
-    .dt-search-box { border: 1px solid #cbd5e1; border-radius: 3px; padding: 4px 8px; font-size: 0.8rem; outline: none; margin-left: 6px; height: 28px; }
-    .setting-table { width: 100%; border-collapse: collapse; font-size: 0.825rem; text-align: left; }
-    .setting-table th { background: #ffffff; color: #475569; font-weight: 700; padding: 10px 12px; border-bottom: 2px solid #cbd5e1; border-top: 1px solid #e2e8f0; cursor: pointer; user-select: none; }
-    .setting-table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; color: #334155; }
-    .setting-table tbody tr:hover { background: #f8fafc; }
-    .action-btn-group { display: inline-flex; align-items: center; gap: 12px; }
-    .btn-action-wrench { background: none; border: none; color: #0288d1; font-size: 0.95rem; cursor: pointer; padding: 4px; }
-    .btn-action-trash { background: none; border: none; color: #0288d1; font-size: 0.95rem; cursor: pointer; padding: 4px; }
-    .btn-action-trash:hover { color: #d32f2f; }
-    .table-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.5rem; font-size: 0.8rem; color: #64748b; }
-    .table-pagination { display: flex; gap: 2px; }
-    .page-btn { border: 1px solid #cbd5e1; background: white; padding: 4px 10px; font-size: 0.8rem; cursor: pointer; color: #334155; }
-    .page-btn.active { background: #0288d1; color: white; border-color: #0288d1; font-weight: 700; }
-</style>
+
 
 <script>
     function filterTable(tableId, query) {
