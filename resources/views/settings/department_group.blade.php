@@ -8,7 +8,7 @@
     <div class="card-setting">
         <div class="card-setting-header">
             <div class="card-setting-title">
-                <i class="fa-solid fa-sitemap" style="color: #d32f2f;"></i>
+                <i class="fa-solid fa-sitemap" style="color: #0284c7;"></i>
                 DIVISION - DEPARTMENT
             </div>
             <div class="card-setting-actions">

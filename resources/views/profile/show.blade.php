@@ -32,8 +32,8 @@
         width: 48px;
         height: 48px;
         border-radius: 10px;
-        background: #fee2e2;
-        color: #d32f2f;
+        background: #e0f2fe;
+        color: #0284c7;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -53,11 +53,11 @@
         margin-top: 2px;
     }
 
-    /* Single primary Edit Profile action button (Angkasa Pura Red) */
+    /* Single primary Edit Profile action button */
     .btn-edit-action {
         text-decoration: none;
         padding: 10px 24px;
-        background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
         border: none;
         border-radius: 8px;
         font-size: 0.9rem;
@@ -66,13 +66,13 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        box-shadow: 0 3px 10px rgba(211, 47, 47, 0.35);
+        box-shadow: 0 3px 10px rgba(2, 132, 199, 0.35);
         transition: all 0.2s ease;
     }
 
     .btn-edit-action:hover {
-        background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
-        box-shadow: 0 6px 16px rgba(211, 47, 47, 0.45);
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
         transform: translateY(-1px);
         color: #ffffff;
     }
@@ -199,9 +199,9 @@
     }
 
     .detail-item:hover {
-        border-color: #fca5a5;
+        border-color: #bae6fd;
         background: #ffffff;
-        box-shadow: 0 4px 12px rgba(211, 47, 47, 0.08);
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
         transform: translateY(-1px);
     }
 
@@ -209,8 +209,8 @@
         width: 44px;
         height: 44px;
         border-radius: 10px;
-        background: #fee2e2;
-        color: #d32f2f;
+        background: #e0f2fe;
+        color: #0284c7;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -354,7 +354,7 @@
                 <!-- Right Column: Details Grid -->
                 <div>
                     <div class="form-section-title">
-                        <i class="fa-solid fa-circle-info" style="color: #d32f2f;"></i>
+                        <i class="fa-solid fa-circle-info" style="color: #0284c7;"></i>
                         <span>Rincian Informasi Akun</span>
                     </div>
 

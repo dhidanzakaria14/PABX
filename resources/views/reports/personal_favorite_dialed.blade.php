@@ -8,14 +8,15 @@
         <span>PERSONAL FAVORITE DIALED NUMBER</span>
     </div>
 
-    <!-- Filter Bar -->
+    <!-- Filter Bar matching Photo 3 -->
     <form action="{{ route('reports.personal-favorite-dialed') }}" method="GET" class="filter-section">
         <input type="hidden" name="searched" value="1">
+        
         <div class="filter-group">
             <label class="filter-label">Phone ID</label>
-            <select name="phone_id" class="select-box" style="min-width: 220px;">
+            <select name="phone_id" class="select-box" style="min-width: 240px;">
                 @foreach($departments as $dept)
-                    <option value="{{ $dept->id }}" {{ $phoneId == $dept->id ? 'selected' : '' }}>
+                    <option value="{{ $dept->extcode }}" {{ $phoneId == $dept->extcode ? 'selected' : '' }}>
                         {{ $dept->extcode }} - {{ $dept->extname }}
                     </option>
                 @endforeach
@@ -41,9 +42,9 @@
         </button>
     </form>
 
-    <!-- Table -->
-    <div class="table-responsive">
-        <table class="ap-table">
+    <!-- Table matching Photo 3 -->
+    <div class="table-responsive" style="padding: 1.25rem;">
+        <table class="ap-table" style="border: 1px solid #e2e8f0; border-radius: 4px;">
             <thead>
                 <tr>
                     <th style="width: 50px;">No</th>
@@ -56,40 +57,30 @@
                 </tr>
             </thead>
             <tbody>
-                @php $no = 1; @endphp
-                @forelse($grouped as $item)
+                @forelse($rows as $idx => $item)
                     <tr>
-                        <td>{{ $no++ }}</td>
-                        <td><strong style="font-family: 'JetBrains Mono', monospace;">{{ $item['dialed'] }}</strong></td>
+                        <td>{{ $idx + 1 }}</td>
+                        <td style="font-family: 'JetBrains Mono', monospace;">{{ $item['dialed'] }}</td>
                         <td>{{ $item['area_name'] }}</td>
                         <td>{{ $item['dist'] }}</td>
-                        <td class="text-right">{{ number_format($item['call']) }}</td>
-                        <td class="text-right" style="font-family: 'JetBrains Mono', monospace;">{{ $item['duration'] }}</td>
-                        <td class="text-right" style="font-weight: 700; color: #2e7d32;">
-                            {{ number_format($item['cost'], 0, ',', '.') }}
-                        </td>
+                        <td class="text-right">{{ $item['call'] }}</td>
+                        <td class="text-right">{{ $item['duration'] }}</td>
+                        <td class="text-right">{{ number_format($item['cost'], 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center" style="padding: 2.5rem 1rem; color: #64748b;">
-                            @if(!($isSearched ?? false))
-                                <div style="font-size: 2rem; color: #cbd5e1; margin-bottom: 0.5rem;"><i class="fa-solid fa-magnifying-glass"></i></div>
-                                <strong style="color: #475569; font-size: 0.95rem;">Halaman Siap untuk Pencarian</strong>
-                                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">Silakan pilih Phone ID dan klik <strong>"Search Data"</strong> untuk menampilkan nomor telepon favorit.</div>
-                            @else
-                                <div style="font-size: 1.75rem; color: #e2e8f0; margin-bottom: 0.5rem;"><i class="fa-solid fa-inbox"></i></div>
-                                Tidak ada data untuk ekstensi yang dipilih.
-                            @endif
+                        <td colspan="7" class="text-center" style="padding: 2rem; color: #64748b;">
+                            Tidak ada data panggilan untuk Phone ID ini.
                         </td>
                     </tr>
                 @endforelse
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4">TOTAL</td>
-                    <td class="text-right">{{ number_format($totalAll['call']) }}</td>
-                    <td></td>
-                    <td class="text-right" style="color: #2e7d32;">{{ number_format($totalAll['cost'], 0, ',', '.') }}</td>
+                    <td colspan="4" style="font-weight: 700; color: #475569;">TOTAL</td>
+                    <td class="text-right" style="font-weight: 700; color: #475569;">{{ $totalAll['call'] }}</td>
+                    <td class="text-right" style="font-weight: 700; color: #475569;">{{ $totalAll['duration'] }}</td>
+                    <td class="text-right" style="font-weight: 700; color: #475569;">{{ number_format($totalAll['cost'], 0, ',', '.') }}</td>
                 </tr>
             </tfoot>
         </table>

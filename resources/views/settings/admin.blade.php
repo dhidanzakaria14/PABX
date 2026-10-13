@@ -8,7 +8,7 @@
     <div class="card-setting">
         <div class="card-setting-header">
             <div class="card-setting-title">
-                <i class="fa-solid fa-server" style="color: #d32f2f;"></i>
+                <i class="fa-solid fa-server" style="color: #0284c7;"></i>
                 MANAGE PABX
             </div>
             <div class="card-setting-actions">

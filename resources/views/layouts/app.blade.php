@@ -13,19 +13,21 @@
     
     <style>
         :root {
-            --ap-red: #d32f2f;
-            --ap-dark-red: #b71c1c;
+            --ap-primary: #0284c7;
+            --ap-primary-dark: #0369a1;
+            --ap-red: #0284c7;
+            --ap-dark-red: #0369a1;
             --sidebar-bg: #f8fafc;
             --sidebar-border: #e2e8f0;
             --text-dark: #1e293b;
             --text-muted: #64748b;
-            --bg-body: #edf2f7;
+            --bg-body: #f1f5f9;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
-            --btn-blue: #0288d1;
-            --btn-blue-hover: #0277bd;
-            --btn-green: #2e7d32;
-            --btn-green-hover: #1b5e20;
+            --btn-blue: #0284c7;
+            --btn-blue-hover: #0369a1;
+            --btn-green: #059669;
+            --btn-green-hover: #047857;
         }
 
         * {
@@ -57,16 +59,16 @@
             vertical-align: middle;
         }
 
-        /* Top Red Header Bar */
+        /* Top Modern Ocean Header Bar */
         .top-header {
-            background: linear-gradient(90deg, #d32f2f, #e53935);
+            background: linear-gradient(90deg, #075985 0%, #0284c7 55%, #0ea5e9 100%);
             height: 54px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 1.25rem;
             color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(7, 89, 133, 0.22);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -141,7 +143,7 @@
 
         /* User Profile Box */
         .user-panel {
-            background: linear-gradient(135deg, #e65100 0%, #d81b60 50%, #8e24aa 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0369a1 100%);
             padding: 1rem 1rem;
             color: white;
             position: relative;
@@ -355,14 +357,14 @@
         }
 
         .nav-link.active-root {
-            background: #fee2e2;
-            color: #b91c1c;
+            background: #e0f2fe;
+            color: #0369a1;
             font-weight: 600;
-            border-left: 3px solid #d32f2f;
+            border-left: 3px solid #0284c7;
         }
 
         .nav-link.active-root i {
-            color: #d32f2f;
+            color: #0284c7;
         }
 
         .nav-link.menu-open {
@@ -371,13 +373,13 @@
         }
 
         .nav-link.menu-open .nav-toggle-icon {
-            color: #d32f2f !important;
+            color: #0284c7 !important;
         }
 
         /* Sub-menu tree */
         .sub-menu {
             list-style: none;
-            background: #f1f5f9;
+            background: #f8fafc;
             padding: 0.25rem 0;
         }
 
@@ -391,16 +393,16 @@
         }
 
         .sub-nav-link:hover {
-            color: #d32f2f;
-            background: rgba(211, 47, 47, 0.06);
+            color: #0284c7;
+            background: rgba(2, 132, 199, 0.08);
             padding-left: 3.1rem;
         }
 
         .sub-nav-link.active {
-            color: #b91c1c;
+            color: #0369a1;
             font-weight: 700;
-            background: rgba(211, 47, 47, 0.1);
-            border-left: 3px solid #d32f2f;
+            background: rgba(2, 132, 199, 0.12);
+            border-left: 3px solid #0284c7;
         }
 
         .sub-nav-link.active::before {
@@ -428,7 +430,7 @@
         .report-card, .card-setting {
             background: white;
             border: 1px solid #e2e8f0;
-            border-top: 4px solid #d32f2f;
+            border-top: 4px solid #0284c7;
             border-radius: 14px;
             box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
             margin-bottom: 2rem;
@@ -595,6 +597,12 @@
             background: #e8f5e9;
             color: #2e7d32;
             border: 1px solid #a5d6a7;
+        }
+
+        .alert-bar.danger {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
         }
 
         /* =========================================================
@@ -1159,10 +1167,358 @@
         .font-mono {
             font-family: 'JetBrains Mono', monospace !important;
         }
+
+        /* =========================================================
+           ANGKASA PURA AVIATION PRELOADER (AIRPLANE ANIMATION)
+           ========================================================= */
+        .ap-preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 40%, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.98) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.45s ease;
+        }
+
+        .ap-preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .ap-preloader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 440px;
+            position: relative;
+        }
+
+        /* Flight Sky Stage */
+        .flight-scene {
+            width: 100%;
+            height: 155px;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.96) 100%);
+            border: 1px solid rgba(226, 232, 240, 0.12);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.75), 0 0 45px rgba(211, 47, 47, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Subtle airport radar grid */
+        .flight-scene::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 75% 30%, rgba(211, 47, 47, 0.15) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        /* Drifting clouds */
+        .flight-clouds {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .flight-cloud {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.14);
+            animation: driftCloud linear infinite;
+        }
+
+        .cloud-1 {
+            top: 22px;
+            font-size: 1.75rem;
+            animation-duration: 4.5s;
+        }
+
+        .cloud-2 {
+            top: 65px;
+            font-size: 1.2rem;
+            animation-duration: 6.2s;
+            animation-delay: -2s;
+        }
+
+        .cloud-3 {
+            top: 38px;
+            font-size: 2.2rem;
+            color: rgba(255, 255, 255, 0.08);
+            animation-duration: 8s;
+            animation-delay: -4s;
+        }
+
+        @keyframes driftCloud {
+            from {
+                transform: translateX(460px);
+            }
+            to {
+                transform: translateX(-100px);
+            }
+        }
+
+        /* Runway with glowing lights at the bottom */
+        .flight-runway {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+        }
+
+        .flight-runway::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 200%;
+            height: 6px;
+            background: repeating-linear-gradient(90deg, #38bdf8 0, #38bdf8 18px, transparent 18px, transparent 36px);
+            opacity: 0.7;
+            animation: runwayRun 1s linear infinite;
+        }
+
+        @keyframes runwayRun {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Airplane Track Across Sky */
+        .flight-plane-wrapper {
+            position: absolute;
+            top: 42px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            pointer-events: none;
+        }
+
+        .flight-plane-track {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            animation: planeFlightCruise 3s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+        }
+
+        .flight-plane-icon {
+            font-size: 2.6rem;
+            color: #ffffff;
+            filter: drop-shadow(0 4px 12px rgba(211, 47, 47, 0.75)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.45));
+            transform: rotate(-8deg);
+            display: inline-block;
+            animation: planeHoverTilt 1.5s ease-in-out infinite alternate;
+        }
+
+        /* Jet Contrail (Vapor Trail) */
+        .jet-contrail {
+            position: absolute;
+            right: 85%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 190px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 20%, rgba(211, 47, 47, 0.5) 70%, #ff5252 100%);
+            border-radius: 999px;
+            box-shadow: 0 0 12px rgba(211, 47, 47, 0.9);
+            opacity: 0.9;
+        }
+
+        /* Jet Engine Exhaust Glow */
+        .jet-flame {
+            position: absolute;
+            right: 86%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 8px;
+            background: radial-gradient(ellipse at center, #ffffff 0%, #ffeb3b 40%, #ff5722 80%, transparent 100%);
+            border-radius: 50%;
+            animation: flamePulse 0.15s ease-in-out infinite alternate;
+        }
+
+        @keyframes planeFlightCruise {
+            0% {
+                transform: translateX(-50px) translateY(10px);
+            }
+            50% {
+                transform: translateX(180px) translateY(-14px);
+            }
+            100% {
+                transform: translateX(420px) translateY(-4px);
+            }
+        }
+
+        @keyframes planeHoverTilt {
+            0% {
+                transform: rotate(-12deg) translateY(-2px);
+            }
+            100% {
+                transform: rotate(-5deg) translateY(4px);
+            }
+        }
+
+        @keyframes flamePulse {
+            0% { transform: translateY(-50%) scale(0.85); opacity: 0.75; }
+            100% { transform: translateY(-50%) scale(1.25); opacity: 1; }
+        }
+
+        /* Flight Status & Brand */
+        .flight-status-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .flight-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 1.15rem;
+        }
+
+        .brand-tag {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            padding: 4px 16px;
+            border-radius: 999px;
+            box-shadow: 0 4px 16px rgba(2, 132, 199, 0.45);
+            text-transform: uppercase;
+        }
+
+        .brand-sub {
+            font-size: 0.825rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #cbd5e1;
+            margin-top: 5px;
+        }
+
+        /* Progress Bar */
+        .flight-progress-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0.85rem;
+        }
+
+        .flight-progress-fill {
+            position: absolute;
+            height: 100%;
+            width: 45%;
+            background: linear-gradient(90deg, #0284c7, #38bdf8, #67e8f9);
+            border-radius: 999px;
+            box-shadow: 0 0 14px rgba(2, 132, 199, 0.9);
+            animation: progressGlide 1.3s ease-in-out infinite;
+        }
+
+        @keyframes progressGlide {
+            0% {
+                left: -45%;
+                width: 30%;
+            }
+            50% {
+                width: 55%;
+            }
+            100% {
+                left: 100%;
+                width: 25%;
+            }
+        }
+
+        /* Radar Status Text */
+        .flight-status-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.825rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .radar-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+            display: inline-block;
+            animation: radarBlink 1s infinite alternate;
+        }
+
+        @keyframes radarBlink {
+            0% { opacity: 0.4; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1.25); }
+        }
     </style>
     @yield('styles')
 </head>
 <body>
+    <!-- ANGKASA PURA AVIATION PRELOADER -->
+    <div id="ap-preloader" class="ap-preloader">
+        <div class="ap-preloader-content">
+            <!-- Flight Sky Stage with Animated Plane -->
+            <div class="flight-scene">
+                <!-- Drifting clouds -->
+                <div class="flight-clouds">
+                    <span class="flight-cloud cloud-1"><i class="fa-solid fa-cloud"></i></span>
+                    <span class="flight-cloud cloud-2"><i class="fa-solid fa-cloud"></i></span>
+                    <span class="flight-cloud cloud-3"><i class="fa-solid fa-cloud"></i></span>
+                </div>
+
+                <!-- Animated Flying Airplane with Contrail -->
+                <div class="flight-plane-wrapper">
+                    <div class="flight-plane-track">
+                        <div class="jet-contrail"></div>
+                        <div class="jet-flame"></div>
+                        <i class="fa-solid fa-plane-departure flight-plane-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Ground Runway Lights -->
+                <div class="flight-runway"></div>
+            </div>
+
+            <!-- Brand & Progress -->
+            <div class="flight-status-card">
+                <div class="flight-brand">
+                    <span class="brand-tag">ANGKASA PURA</span>
+                    <span class="brand-sub">PABX BILLING SYSTEM</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="flight-progress-bar">
+                    <div class="flight-progress-fill"></div>
+                </div>
+
+                <!-- Radar Text Indicator -->
+                <div class="flight-status-text">
+                    <span class="radar-dot"></span>
+                    <span id="apPreloaderStatus">Memuat Sistem & Data PABX...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Top Red Header Bar -->
     <header class="top-header">
         <div class="header-brand">
@@ -1176,13 +1532,7 @@
                 <div class="pulse-dot"></div>
                 <span>Server PABX: 10.3.16.12 (Connected)</span>
             </div>
-            <a href="{{ route('billing.schema') }}" style="color: white; text-decoration: none; font-size: 0.8rem; background: rgba(0,0,0,0.18); padding: 4px 10px; border-radius: 4px;" title="Cek Relasi Database 25 Tabel">
-                <i class="fa-solid fa-diagram-project"></i> Relasi DB
-            </a>
-            <a href="http://localhost/phpmyadmin/index.php?db=pabx" target="_blank" style="color: white; text-decoration: none; font-size: 0.8rem;" title="Buka di phpMyAdmin">
-                <i class="fa-solid fa-database"></i> phpMyAdmin
-            </a>
-            <i class="fa-solid fa-ellipsis-vertical" style="cursor: pointer;"></i>
+            <i class="fa-solid fa-ellipsis-vertical" style="cursor: pointer; opacity: 0.85;"></i>
         </div>
     </header>
 
@@ -1245,7 +1595,7 @@
                                 <i class="fa-solid fa-table-cells-large"></i>
                                 <span>Setting</span>
                             </div>
-                            <i class="fa-solid {{ $isSettingActive ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isSettingActive ? '#d32f2f' : '#94a3b8' }}; transition: all 0.2s;"></i>
+                            <i class="fa-solid {{ $isSettingActive ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isSettingActive ? '#0284c7' : '#94a3b8' }}; transition: all 0.2s;"></i>
                         </a>
                         <ul id="sub-setting" class="sub-menu" style="display: {{ $isSettingActive ? 'block' : 'none' }};">
                             <li><a href="{{ route('settings.admin') }}" class="sub-nav-link {{ request()->routeIs('settings.admin') ? 'active' : '' }}">Admin Setting</a></li>
@@ -1260,14 +1610,14 @@
                     </li>
 
                     <!-- Report -->
-                    @php $isReportOpen = request()->is('reports*') || (!request()->is('settings*') && !request()->is('profile*')); @endphp
+                    @php $isReportOpen = request()->is('reports*'); @endphp
                     <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link {{ request()->is('reports*') ? 'active-root' : '' }}" onclick="toggleNavCollapse(this, 'sub-reports')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-table-cells"></i>
                                 <span>Report</span>
                             </div>
-                            <i class="fa-solid {{ $isReportOpen ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isReportOpen ? '#d32f2f' : '#94a3b8' }}; transition: all 0.2s;"></i>
+                            <i class="fa-solid {{ $isReportOpen ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isReportOpen ? '#0284c7' : '#94a3b8' }}; transition: all 0.2s;"></i>
                         </a>
                         <ul id="sub-reports" class="sub-menu" style="display: {{ $isReportOpen ? 'block' : 'none' }};">
                             <li>
@@ -1291,12 +1641,12 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                <a href="{{ route('reports.personal-detail') }}" class="sub-nav-link {{ request()->routeIs('reports.personal-detail') ? 'active' : '' }}">
                                     Personal Detail
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('reports.favourite-area') }}" class="sub-nav-link">
+                                <a href="{{ route('reports.personal-favorite-area') }}" class="sub-nav-link {{ request()->routeIs('reports.personal-favorite-area') ? 'active' : '' }}">
                                     Personal Favorite Area
                                 </a>
                             </li>
@@ -1311,17 +1661,17 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                <a href="{{ route('reports.phone-id-detail') }}" class="sub-nav-link {{ request()->routeIs('reports.phone-id-detail') ? 'active' : '' }}">
                                     Phone-ID Detail
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}" class="sub-nav-link">
+                                <a href="{{ route('reports.phone-id-summary') }}" class="sub-nav-link {{ request()->routeIs('reports.phone-id-summary') ? 'active' : '' }}">
                                     Phone-ID Summary
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('reports.division-summary') }}" class="sub-nav-link">
+                                <a href="{{ route('reports.unit-summary') }}" class="sub-nav-link {{ request()->routeIs('reports.unit-summary') ? 'active' : '' }}">
                                     Unit Summary
                                 </a>
                             </li>
@@ -1329,39 +1679,44 @@
                     </li>
 
                     <!-- Information -->
+                    @php $isInfoActive = request()->is('information*'); @endphp
                     <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link" onclick="toggleNavCollapse(this, 'sub-info')">
+                        <a href="javascript:void(0);" class="nav-link {{ $isInfoActive ? 'active-root' : '' }}" onclick="toggleNavCollapse(this, 'sub-info')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-circle-info"></i>
                                 <span>Information</span>
                             </div>
-                            <i class="fa-solid fa-plus nav-toggle-icon" style="font-size: 0.75rem; color: #94a3b8; transition: all 0.2s;"></i>
+                            <i class="fa-solid {{ $isInfoActive ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isInfoActive ? '#0284c7' : '#94a3b8' }}; transition: all 0.2s;"></i>
                         </a>
-                        <ul id="sub-info" class="sub-menu" style="display: none;">
-                            <li><a href="{{ route('home') }}" class="sub-nav-link">Raw SMDR Log Buffer</a></li>
-                            <li><a href="{{ route('home') }}" class="sub-nav-link">Scheduler Job Logs</a></li>
+                        <ul id="sub-info" class="sub-menu" style="display: {{ $isInfoActive ? 'block' : 'none' }};">
+                            <li><a href="{{ route('information.call-history') }}" class="sub-nav-link {{ request()->routeIs('information.call-history') ? 'active' : '' }}">Call History</a></li>
+                            <li><a href="{{ route('information.recalculating-call') }}" class="sub-nav-link {{ request()->routeIs('information.recalculating-call') ? 'active' : '' }}">Recalculating Call</a></li>
+                            <li><a href="{{ route('information.monitoring-port') }}" class="sub-nav-link {{ request()->routeIs('information.monitoring-port') ? 'active' : '' }}">Listening Port</a></li>
                         </ul>
                     </li>
 
                     <!-- Utility -->
+                    @php $isUtilActive = request()->is('utility*'); @endphp
                     <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link" onclick="toggleNavCollapse(this, 'sub-util')">
+                        <a href="javascript:void(0);" class="nav-link {{ $isUtilActive ? 'active-root' : '' }}" onclick="toggleNavCollapse(this, 'sub-util')">
                             <div class="nav-link-left">
                                 <i class="fa-solid fa-wrench"></i>
                                 <span>Utility</span>
                             </div>
-                            <i class="fa-solid fa-plus nav-toggle-icon" style="font-size: 0.75rem; color: #94a3b8; transition: all 0.2s;"></i>
+                            <i class="fa-solid {{ $isUtilActive ? 'fa-minus' : 'fa-plus' }} nav-toggle-icon" style="font-size: 0.75rem; color: {{ $isUtilActive ? '#0284c7' : '#94a3b8' }}; transition: all 0.2s;"></i>
                         </a>
-                        <ul id="sub-util" class="sub-menu" style="display: none;">
-                            <li><a href="{{ route('billing.schema') }}" class="sub-nav-link">Relasi Database (25 Tabel)</a></li>
-                            <li><a href="http://localhost/phpmyadmin/index.php?db=pabx" target="_blank" class="sub-nav-link">phpMyAdmin Designer</a></li>
+                        <ul id="sub-util" class="sub-menu" style="display: {{ $isUtilActive ? 'block' : 'none' }};">
+                            <li><a href="{{ route('utility.server-health') }}" class="sub-nav-link {{ request()->routeIs('utility.server-health') ? 'active' : '' }}">Server Health & Diagnostics</a></li>
+                            <li><a href="{{ route('utility.backup-maintenance') }}" class="sub-nav-link {{ request()->routeIs('utility.backup-maintenance') ? 'active' : '' }}">Backup & Maintenance</a></li>
+                            <li><a href="{{ route('utility.run-service') }}" class="sub-nav-link {{ request()->routeIs('utility.run-service') ? 'active' : '' }}">Run Service (PABX Listener)</a></li>
+                            <li><a href="{{ route('utility.level-akses') }}" class="sub-nav-link {{ request()->routeIs('utility.level-akses') ? 'active' : '' }}">Level Akses (Hak Akses)</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
 
             <div class="sidebar-footer">
-                <div>&copy; 2019 - 2026 <strong style="color: #d32f2f;">PABX Billing</strong></div>
+                <div>&copy; 2019 - 2026 <strong style="color: #0284c7;">PABX Billing</strong></div>
                 <div>Develop By: SSW</div>
             </div>
         </aside>
@@ -1375,11 +1730,75 @@
                 </div>
             @endif
 
+            @if(session('error'))
+                <div class="alert-bar danger">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>{{ session('error') }}</span>
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert-bar danger">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div>
+                        <ul style="margin: 0; padding-left: 1.2rem;">
+                            @foreach($errors->all() as $err)
+                                <li>{{ $err }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </main>
     </div>
 
     <script>
+        // =========================================================
+        // AVIATION AIRPLANE PRELOADER CONTROLLER
+        // =========================================================
+        let preloaderTimeout = null;
+        function showPreloader(message) {
+            const preloader = document.getElementById('ap-preloader');
+            const statusText = document.getElementById('apPreloaderStatus');
+            if (statusText && message) {
+                statusText.innerText = message;
+            }
+            if (preloader) {
+                preloader.style.display = 'flex';
+                preloader.classList.remove('fade-out');
+            }
+            clearTimeout(preloaderTimeout);
+            preloaderTimeout = setTimeout(hidePreloader, 5000);
+        }
+
+        function hidePreloader() {
+            clearTimeout(preloaderTimeout);
+            const preloader = document.getElementById('ap-preloader');
+            if (preloader) {
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    if (preloader.classList.contains('fade-out')) {
+                        preloader.style.display = 'none';
+                    }
+                }, 450);
+            }
+        }
+
+        // Hide preloader as soon as DOM is ready or after brief moment
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(hidePreloader, 250);
+        });
+
+        // Hide preloader when window finishes loading
+        window.addEventListener('load', function() {
+            hidePreloader();
+        });
+
+        // Safety fallback: guaranteed hide preloader after max 650ms
+        setTimeout(hidePreloader, 650);
+
         // Toggle Sidebar Accordion Sub-Menu with dynamic +/- indicator
         function toggleNavCollapse(navLink, subMenuId) {
             const subMenu = document.getElementById(subMenuId);
@@ -1394,7 +1813,7 @@
                 if (icon) {
                     icon.classList.remove('fa-plus');
                     icon.classList.add('fa-minus');
-                    icon.style.color = '#d32f2f';
+                    icon.style.color = '#0284c7';
                 }
             } else {
                 subMenu.style.display = 'none';
@@ -1406,8 +1825,71 @@
                 }
             }
         }
+        // Global CSV Export Utility for All Reports
+        function exportTableToCSV(tableId, filename) {
+            const table = document.getElementById(tableId) || document.querySelector('.ap-table');
+            if (!table) {
+                alert('Tabel tidak ditemukan untuk diekspor.');
+                return;
+            }
+            let csv = [];
+            const rows = table.querySelectorAll('tr');
+            for (let i = 0; i < rows.length; i++) {
+                let row = [], cols = rows[i].querySelectorAll('td, th');
+                for (let j = 0; j < cols.length; j++) {
+                    let text = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim();
+                    text = text.replace(/"/g, '""');
+                    row.push('"' + text + '"');
+                }
+                if (row.length > 0) {
+                    csv.push(row.join(','));
+                }
+            }
+            const csvContent = '\uFEFF' + csv.join('\r\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', filename || 'laporan_pabx.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Attach preloader to navigation links for seamless airplane flight transitions
+            const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="javascript"]):not([download])');
+            links.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+                    const href = link.getAttribute('href');
+                    if (href && !href.startsWith('#') && !href.startsWith('javascript:') && href !== window.location.href && href !== window.location.pathname) {
+                        showPreloader('Mempersiapkan Navigasi Halaman...');
+                    }
+                });
+            });
+
+            // Attach preloader to forms on submit
+            const forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                form.addEventListener('submit', function() {
+                    if (form.checkValidity && !form.checkValidity()) return;
+                    const isDelete = form.querySelector('input[name="_method"][value="DELETE"]');
+                    const method = (form.getAttribute('method') || 'GET').toUpperCase();
+                    if (isDelete) {
+                        showPreloader('Menghapus Data dari Server PABX...');
+                    } else if (method === 'GET') {
+                        showPreloader('Memproses & Mengambil Laporan PABX...');
+                    } else {
+                        showPreloader('Menyimpan Data ke Server PABX...');
+                    }
+                });
+            });
+
             // User Panel Dropdown
             const userPanelToggle = document.getElementById('userPanelToggle');
             const userDropdownMenu = document.getElementById('userDropdownMenu');

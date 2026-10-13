@@ -13,10 +13,10 @@
     
     <style>
         :root {
-            --ap-red: #d32f2f;
-            --ap-red-dark: #b71c1c;
-            --ap-red-hover: #c62828;
-            --bg-body: #edf2f7;
+            --ap-blue: #0284c7;
+            --ap-blue-dark: #0369a1;
+            --ap-blue-hover: #0ea5e9;
+            --bg-body: #f1f5f9;
             --text-dark: #0f172a;
             --text-muted: #64748b;
         }
@@ -36,16 +36,16 @@
             position: relative;
         }
 
-        /* Top Red Header Bar */
+        /* Top Ocean Header Bar */
         .top-header {
-            background: linear-gradient(90deg, #d32f2f, #e53935);
+            background: linear-gradient(90deg, #075985 0%, #0284c7 55%, #0ea5e9 100%);
             height: 54px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 1.5rem;
             color: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            box-shadow: 0 2px 10px rgba(7, 89, 133, 0.22);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -151,7 +151,7 @@
             height: 48px;
             border-radius: 12px;
             background: #ffffff;
-            color: #d32f2f;
+            color: #0284c7;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -170,7 +170,7 @@
 
         .brand-text-sub {
             font-size: 0.75rem;
-            color: #fecdd3;
+            color: #bae6fd;
             font-weight: 600;
             letter-spacing: 0.04em;
             text-transform: uppercase;
@@ -354,12 +354,12 @@
 
         .custom-input:focus {
             background: #ffffff;
-            border-color: #d32f2f;
-            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
         }
 
         .input-wrapper:focus-within .input-icon-lead {
-            color: #d32f2f;
+            color: #0284c7;
         }
 
         .btn-toggle-eye {
@@ -378,13 +378,13 @@
         }
 
         .btn-toggle-eye:hover {
-            color: #d32f2f;
+            color: #0284c7;
         }
 
         .btn-submit-reset {
             width: 100%;
             height: 46px;
-            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: #ffffff;
             border: none;
             border-radius: 8px;
@@ -396,14 +396,14 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 14px rgba(211, 47, 47, 0.35);
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
             transition: all 0.2s ease;
             margin-top: 1.25rem;
         }
 
         .btn-submit-reset:hover {
-            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
-            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.45);
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
             transform: translateY(-1px);
         }
 
@@ -425,7 +425,7 @@
 
         .btn-back-login:hover {
             background: #f1f5f9;
-            color: #d32f2f;
+            color: #0284c7;
         }
 
         .auth-footer-help {

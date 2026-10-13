@@ -32,8 +32,8 @@
         width: 48px;
         height: 48px;
         border-radius: 10px;
-        background: #fee2e2;
-        color: #d32f2f;
+        background: #e0f2fe;
+        color: #0284c7;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -142,12 +142,12 @@
         opacity: 1;
     }
 
-    /* Tombol Pilih Foto (Angkasa Pura Red) */
+    /* Tombol Pilih Foto */
     .btn-pick-photo {
         margin-top: 1.25rem;
         width: 100%;
         height: 40px;
-        background: #d32f2f;
+        background: #0284c7;
         color: white;
         border: none;
         border-radius: 8px;
@@ -159,11 +159,11 @@
         gap: 8px;
         cursor: pointer;
         transition: background 0.15s ease;
-        box-shadow: 0 2px 6px rgba(211, 47, 47, 0.25);
+        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
     }
 
     .btn-pick-photo:hover {
-        background: #b71c1c;
+        background: #0369a1;
     }
 
     .btn-remove-photo {
@@ -290,13 +290,13 @@
 
     .form-control-modern:focus {
         background: #ffffff;
-        border-color: #d32f2f;
-        box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+        border-color: #0284c7;
+        box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
     }
 
     .form-control-modern:focus + .input-icon-lead,
     .input-with-icon:focus-within .input-icon-lead {
-        color: #d32f2f;
+        color: #0284c7;
     }
 
     .form-control-modern:disabled,
@@ -322,7 +322,7 @@
     }
 
     .btn-toggle-eye:hover {
-        color: #d32f2f;
+        color: #0284c7;
     }
 
     .field-hint {
@@ -365,10 +365,10 @@
         color: #1e293b;
     }
 
-    /* Tombol Simpan Perubahan (Angkasa Pura Red) */
+    /* Tombol Simpan Perubahan */
     .btn-action-save {
         padding: 10px 30px;
-        background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
         border: none;
         border-radius: 8px;
         font-size: 0.875rem;
@@ -378,13 +378,13 @@
         align-items: center;
         gap: 10px;
         cursor: pointer;
-        box-shadow: 0 3px 10px rgba(211, 47, 47, 0.35);
+        box-shadow: 0 3px 10px rgba(2, 132, 199, 0.35);
         transition: all 0.15s ease;
     }
 
     .btn-action-save:hover {
-        background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
-        box-shadow: 0 6px 16px rgba(211, 47, 47, 0.45);
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
         transform: translateY(-1px);
     }
 
@@ -480,7 +480,7 @@
                 <div>
                     <!-- Section 1: Informasi Pengguna -->
                     <div class="form-section-title">
-                        <i class="fa-solid fa-id-card-clip" style="color: #d32f2f;"></i>
+                        <i class="fa-solid fa-id-card-clip" style="color: #0284c7;"></i>
                         <span>Informasi Identitas & Kontak</span>
                     </div>
 
@@ -537,7 +537,7 @@
 
                     <!-- Section 2: Keamanan Akun -->
                     <div class="form-section-title">
-                        <i class="fa-solid fa-key" style="color: #d32f2f;"></i>
+                        <i class="fa-solid fa-key" style="color: #0284c7;"></i>
                         <span>Keamanan Akun (Ganti Password)</span>
                     </div>
 
@@ -554,7 +554,7 @@
                                 </button>
                             </div>
                             <div class="field-hint" style="margin-top: 6px;">
-                                <i class="fa-solid fa-circle-info" style="color: #d32f2f; font-size: 0.85rem;"></i>
+                                <i class="fa-solid fa-circle-info" style="color: #0284c7; font-size: 0.85rem;"></i>
                                 <span>Kosongkan bidang ini jika Anda <strong>tidak ingin</strong> mengubah kata sandi saat ini.</span>
                             </div>
                         </div>
